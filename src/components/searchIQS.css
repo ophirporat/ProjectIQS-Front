@@ -1,0 +1,69 @@
+/* @import "~react-vis/dist/style"; */
+
+#result_container{
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.tweetCard{
+    color: black;
+    height: 20rem;
+    width: 20rem;
+}
+/* 
+#inline{
+    display:inline-block;
+} */
+/* .table{
+    align-content: center;
+    text-align: center;
+    align-self: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+} */
+#table {
+    margin-left:25%;
+    margin-right: 25%;
+ 
+    /* padding-left: 30%;
+    padding-right: 30%; */
+    text-align: center;
+    /* width: 80%; */
+    /* table-layout: fixed; */
+}
+
+#td {
+        padding-right: 5px;
+        margin: 0px;
+        /* border: 1px solid black; */
+        /* text-align: center; */
+        /* width: 100%; */
+}
+
+.cellcontainer {
+    width: auto;
+    display: inline-block;
+    text-align: left;
+} */
+.progress{
+    width: 70%;
+    padding-left:20% ;
+    text-align: center;
+    margin-left: 15%;
+}
+#load{
+    margin: 40px;
+}
+#progress-div{
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 50px;
+
+}
+#tweetsContainer{
+    margin: 3%;
+}
+/* #target_div{
+    
+} */

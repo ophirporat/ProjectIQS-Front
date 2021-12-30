@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
+import '../components/searchIQS.css'
+
 class SearchResults extends React.Component {
   constructor(props) {
     super(props)
@@ -144,7 +146,7 @@ async addMoreTweets() {
         tweet_htmls.forEach(getTweetDiv);
 
         function getTweetDiv(tweet_html) {
-            var $div = $("<div>", {"className": "col-md-3"});
+            var $div = $("<div>", {"className": "tweetCard"});
             $div.html(tweet_html);
             $('#tweetsContainer').append($div);
         }
@@ -298,164 +300,130 @@ setSearchUpdatesListener = async(search_id) => {
     return (
       <div>
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        <div className="py-1 mb-2">
+        {/* <div className="py-1 mb-2">
           <InputGroup>
             <Form.Control value={this.state.searchQuery} onChange={this.onSearchQueryChange} />
             <InputGroup.Append>
               <Button variant="primary"><i className="ion ion-ios-search"></i>&nbsp; Search</Button>
             </InputGroup.Append>
           </InputGroup>
+        </div> */}
+
+        <center>
+
+        <Card className="mb-4">
+          {/* <Card.Header as="h6">Search Page</Card.Header> */}
+          <Card.Body>
+        <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
+            <h2> Search Page</h2>
+<br></br>
+        {/* <br/> */}
+        <table id="table">
+            <tbody>
+            <tr>
+                <td  colSpan={10}>
+            <div className=" row align-items-center"  >
+            <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
+            {/* <Form.Label>Text Area</Form.Label> */}
+            <div className="col-9">
+                <textarea id="prototype" name="prototype" cols="40" rows="5" className="form-control"
+                          placeholder="Paste prototype document here..."></textarea>
+            </div>
+        </div>
+        </td>
+            </tr>
+<br></br>
+            <tr>
+                <td id="td" colSpan={3}>
+                <div  className="form-group row align-items-center" style={{float:"left"}}>
+            <label htmlFor="search_count" className="col-6 col-form-label text-end"><h5>Search Count</h5></label>
+            <div className="col-6">
+                <input id="search_count" name="search_count"  type="number" defaultValue={1} className="form-control"
+                      required="required"/>
+            </div>
+        </div>
+                </td>
+                <td id="td" colSpan={3}>
+                <div  className="form-group row" style={{float:"left"}}>
+            <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations</h5></label>
+            <div className="col-6">
+                <input id="iterations" name="iterations"  type="number" defaultValue={5} className="form-control"
+                      required="required"/>
+            </div>
         </div>
 
-        <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
-          <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Website</Nav.Link>
+                </td>
+                <td id="td" colSpan={3}>
+                <div className="form-group row align-items-center" style={{float:"left"}}>
+            <label htmlFor="output_keywords_count" className="col-6 col-form-label"><h5>Output Keywords Count</h5></label>
+            <div className="col-6">
+                <input id="output_keywords_count" name="output_keywords_count" type="number" defaultValue={3}
+                      className="form-control" required="required"/>
+            </div>
+        </div>
+                </td>
+            </tr>
+            {/* <br/> */}
+            <tr>
+                <td colSpan={3}>
+                <div className="form-group row" style={{float:"left"}}>
+            <label htmlFor="keywords_start_size" className="col-6 col-form-label"><h5>Keywords Start Size</h5></label>
+            <div className="col-6">
+                <input id="keywords_start_size" name="keywords_start_size" type="number" defaultValue={3}
+                      className="form-control" required="required"/>
+            </div>
+        </div>
+                </td>
+                <td colSpan={3}>
+                <div className="form-group row" style={{float:"left"}}>
+            <label htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
+            <div className="col-6">
+                <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
+                      className="form-control" required="required"/>
+            </div>
+        </div>
+                </td>
+                <td colSpan={3}>
+                <div className="form-group row" style={{float:"left"}}>
+            <label className="col-6 col-form-label" htmlFor="min_tweet_count"><h5>Min Tweet Count</h5></label>
+            <div className="col-6">
+                <input id="min_tweet_count" name="min_tweet_count"  type="number" defaultValue={3} className="form-control"
+                      required="required"/>
+            </div>
+        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button>
+
+        <Button id="load" variant="primary"  onClick={this.addMoreTweets} >
+        <h5>Show Tweets</h5>
+            </Button>
+        </Form>
+        </Card.Body>
+        </Card>
+</center>
+<br></br>
+<br></br>
+
+
+<Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
+          <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Search</Nav.Link>
           <Nav.Link eventKey="people"><i className="ion ion-ios-people"></i>&nbsp; People</Nav.Link>
           <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
           <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
         </Nav>
-                    <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-
-{/* <br/> */}
-<table id="table">
-    <tbody>
-
-    <tr>
-        <td  colSpan={3}>
-    <div className=" row align-items-center" >
-    <label htmlFor="textarea" className="col-2 col-form-label">Text Area</label>
-    <div className="col-9">
-        <textarea 
-     id="prototype" name="prototype" cols="40" rows="5" className="form-control"
-                  placeholder="Paste prototype document here..."></textarea>
-    </div>
-</div>
-</td>
-    </tr>
-    {/* <br/>
-    <br/> */}
-
-    <tr>
-        <td id="td">
-        <div  className="form-group row align-items-center">
-    <label htmlFor="search_count" className="col-6 col-form-label text-end">Search Count</label>
-    <div className="col-5">
-        <input id="search_count" name="search_count"  type="number" defaultValue={1} className="form-control"
-               required="required"/>
-    </div>
-</div>
-        </td>
-        <td id="td">
-        <div id="td"  className="form-group row">
-    <label htmlFor="iterations" className="col-6 col-form-label text-end">Iterations</label>
-    <div className="col-5">
-        <input id="iterations" name="iterations"  type="number" defaultValue={5} className="form-control"
-               required="required"/>
-    </div>
-</div>
-
-        </td>
-        <td id="td">
-        <div id="td" className="form-group row align-items-center">
-    <label htmlFor="output_keywords_count" className="col-5 col-form-label">Output Keywords Count</label>
-    <div className="col-5">
-        <input id="output_keywords_count" name="output_keywords_count" type="number" defaultValue={3}
-               className="form-control" required="required"/>
-    </div>
-</div>
-        </td>
-    </tr>
-    {/* <br/> */}
-    <tr>
-        <td>
-        <div className="form-group row ">
-    <label htmlFor="keywords_start_size" className="col-6 col-form-label">Keywords Start Size</label>
-    <div className="col-5">
-        <input id="keywords_start_size" name="keywords_start_size" type="number" defaultValue={3}
-               className="form-control" required="required"/>
-    </div>
-</div>
-        </td>
-        <td>
-        <div className="form-group row ">
-    <label htmlFor="max_tweets_per_query" className="col-6 col-form-label">Max Tweets Per Query</label>
-    <div className="col-5">
-        <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
-               className="form-control" required="required"/>
-    </div>
-</div>
-        </td>
-        <td>
-        <div className="form-group row">
-    <label className="col-5 col-form-label" htmlFor="min_tweet_count">Min Tweet Count</label>
-    <div className="col-5">
-        <input id="min_tweet_count" name="min_tweet_count"  type="number" defaultValue={3} className="form-control"
-               required="required"/>
-    </div>
-</div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-
-<Button id="search_btn" variant="primary" type="submit">Run IQS</Button>
-
-<Button id="load" variant="primary"  onClick={this.addMoreTweets} >
-    Show Tweets
-    </Button>
-</Form>
 
         {/* {this.state.curTab === 'pages' && <div> */}
         <div id="result_container" style={{display: "none"}} >
-        <div className="row" id="tweetsContainer" >
-        <h2> Search Reasults</h2>
-
-        <hr></hr>
-        {/* </div> */}
-
-          {/* <Card>
-            <ListGroup variant="flush">
-
-              {this.state.searchData.pages.map(page =>
-                <ListGroup.Item key={page.title + page.text} className="py-4">
-                  <a href="#d" onClick={this.prevent} className="text-big">{page.title}</a>
-
-                  {(page.link || page.rating) && <div className="small mt-1">
-                    {page.link && <a href="#d" onClick={this.prevent} className="text-success">{page.link}</a>}
-                    {page.link && page.rating && <span>&nbsp; <span className="text-muted">·</span> &nbsp;</span>}
-                    {page.rating && <span>
-                      <div className="ui-stars">
-                        {[1, 2, 3, 4, 5].map(i =>
-                          <div className={`ui-star ${this.uiStarClass(i, page.rating)}`} key={i}>
-                            <i className="ion ion-md-star"></i>
-                            <i className="ion ion-md-star"></i>
-                          </div>
-                        )}
-                      </div>
-                      &nbsp;
-                      <span className="text-muted">{page.votes} votes</span>
-                    </span>}
-                  </div>}
-
-                  {page.text && <div className="mt-2">
-                    {page.text}
-                  </div>}
-
-                  {page.sublinks && <div className="ui-bordered px-3 pt-3 mt-3">
-                    <Row>
-                      {page.sublinks.map(sublink =>
-                        <Col sm={6} md={4} key={sublink.title} className="pb-3">
-                          <a href="#d" onClick={this.prevent} className="text-big">{sublink.title}</a>
-                          <div className="mt-1">{sublink.text}</div>
-                        </Col>
-                      )}
-                    </Row>
-                  </div>}
-                </ListGroup.Item>
-              )}
-
-            </ListGroup>
-          </Card> */}
+          <div className="row" id="tweetsContainer" >
+            {/* <h2> Search Results</h2> */}
+            <hr></hr>
+          </div>
+        </div>
           
           <Pagination className="mt-3">
             <Pagination.Prev />
@@ -467,7 +435,7 @@ setSearchUpdatesListener = async(search_id) => {
             <Pagination.Next />
           </Pagination>
 
-        </div>
+        {/* </div> */}
         {this.state.curTab === 'people' && <div>
 
           <Row>
@@ -564,8 +532,7 @@ setSearchUpdatesListener = async(search_id) => {
             <Pagination.Next />
           </Pagination> */}
 
-        </div>}
-
+        
       </div>
     )
   }

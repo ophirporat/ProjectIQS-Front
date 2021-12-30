@@ -29,12 +29,18 @@ export const defaultRoute = '/'
 export const routes = [
   {
     path: '/',
-    component: lazy(() => import('./components/Home'))
+    component: lazy(() => import('./pages/Home'))
   }, {
     path: '/page-2',
     component: lazy(() => import('./components/Page2'))
   },{
     path: '/pages/search-results',
     component: lazy(() => import('./pages/SearchPage'))
+  },{
+    path: '/pages/Login',
+    component: lazy(() => import('./pages/LoginPage'))
+  },{
+    path: '/pages/File',
+    component: lazy(() => import('./pages/FileUpload'))
   }
 ]
