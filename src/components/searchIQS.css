@@ -6,10 +6,13 @@
     margin-right: 10%;
 }
 .tweetCard{
-    color: black;
-    height: 20rem;
-    width: 20rem;
+    width: 8;
+    float: left;
 }
+/* #tweetsContainer{
+    width: 100%;
+
+} */
 /* 
 #inline{
     display:inline-block;

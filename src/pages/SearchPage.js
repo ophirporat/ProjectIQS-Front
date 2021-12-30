@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
+import { OverlayTrigger, Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
@@ -311,8 +311,7 @@ setSearchUpdatesListener = async(search_id) => {
 
         <center>
 
-        <Card className="mb-4">
-          {/* <Card.Header as="h6">Search Page</Card.Header> */}
+        <Card className="mb-4" >
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
             <h2> Search Page</h2>
@@ -373,7 +372,25 @@ setSearchUpdatesListener = async(search_id) => {
                       className="form-control" required="required"/>
             </div>
         </div>
+        </td>
+        <OverlayTrigger
+              placement="left"
+              overlay={<Popover>
+                <Popover.Title>Popover on left</Popover.Title>
+                {/* <Popover.Content>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</Popover.Content> */}
+              </Popover>}>
+              {/* <Button variant="default">Popover on left</Button> */}
+                <td colSpan={3}>
+                <div className="form-group row" style={{float:"left"}}>
+            <label variant="default" htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
+            <div className="col-6">
+                <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
+                      className="form-control" required="required"/>
+            </div>
+        </div>
                 </td>
+            </OverlayTrigger>
+                {/* </td>
                 <td colSpan={3}>
                 <div className="form-group row" style={{float:"left"}}>
             <label htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
@@ -382,7 +399,7 @@ setSearchUpdatesListener = async(search_id) => {
                       className="form-control" required="required"/>
             </div>
         </div>
-                </td>
+                </td> */}
                 <td colSpan={3}>
                 <div className="form-group row" style={{float:"left"}}>
             <label className="col-6 col-form-label" htmlFor="min_tweet_count"><h5>Min Tweet Count</h5></label>
@@ -398,7 +415,7 @@ setSearchUpdatesListener = async(search_id) => {
 
 
         <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button>
-
+<br></br>
         <Button id="load" variant="primary"  onClick={this.addMoreTweets} >
         <h5>Show Tweets</h5>
             </Button>
