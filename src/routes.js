@@ -31,9 +31,6 @@ export const routes = [
     path: '/',
     component: lazy(() => import('./pages/Home'))
   }, {
-    path: '/page-2',
-    component: lazy(() => import('./components/Page2'))
-  },{
     path: '/pages/search-results',
     component: lazy(() => import('./pages/SearchPage'))
   },{
@@ -42,5 +39,12 @@ export const routes = [
   },{
     path: '/pages/File',
     component: lazy(() => import('./pages/FileUpload'))
+  },{
+    path: '/pages/IQS',
+    component: lazy(() => import('./pages/IQS'))
+  }
+  ,{
+    path: '/pages/Register',
+    component: lazy(() => import('./pages/RegisterPage'))
   }
 ]

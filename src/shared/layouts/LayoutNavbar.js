@@ -21,7 +21,7 @@ class LayoutNavbar extends Component {
       <Navbar bg={this.props.navbarBg} expand="lg" className="layout-navbar align-items-lg-center container-p-x">
 
         {/* Brand */}
-        <Navbar.Brand as={NavLink} to="/">IQS</Navbar.Brand>
+        <Navbar.Brand as={NavLink} to="/">IQS Search</Navbar.Brand>
 
         {/* Sidenav toggle */}
         {this.props.sidenavToggle && (
@@ -37,20 +37,20 @@ class LayoutNavbar extends Component {
 
         <Navbar.Collapse>
           <Nav className="align-items-lg-center">
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link href="#link-1">Link 1</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="#link-2">Link 2</Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             </Nav>
             <Nav className="align-items-lg-center ml-auto">
               <div className="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-3 ml-1">|</div>
               <Dropdown as={Nav.Item} className="demo-navbar-user" alignRight={!this.isRTL}>
               <Dropdown.Toggle as={Nav.Link}>
                 <span className="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                  <img src={`${process.env.PUBLIC_URL}/img/avatars/1.png`} className="d-block ui-w-30 rounded-circle" alt="User" />
-                  <span className="px-1 mr-lg-2 ml-2 ml-lg-0">Mike Greene</span>
+                  <img src={`${process.env.PUBLIC_URL}/img/avatars/user.png`} className="d-block ui-w-30 rounded-circle" alt="User" />
+                  <span className="px-1 mr-lg-2 ml-2 ml-lg-0">User</span>
                 </span>
               </Dropdown.Toggle>
 

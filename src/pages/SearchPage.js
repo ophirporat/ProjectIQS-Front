@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { OverlayTrigger, Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
-import '../vendor/styles/pages/search.scss'
+// import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
 
@@ -146,8 +146,18 @@ async addMoreTweets() {
         tweet_htmls.forEach(getTweetDiv);
 
         function getTweetDiv(tweet_html) {
-            var $div = $("<div>", {"className": "tweetCard"});
-            $div.html(tweet_html);
+            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
+            // $div.html(tweet_html);
+            var object = {
+              id: "divID",
+              class: "tweetCard",
+              css: {
+                  "width": "15",
+                  "padding-right": "25%"
+              }
+          };
+          var $div = $("<div>", object);
+          $div.html(tweet_html);
             $('#tweetsContainer').append($div);
         }
     } else {
@@ -332,6 +342,7 @@ setSearchUpdatesListener = async(search_id) => {
         </td>
             </tr>
 <br></br>
+
             <tr>
                 <td id="td" colSpan={3}>
                 <div  className="form-group row align-items-center" style={{float:"left"}}>
@@ -413,36 +424,34 @@ setSearchUpdatesListener = async(search_id) => {
             </tbody>
         </table>
 
+        {/* <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button> */}
+        <Button  id="search_btn" size="lg" type="submit" className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
 
-        <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button>
 <br></br>
-        <Button id="load" variant="primary"  onClick={this.addMoreTweets} >
-        <h5>Show Tweets</h5>
-            </Button>
         </Form>
         </Card.Body>
         </Card>
 </center>
-<br></br>
-<br></br>
+<hr></hr>
 
-
-<Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
+{/* <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
           <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Search</Nav.Link>
           <Nav.Link eventKey="people"><i className="ion ion-ios-people"></i>&nbsp; People</Nav.Link>
           <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
           <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
-        </Nav>
+        </Nav> */}
 
         {/* {this.state.curTab === 'pages' && <div> */}
         <div id="result_container" style={{display: "none"}} >
-          <div className="row" id="tweetsContainer" >
-            {/* <h2> Search Results</h2> */}
+            <h2> Search Results</h2>
+          <div className="row" id="tweetsContainer" >    
             <hr></hr>
           </div>
+
+          <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
         </div>
           
-          <Pagination className="mt-3">
+          {/* <Pagination className="mt-3">
             <Pagination.Prev />
             <Pagination.Item active>{1}</Pagination.Item>
             <Pagination.Item>{2}</Pagination.Item>
@@ -450,14 +459,14 @@ setSearchUpdatesListener = async(search_id) => {
             <Pagination.Item>{4}</Pagination.Item>
             <Pagination.Item>{5}</Pagination.Item>
             <Pagination.Next />
-          </Pagination>
+          </Pagination> */}
 
         {/* </div> */}
         {this.state.curTab === 'people' && <div>
 
           <Row>
 
-            {/* {this.state.searchData.people.map(user =>
+            {this.state.searchData.people.map(user =>
               <Col md={6} xl={4} key={user.username}>
                 <Card className="card-condenced mb-4">
                   <Card.Body className="media align-items-center">
@@ -473,7 +482,7 @@ setSearchUpdatesListener = async(search_id) => {
                   </Card.Body>
                 </Card>
               </Col>
-            )} */}
+            )}
 
           </Row>
 

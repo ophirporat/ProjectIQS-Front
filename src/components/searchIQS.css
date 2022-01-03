@@ -2,17 +2,26 @@
 
 #result_container{
     text-align: center;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-.tweetCard{
-    width: 8;
-    float: left;
-}
-/* #tweetsContainer{
-    width: 100%;
+    width: 80%;
+    margin: 10%;
+padding-bottom: 80%;
+    /* padding-right: 10%; */
 
+    /* margin-left: 10%;*/
+    /* margin-right: 10%;  */
+}
+/* .tweetCard{
+    width: 8 !important;
+    float: left !important;
 } */
+#tweetsContainer{
+    margin-bottom: 80%;
+
+    text-align: center;
+    /* width: 100%;
+    padding-right: 100%; */
+}
+
 /* 
 #inline{
     display:inline-block;
