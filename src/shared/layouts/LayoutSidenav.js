@@ -42,8 +42,10 @@ class LayoutSidenav extends Component {
         {/* Inner */}
         <div className={`sidenav-inner ${this.props.orientation !== 'horizontal' ? 'py-1' : ''}`}>
 
-          <Sidenav.RouterLink to="/" exact={true} icon="ion ion-ios-contact">Home</Sidenav.RouterLink>
-          <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-desktop">SearchPage</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/" exact={true} icon="ion ion-ios-desktop">Home</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-search">Search</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/File" exact={true} icon="ion ion-md-cloud-upload">Upload File</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/Login" exact={true} icon="ion ion-md-contact">Login</Sidenav.RouterLink>
 
         </div>
       </Sidenav>
