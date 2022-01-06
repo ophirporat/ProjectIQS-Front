@@ -23,8 +23,9 @@ class ReactChartjs2 extends Component {
         borderColor: '#E91E63',
         // borderDash: [],
       }],
-      labels:this.props.Iteration
-      // iterations:
+      labels:this.props.Iteration,
+      sum_wmd:0,
+      iterations:1
   }
 
   showAlert = (event) => {
@@ -37,9 +38,13 @@ class ReactChartjs2 extends Component {
     //     sum_of_dataset = sum_of_dataset + new_data[i]
     // }
     // var wmd_sum = (sum_of_dataset + event["detail"])/this.state.iterations
+    var new_sum_wmd = this.state.sum_wmd + event
+    new_data.push(new_sum_wmd/this.state.iterations)
+    this.setState({"sum_wmd": new_sum_wmd})
+    console.log(new_sum_wmd)
+    this.setState({"iterations": this.state.iterations + 1})
+    // console.log(new_data)
     
-    new_data.push(event)
-    console.log(new_data)
     
     // console.log("event detail ", event["detail"])
     // console.log(event["detail"])

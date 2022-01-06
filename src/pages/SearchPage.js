@@ -96,7 +96,7 @@ timeout = (delay)=> {
 handleSubmit = async event =>{
       event.preventDefault();
       var iteration_array = []
-      for(var i =1;i<=Number(event.target[2].value);i++){
+      for(var i =0;i<=Number(event.target[2].value);i++){
         iteration_array.push(i)
       }
       console.log(iteration_array);
