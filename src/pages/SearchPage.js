@@ -1,5 +1,5 @@
 import React, {Component, useRef} from 'react'
-import { OverlayTrigger, Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
+import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 // import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
@@ -36,6 +36,7 @@ class SearchResults extends React.Component {
       id:"",
       chart_data :[{id: "mmd",data: [{"x":0,"y":1}]}],
       chart: null,
+      expanded: [],
       // child: React.createRef()
       fref :React.createRef()
   
@@ -308,7 +309,21 @@ setSearchUpdatesListener = async(search_id) => {
 //     chart.update();
 // }
 
+toggle(e, id) {
+  e.preventDefault()
+  const expanded = [...this.state.expanded]
 
+  if (expanded.indexOf(id) === -1) {
+    expanded.push(id)
+  } else {
+    expanded.splice(expanded.indexOf(id), 1)
+  }
+
+  this.setState({ expanded })
+}
+isExpanded(id) {
+  return this.state.expanded.indexOf(id) !== -1
+} 
   onSearchQueryChange(e) {
     this.setState({
       searchQuery: e.target.value
@@ -346,28 +361,33 @@ setSearchUpdatesListener = async(search_id) => {
         </div> */}
 
         <center>
-
-        <Card className="mb-4" >
+        <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-            <h2> Search Page</h2>
+            <h2 style={{paddingLeft:"10%"}}> Search Page</h2>
 <br></br>
         {/* <br/> */}
-        <table id="table">
+        <table id="table" style={{width:"60%"}}>
             <tbody>
             <tr>
                 <td  colSpan={10}>
-            <div className=" row align-items-center"  >
+            <div className=" row align-items-center" >
             <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
             {/* <Form.Label>Text Area</Form.Label> */}
             <div className="col-9">
                 <textarea id="prototype" name="prototype" cols="40" rows="5" className="form-control"
-                          placeholder="Paste prototype document here..."></textarea>
+                          placeholder="Enter Text here..."></textarea>
             </div>
         </div>
         </td>
             </tr>
-<br></br>
+            <br></br>
+            <div className="theme-bg-white ui-bordered mb-2" >
+              <a href="#toggle"  onClick={e => this.toggle(e, 'faq-25')} aria-expanded={String(this.isExpanded('faq-25'))} className="d-flex justify-content-between text-body py-3 px-4">
+              <strong>More options 🡣</strong>
+                <span className="collapse-icon d-inline-block ml-1"></span>
+              </a>
+              <Collapse in={this.isExpanded('faq-25')} className="text-muted"><div>
 
             <tr>
                 <td id="td" colSpan={3}>
@@ -381,7 +401,7 @@ setSearchUpdatesListener = async(search_id) => {
                 </td>
                 <td id="td" colSpan={3}>
                 <div  className="form-group row" style={{float:"left"}}>
-            <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations</h5></label>
+            <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations </h5></label>
             <div className="col-6">
                 <input id="iterations" name="iterations"  type="number" defaultValue={3} className="form-control"
                       required="required"/>
@@ -389,9 +409,9 @@ setSearchUpdatesListener = async(search_id) => {
         </div>
 
                 </td>
-                <td id="td" colSpan={3}>
+                <td id="td" colSpan={3} >
                 <div className="form-group row align-items-center" style={{float:"left"}}>
-            <label htmlFor="output_keywords_count" className="col-6 col-form-label"><h5>Output Keywords Count</h5></label>
+            <label htmlFor="output_keywords_count" className="col-6 col-form-label" ><h5>Keywords Count</h5></label>
             <div className="col-6">
                 <input id="output_keywords_count" name="output_keywords_count" type="number" defaultValue={3}
                       className="form-control" required="required"/>
@@ -410,12 +430,12 @@ setSearchUpdatesListener = async(search_id) => {
             </div>
         </div>
         </td>
-        <OverlayTrigger
+        {/* <OverlayTrigger
               placement="left"
               overlay={<Popover>
                 <Popover.Title>Popover on left</Popover.Title>
-                {/* <Popover.Content>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</Popover.Content> */}
-              </Popover>}>
+                <Popover.Content>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</Popover.Content>
+              </Popover>}> */}
               {/* <Button variant="default">Popover on left</Button> */}
                 <td colSpan={3}>
                 <div className="form-group row" style={{float:"left"}}>
@@ -426,7 +446,7 @@ setSearchUpdatesListener = async(search_id) => {
             </div>
         </div>
                 </td>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
                 {/* </td>
                 <td colSpan={3}>
                 <div className="form-group row" style={{float:"left"}}>
@@ -447,20 +467,20 @@ setSearchUpdatesListener = async(search_id) => {
         </div>
                 </td>
             </tr>
+            </div></Collapse>
+            </div>
             </tbody>
         </table>
-
         {/* <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button> */}
-        <Button  id="search_btn" size="lg" type="submit" className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
-
+        <div style={{paddingLeft:"10%"}}>
+        <Button  id="search_btn" size="lg" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
+        </div>
 <br></br>
         </Form>
         </Card.Body>
         </Card>
 </center>
 <hr></hr>
-
-
 
 
 {/* <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
@@ -473,7 +493,7 @@ setSearchUpdatesListener = async(search_id) => {
           <ReactChartjs2 id="mychart" ref={this.state.fref}></ReactChartjs2>      
 
         {/* {this.state.curTab === 'pages' && <div> */}
-
+<hr></hr>
         <center>
 
         <div id="result_container" style={{display: "none"}} >

@@ -77,7 +77,7 @@ class AuthenticationLoginV2 extends Component {
             </div>
             <Card.Footer className="py-3 px-4 px-sm-5">
               <div className="text-center text-muted">
-                Don't have an account yet? <a href="/Register" onClick={this.prevent}>Sign Up</a>
+                Don't have an account yet? <a href="/pages/Register" onClick={this.prevent}>Sign Up</a>
               </div>
             </Card.Footer>
           </Card>

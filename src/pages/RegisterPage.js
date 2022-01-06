@@ -70,11 +70,6 @@ class Register extends Component {
                   <Form.Control type="password" value={this.state.credentials.password} onChange={e => this.onValueChange('password', e)} />
                 </Form.Group>
                 <Button variant="primary" block className="mt-4">Sign Up</Button>
-                <div className="text-light small mt-4">
-                  By clicking "Sign Up", you agree to our&nbsp;
-                  <a href="#d" onClick={this.prevent}>terms of service and privacy policy</a>.
-                  We’ll occasionally send you account related emails.
-                </div>
               </form>
               {/* / Form */}
 

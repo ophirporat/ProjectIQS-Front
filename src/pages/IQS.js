@@ -88,56 +88,48 @@ class IQS extends Component {
 
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-1')} aria-expanded={String(this.isExpanded('faq-1'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Ne ornatus albucius ius?
+              What is the Iterative Query Selection Algorithm?
                 <span className="collapse-icon"></span>
               </a>
               <Collapse in={this.isExpanded('faq-1')} className="text-muted"><div>
-                <div className="px-4 pb-3">Lorem ipsum dolor sit amet, mea in pertinax hendrerit gloriatur.</div>
+                <div className="px-4 pb-3">The IQS is a hill climbing algorithm that iteratively optimizes short keyword queries given a prototype document through interaction with an opaque search engine. Based on the previous query, every iteration improves it, and the end result is a list of queries, and not just a single best query. Uses WMD (Word’s Mover Distance) measure to evaluate the results.</div>
               </div></Collapse>
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-2')} aria-expanded={String(this.isExpanded('faq-2'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Quo insolens intellegam dissentiet at?
+              What sets the algorithm apart from other algorithms in the field?
                 <span className="collapse-icon"></span>
               </a>
               <Collapse in={this.isExpanded('faq-2')} className="text-muted"><div>
-                <div className="px-4 pb-3">Ex fugit legimus fuisset per. Ex quidam option diceret ius.</div>
+                <div className="px-4 pb-3">The IQS algorithm handles documents and articles so that it allows researchers, reporters and other users to search for queries beyond a standard search bar. The algorithm retrieves the best search results for that article.</div>
               </div></Collapse>
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-3')} aria-expanded={String(this.isExpanded('faq-3'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Ad his assum delenit blandit?
+              What is the WMD measure?
                 <span className="collapse-icon"></span>
               </a>
               <Collapse in={this.isExpanded('faq-3')} className="text-muted"><div>
-                <div className="px-4 pb-3">Ne ornatus albucius ius, nostrum dignissim repudiandae an usu.</div>
+                <div className="px-4 pb-3">WMD stands for word’s mover distance. 
+                It estimates the similarity of results to a given prototype document. This measure is calculated by summing the shortest distances between words in the given prototype document and words in the retrieved results. The lower the WMD, the more relevant the retrieved results are.</div>
               </div></Collapse>
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-4')} aria-expanded={String(this.isExpanded('faq-4'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Dapibus ac facilisis in?
+              What is the purpose of the site?
                 <span className="collapse-icon d-inline-block ml-1"></span>
               </a>
               <Collapse in={this.isExpanded('faq-4')} className="text-muted"><div>
-                <div className="px-4 pb-3">Lorem ipsum dolor sit amet, ius virtute suscipit te. Ius prima euismod consequat eu.</div>
-              </div></Collapse>
-            </div>
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-5')} aria-expanded={String(this.isExpanded('faq-5'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Cras justo odio?
-                <span className="collapse-icon d-inline-block ml-1"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-5')} className="text-muted"><div>
-                <div className="px-4 pb-3">Etiam vivendo eu sea, purto ponderum mediocritatem at pro.</div>
+                <div className="px-4 pb-3">The web platform presents text-based analysis of posts published on social networks using the IQS algorithm and allows users to compare it visually to other algorithms in a convenient way.</div>
               </div></Collapse>
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-6')} aria-expanded={String(this.isExpanded('faq-6'))} className="d-flex justify-content-between text-body py-3 px-4">
-                Porta ac consectetur ac?
+              What is the purpose of the Python package?
                 <span className="collapse-icon d-inline-block ml-1"></span>
               </a>
               <Collapse in={this.isExpanded('faq-6')} className="text-muted"><div>
-                <div className="px-4 pb-3">Iuvaret deleniti vulputate nec ne, id vix lucilius legendos deseruisse.</div>
+                <div className="px-4 pb-3">The Python package is intended for users with a programming background who can run the IQS algorithm for their needs on different queries, get statistics of the results using multiple measures and more.</div>
               </div></Collapse>
             </div>
 
