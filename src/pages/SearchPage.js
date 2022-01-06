@@ -38,7 +38,8 @@ class SearchResults extends React.Component {
       chart: null,
       expanded: [],
       // child: React.createRef()
-      fref :React.createRef()
+      fref :React.createRef(),
+      iteration_arr:[]
   
      }
   }
@@ -94,6 +95,12 @@ timeout = (delay)=> {
 
 handleSubmit = async event =>{
       event.preventDefault();
+      var iteration_array = []
+      for(var i =1;i<=Number(event.target[2].value);i++){
+        iteration_array.push(i)
+      }
+      console.log(iteration_array);
+      this.setState({iteration_arr: iteration_array})
       this.setState({text: event.target[0].value})
       this.setState({search_count: event.target[1].value})
       this.setState({iterations: event.target[2].value})
@@ -240,8 +247,10 @@ setSearchUpdatesListener = async(search_id) => {
     // var chart = this.initGraph();
     // chart.clear();
     var test = this.state.fref.current.showAlert
+    this.state.fref.current.forceUpdate()
     // console.log("this.state.chart_data[0].data", this.state.chart_data[0])
     eventSource.onmessage = async function (e) {
+        
         console.log("******eventSource.onmessage ")
         recived_massages++;
         console.log("e.data   ", e.data);
@@ -260,6 +269,7 @@ setSearchUpdatesListener = async(search_id) => {
             //   detail: "hey"
             // });
             test(e.data)
+            $("#chartdiv").attr("style", "display:block");
             // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
             
             // window.dispatchEvent(event)
@@ -274,6 +284,7 @@ setSearchUpdatesListener = async(search_id) => {
                 // console.log("res  ", res)
                 // console.log("curr  ", curr)
                 // res.push(curr)
+                
             $("#target_div").html("Current WMD: ".concat(e.data));
             // this.addData(chart, recived_massages, e.data);
         } else {
@@ -489,9 +500,10 @@ isExpanded(id) {
           <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
           <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
         </Nav> */}
-
-          <ReactChartjs2 id="mychart" ref={this.state.fref}></ReactChartjs2>      
-
+        {/* <div id="chartdiv" style={{display: "none"}} > */}
+          <ReactChartjs2 id="mychart" ref={this.state.fref} Iteration={this.state.iteration_arr}></ReactChartjs2>
+          {/* </div>          */}
+           {/* </div> */}
         {/* {this.state.curTab === 'pages' && <div> */}
 <hr></hr>
         <center>
@@ -500,6 +512,7 @@ isExpanded(id) {
           <center>
             <h2> Search Results</h2>
           </center>
+          
           <div className="row" id="tweetsContainer" >    
             <hr></hr>
           </div>
