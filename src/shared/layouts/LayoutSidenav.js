@@ -45,7 +45,9 @@ class LayoutSidenav extends Component {
           <Sidenav.RouterLink to="/" exact={true} icon="ion ion-ios-desktop">Home</Sidenav.RouterLink>
           <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-search">Search</Sidenav.RouterLink>
           <Sidenav.RouterLink to="/pages/File" exact={true} icon="ion ion-md-cloud-upload">Upload File</Sidenav.RouterLink>
-          <Sidenav.RouterLink to="/pages/Login" exact={true} icon="ion ion-md-contact">Login</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/Login" exact={true} icon="ion ion-md-contact">Login</Sidenav.RouterLink>          
+          <Sidenav.RouterLink to="/pages/Register" exact={true} icon="ion ion-md-help-circle-outline">Register</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/IQS" exact={true} icon="ion ion-md-help-circle-outline">Iterative Query Selection</Sidenav.RouterLink>
 
         </div>
       </Sidenav>
