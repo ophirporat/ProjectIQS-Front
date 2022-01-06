@@ -462,6 +462,7 @@ setSearchUpdatesListener = async(search_id) => {
 
 
 
+
 {/* <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
           <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Search</Nav.Link>
           <Nav.Link eventKey="people"><i className="ion ion-ios-people"></i>&nbsp; People</Nav.Link>
@@ -472,14 +473,22 @@ setSearchUpdatesListener = async(search_id) => {
           <ReactChartjs2 id="mychart" ref={this.state.fref}></ReactChartjs2>      
 
         {/* {this.state.curTab === 'pages' && <div> */}
+
+        <center>
+
         <div id="result_container" style={{display: "none"}} >
+          <center>
             <h2> Search Results</h2>
+          </center>
           <div className="row" id="tweetsContainer" >    
             <hr></hr>
           </div>
-
+          <center>
           <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
+          </center>
         </div>
+        </center>
+
           
           {/* <Pagination className="mt-3">
             <Pagination.Prev />
@@ -492,102 +501,6 @@ setSearchUpdatesListener = async(search_id) => {
           </Pagination> */}
 
         {/* </div> */}
-        {this.state.curTab === 'people' && <div>
-
-          <Row>
-
-            {this.state.searchData.people.map(user =>
-              <Col md={6} xl={4} key={user.username}>
-                <Card className="card-condenced mb-4">
-                  <Card.Body className="media align-items-center">
-                    <img src={`${process.env.PUBLIC_URL}/img/avatars/${user.avatar}`} alt="User" className="ui-w-40 rounded-circle" />
-                    <Media.Body className="ml-3">
-                      <a href="#d" onClick={this.prevent} className="text-body font-weight-semibold mb-2">{user.name}</a>
-                      <div className="text-muted small">@{user.username}</div>
-                    </Media.Body>
-                    {user.following
-                      ? <Button variant="success rounded-pill md-btn-flat" size="sm" className="d-block">Following</Button>
-                      : <Button variant="outline-primary rounded-pill md-btn-flat" size="sm" className="d-block">Follow</Button>
-                    }
-                  </Card.Body>
-                </Card>
-              </Col>
-            )}
-
-          </Row>
-
-          <Pagination>
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Item>{4}</Pagination.Item>
-            <Pagination.Item>{5}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination>
-
-        </div>}
-        {this.state.curTab === 'images' && <div>
-
-          <Form.Row>
-
-            {this.state.searchData.images.map(image =>
-              <Col sm={6} xl={4} key={image.path} className="mb-2">
-                <a href="#d" onClick={this.prevent} className="ui-rect-60 ui-bg-cover ui-bg-overlay-container text-white" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/${image.path}')` }}>
-                  <div className="ui-bg-overlay bg-dark opacity-25"></div>
-
-                  {image.title && <div className="d-flex align-items-end ui-rect-content p-3">
-                    <div className="flex-shrink-1 font-weight-semibold">{image.title}</div>
-                  </div>}
-                </a>
-              </Col>
-            )}
-
-          </Form.Row>
-
-          <Pagination className="mt-3">
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Item>{4}</Pagination.Item>
-            <Pagination.Item>{5}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination>
-
-        </div>}
-        {/* {this.state.curTab === 'videos' && <div> */}
-
-          <Row>
-
-            {/* {this.state.searchData.videos.map(video =>
-              <Col sm={6} md={4} xl={3} key={video.preview} className="mb-4">
-                <a href="#d" onClick={this.prevent} className="ui-rect-60 ui-bg-cover text-white" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/${video.preview}')` }}>
-                  <div className="d-flex justify-content-end align-items-end ui-rect-content p-2">
-                    <div className="bg-dark rounded text-white small font-weight-semibold line-height-1 p-1">{video.duration}</div>
-                  </div>
-                </a>
-                <a href="#d" onClick={this.prevent} className="d-block text-body mt-2">{video.title}</a>
-                <div>
-                  <span className="text-muted small"> {video.views} views</span> &nbsp;
-                  <a href="#d" onClick={this.prevent} className="text-muted small"> {video.likes} likes</a> &nbsp;
-                  <span className="text-muted small"> {video.reposts} reposts</span>
-                </div>
-              </Col>
-            )} */}
-
-          </Row>
-
-          {/* <Pagination>
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Item>{4}</Pagination.Item>
-            <Pagination.Item>{5}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination> */}
-
         
       </div>
     )

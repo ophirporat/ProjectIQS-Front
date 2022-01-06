@@ -26,9 +26,10 @@ class LayoutFooter extends Component {
       </div>
       <Modal size="lg" show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title>About Us</Modal.Title>
+            <Modal.Title><h3>About us</h3></Modal.Title>
           </Modal.Header>
-          <Modal.Body>Hello, We are Mor Zweig, Ophir porat and Ori Ben-Artzy.
+          <Modal.Body><h4>We are Ophir Porat, Ori Ben-Artzy and Mor Zweig, students in the department of Software and Information Systems Engineering at Ben Gurion University of the Negev.</h4>
+             <h4>This site is our final project under the guidance of Mr. Aviad Elishar and Mr. Maor Reuven.</h4>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={this.closeModal}>
