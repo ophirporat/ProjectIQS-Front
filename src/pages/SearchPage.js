@@ -111,7 +111,7 @@ handleSubmit = async event =>{
       this.setState({search_ids: []})
       this.setState({chart:$("#mychart")})
       // const {text, search_count,iterations} = this.state
-      $('#result_container').attr("style", "display:block");
+      // $('#result_container').attr("style", "display:block");
     await this.g()
     
 
@@ -151,7 +151,7 @@ async search(search_id, temp_search_ids){
         $("#load").prop('disabled', false)
     }
 async addMoreTweets() {
-    $('#tweetsContainer').show()
+    $('#show_tweets').attr("style", "display:block");
     console.log("*****" , "addMoreTweets")
     var data = {"search_id": this.state.id}
     var res = await fetch("/load_results", {
@@ -270,6 +270,7 @@ setSearchUpdatesListener = async(search_id) => {
             // });
             test(e.data)
             $("#chartdiv").attr("style", "display:block");
+            $("#result_container").attr("style", "display:block");
             // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
             
             // window.dispatchEvent(event)
@@ -288,7 +289,7 @@ setSearchUpdatesListener = async(search_id) => {
             $("#target_div").html("Current WMD: ".concat(e.data));
             // this.addData(chart, recived_massages, e.data);
         } else {
-            $("#result_container").attr("style", "display:block");
+            // $("#result_container").attr("style", "display:block");
             // $("#search_btn").prop('disabled', false);
             eventSource.close();
         }
@@ -509,12 +510,14 @@ isExpanded(id) {
         <center>
 
         <div id="result_container" style={{display: "none"}} >
+          <div id="show_tweets" style={{display: "none"}}>
           <center>
             <h2> Search Results</h2>
           </center>
           
           <div className="row" id="tweetsContainer" >    
             <hr></hr>
+          </div>
           </div>
           <center>
           <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
