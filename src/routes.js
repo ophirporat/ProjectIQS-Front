@@ -42,5 +42,8 @@ export const routes = [
   },{
     path: '/pages/File',
     component: lazy(() => import('./pages/FileUpload'))
+  }, {
+    path: '/components/react-chartjs-2',
+    component: lazy(() => import('./components/ReactChartjs2'))
   }
 ]

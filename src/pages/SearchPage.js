@@ -1,13 +1,18 @@
-import React, {Component} from 'react'
+import React, {Component, useRef} from 'react'
 import { OverlayTrigger, Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
+// import * as Chartjs from 'react-chartjs-2'
+import ReactChartjs2 from '../components/ReactChartjs2';
 
 class SearchResults extends React.Component {
   constructor(props) {
     super(props)
+    const fref = React.createRef()
+    const cref = React.createRef()
     props.setTitle('Search results - Pages')
+    
     this.g = this.g.bind(this)
     this.addMoreTweets = this.addMoreTweets.bind(this)
     this.search = this.search.bind(this)
@@ -16,9 +21,9 @@ class SearchResults extends React.Component {
     this.setSearchUpdatesListener = this.setSearchUpdatesListener.bind(this)
     this.timeout = this.timeout.bind(this)
 
+
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this)
     this.setCurTab = this.setCurTab.bind(this)
-
     this.state = { 
       text: "",
       search_count: "",
@@ -29,12 +34,17 @@ class SearchResults extends React.Component {
       min_tweet_count:"",
       search_ids:[],
       id:"",
-      chart_data :[{id: "mmd",data: [{"x":0,"y":1}]}]
+      chart_data :[{id: "mmd",data: [{"x":0,"y":1}]}],
+      chart: null,
+      // child: React.createRef()
+      fref :React.createRef()
   
      }
   }
 async g (){
     console.log("####### g")
+    
+    
     // this.getSearchUpdates()
     // stopSearchs([search_ids.shift()]);//
     // $("#search_btn").prop('disabled', true);
@@ -64,7 +74,7 @@ async g (){
         // temp_search_ids.push(search_id)
         
         
-        // this.setSearchUpdatesListener(search_id);
+        this.setSearchUpdatesListener(search_id);
         // runIQS(search_id);
         // await this.timeout(1000)
         // wait_time = 1;
@@ -75,7 +85,7 @@ async g (){
 
 }
 timeout = (delay)=> {
-    console.log(delay)
+    // console.log(delay)
     return new Promise( res => setTimeout(res, delay) );
 }
 
@@ -91,6 +101,7 @@ handleSubmit = async event =>{
       this.setState({max_tweets_per_query: event.target[5].value})
       this.setState({min_tweet_count: event.target[6].value})
       this.setState({search_ids: []})
+      this.setState({chart:$("#mychart")})
       // const {text, search_count,iterations} = this.state
       $('#result_container').attr("style", "display:block");
     await this.g()
@@ -116,7 +127,7 @@ async search(search_id, temp_search_ids){
     , headers: { 'Content-Type': 'application/json' },};
     try{
         const response = await fetch('/search', ophir)
-        await this.setState({id:search_id})
+        this.setState({id:search_id})
       if(response.status === 200){
 
         console.log("search complete")
@@ -209,35 +220,49 @@ setSearchUpdatesListener = async(search_id) => {
     var sum_wmd = 0;
     var eventSource = new EventSource("/stream?search_id=".concat(search_id));
     console.log("eventSource   ",eventSource)
-    eventSource.addEventListener("message", e => {
-        res = [{"x":0, "y":1}].concat(res)
-        this.setState({"chart_data" : [{id: "mmd",data : res}]});
-    });
+    // eventSource.addEventListener("message", e => {
+    //     res = [{"x":0, "y":1}].concat(res)
+    //     this.setState({"chart_data" : [{id: "mmd",data : res}]});
+    // });
     // this.bind(eventSource)
     var recived_massages = 0;
     // var chart = this.initGraph();
     // chart.clear();
-    
-    console.log("this.state.chart_data[0].data", this.state.chart_data[0])
-    eventSource.onmessage = function (e) {
+    var test = this.state.fref.current.showAlert
+    // console.log("this.state.chart_data[0].data", this.state.chart_data[0])
+    eventSource.onmessage = async function (e) {
         console.log("******eventSource.onmessage ")
         recived_massages++;
         console.log("e.data   ", e.data);
+        console.log("recived_massages  ", recived_massages)
         if (parseInt(e.data) !== -1) {
             var width = Math.min(100, Math.floor(recived_massages * 100 / total_iterations));
             $('.progress-bar').css('width', width.toString().concat('%')).attr({value: width});
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             sum_wmd = sum_wmd + parseFloat(e.data)
+            // Create the event.
+            // const event = document.createEvent('Event');
+            // const chartElem = document.querySelector("ReactChartjs2").
+            // const eventAwesome = new CustomEvent('datainput', {
+            //   bubbles: true,
+            //   detail: "hey"
+            // });
+            test(e.data)
+            // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
+            
+            // window.dispatchEvent(event)
+            
+            // this.child.getAlert();
             // for(var i =0;i<current_chart_data.length;i++){
                 // sum_wmd = sum_wmd +current_chart_data[i].y;
-                curr = {
-                    "x":recived_massages,
-                    "y":sum_wmd/recived_massages
-                }
-                console.log("res  ", res)
-                console.log("curr  ", curr)
-                res.push(curr)
+                // curr = {
+                //     "x":recived_massages,
+                //     "y":sum_wmd/recived_massages
+                // }
+                // console.log("res  ", res)
+                // console.log("curr  ", curr)
+                // res.push(curr)
             $("#target_div").html("Current WMD: ".concat(e.data));
             // this.addData(chart, recived_massages, e.data);
         } else {
@@ -295,8 +320,9 @@ setSearchUpdatesListener = async(search_id) => {
   prevent(e) {
     e.preventDefault()
   }
-
+  
   render() {
+    
     return (
       <div>
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -346,7 +372,7 @@ setSearchUpdatesListener = async(search_id) => {
                 <div  className="form-group row" style={{float:"left"}}>
             <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations</h5></label>
             <div className="col-6">
-                <input id="iterations" name="iterations"  type="number" defaultValue={5} className="form-control"
+                <input id="iterations" name="iterations"  type="number" defaultValue={3} className="form-control"
                       required="required"/>
             </div>
         </div>
@@ -427,13 +453,13 @@ setSearchUpdatesListener = async(search_id) => {
 <br></br>
 
 
-<Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
+{/* <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
           <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Search</Nav.Link>
           <Nav.Link eventKey="people"><i className="ion ion-ios-people"></i>&nbsp; People</Nav.Link>
           <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
           <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
-        </Nav>
-
+        </Nav> */}
+          <ReactChartjs2 id="mychart" ref={this.state.fref}></ReactChartjs2>      
         {/* {this.state.curTab === 'pages' && <div> */}
         <div id="result_container" style={{display: "none"}} >
           <div className="row" id="tweetsContainer" >
