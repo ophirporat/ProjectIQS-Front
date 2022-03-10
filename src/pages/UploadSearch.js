@@ -1,13 +1,13 @@
 import React, {Component, useRef} from 'react'
 import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 // import '../vendor/styles/pages/search.scss'
-import $ from 'jquery';
+import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
 // import * as Chartjs from 'react-chartjs-2'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 
-class SearchResults extends React.Component {
+class SearchUpload extends React.Component {
   constructor(props) {
     super(props)
     const fref = React.createRef()
@@ -40,13 +40,13 @@ class SearchResults extends React.Component {
       expanded: [],
       // child: React.createRef()
       fref :React.createRef(),
+      oref :React.createRef(),
+
       iteration_arr:[]
   
      }
   }
-async g (){
-    console.log("####### g")
-    
+async g (){    
     
     // this.getSearchUpdates()
     // stopSearchs([search_ids.shift()]);//
@@ -102,7 +102,7 @@ handleSubmit = async event =>{
       }
       console.log(iteration_array);
       this.setState({iteration_arr: iteration_array})
-      this.setState({text: event.target[0].value})
+      this.setState({text: this.state.oref.current.state.files[0].data})
       this.setState({search_count: event.target[1].value})
       this.setState({iterations: event.target[2].value})
       this.setState({output_keywords_count: event.target[3].value})
@@ -123,7 +123,7 @@ async search(search_id, temp_search_ids){
     console.log("####### search")
     const ophir ={method:'POST',body:JSON.stringify(
         {form:
-            {text: this.state.text,
+            {text:this.state.oref.current.state.files[0].data,
                 search_count: this.state.search_count,
                 iterations: this.state.iterations,
                 output_keywords_count: this.state.output_keywords_count,
@@ -373,22 +373,19 @@ isExpanded(id) {
           </InputGroup>
         </div> */}
         <center>
+        {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
 
-        <h3 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Search /</span> Free text
-        </h3>
+        <FileUpload ref={this.state.oref}></FileUpload>
+
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-            {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
-          <br></br>
-        {/* <FileUpload></FileUpload> */}
         {/* <br/> */}
         <table id="table" style={{width:"60%"}}>
             <tbody>
             <tr>
                 <td  colSpan={10}>
-            <div className=" row align-items-center" >
+            <div style={{display:"none"}} className=" row align-items-center" >
             <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
             {/* <Form.Label>Text Area</Form.Label> */}
             <div className="col-9">
@@ -547,4 +544,4 @@ isExpanded(id) {
   }
 }
 
-export default SearchResults
+export default SearchUpload
