@@ -39,7 +39,7 @@ export const routes = [
   },{
     path: '/pages/File',
     component: lazy(() => import('./pages/FileUpload'))
-
+    
   }, {
     path: '/components/react-chartjs-2',
     component: lazy(() => import('./components/ReactChartjs2'))
@@ -51,6 +51,10 @@ export const routes = [
   ,{
     path: '/pages/Register',
     component: lazy(() => import('./pages/RegisterPage'))
-
+  }  
+  ,{
+    path: '/pages/Upload',
+    component: lazy(() => import('./pages/UploadSearch'))
   }
+  
 ]

@@ -1,13 +1,13 @@
 import React, {Component, useRef} from 'react'
 import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 // import '../vendor/styles/pages/search.scss'
-import $ from 'jquery';
+import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
 // import * as Chartjs from 'react-chartjs-2'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 
-class SearchResults extends React.Component {
+class SearchUpload extends React.Component {
   constructor(props) {
     super(props)
     const fref = React.createRef()
@@ -35,18 +35,18 @@ class SearchResults extends React.Component {
       min_tweet_count:"",
       search_ids:[],
       id:"",
-      chart_data :[],
+      chart_data :[{id: "mmd",data: [{"x":0,"y":1}]}],
       chart: null,
       expanded: [],
       // child: React.createRef()
       fref :React.createRef(),
+      oref :React.createRef(),
+
       iteration_arr:[]
   
      }
   }
-async g (){
-    console.log("####### g")
-    
+async g (){    
     
     // this.getSearchUpdates()
     // stopSearchs([search_ids.shift()]);//
@@ -102,7 +102,7 @@ handleSubmit = async event =>{
       }
       console.log(iteration_array);
       this.setState({iteration_arr: iteration_array})
-      this.setState({text: event.target[0].value})
+      this.setState({text: this.state.oref.current.state.files[0].data})
       this.setState({search_count: event.target[1].value})
       this.setState({iterations: event.target[2].value})
       this.setState({output_keywords_count: event.target[3].value})
@@ -123,7 +123,7 @@ async search(search_id, temp_search_ids){
     console.log("####### search")
     const ophir ={method:'POST',body:JSON.stringify(
         {form:
-            {text: this.state.text,
+            {text:this.state.oref.current.state.files[0].data,
                 search_count: this.state.search_count,
                 iterations: this.state.iterations,
                 output_keywords_count: this.state.output_keywords_count,
@@ -228,10 +228,7 @@ stopSearchs = async()=> {
     return null;
 }
 
-//  mytest = (a) =>{
-//   this.setState({'myevent': true})
-//   this.setState({'chart_data': a})
-// }
+
 
 
 setSearchUpdatesListener = async(search_id) => {
@@ -248,14 +245,13 @@ setSearchUpdatesListener = async(search_id) => {
     // });
     // this.bind(eventSource)
     var recived_massages = 0;
-
     // var chart = this.initGraph();
     // chart.clear();
-    
-    // this.state.fref.current.forceUpdate()
+    var test = this.state.fref.current.showAlert
+    this.state.fref.current.forceUpdate()
     // console.log("this.state.chart_data[0].data", this.state.chart_data[0])
-    eventSource.onmessage = async (e)  => {
-      
+    eventSource.onmessage = async function (e) {
+        
         console.log("******eventSource.onmessage ")
         recived_massages++;
         console.log("e.data   ", e.data);
@@ -266,25 +262,6 @@ setSearchUpdatesListener = async(search_id) => {
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             sum_wmd = sum_wmd + parseFloat(e.data)
-            res.unshift(sum_wmd/recived_massages)
-            if(recived_massages === total_iterations){
-              var iteration_array = []
-              for(var i =1;i<=total_iterations;i++){
-                iteration_array.push(i)
-              }
-              this.setState({"chart_data":res},(e)=>{
-                console.log(this.state.chart_data)
-                console.log(this.state.iteration_arr)
-                this.setState({"myevent":true} )
-              })
-              
-              
-              // var c = React.createElement(
-              //   ReactChartjs2,
-              //   {dataset: res, labels:iteration_array}
-              // )
-              // $('#chartdiv').append(c)
-            }
             // Create the event.
             // const event = document.createEvent('Event');
             // const chartElem = document.querySelector("ReactChartjs2").
@@ -292,11 +269,9 @@ setSearchUpdatesListener = async(search_id) => {
             //   bubbles: true,
             //   detail: "hey"
             // });
-            
-            // test(e.data)
-            // $("#chartdiv").attr("style", "display:block");
+            test(e.data)
+            $("#chartdiv").attr("style", "display:block");
             $("#result_container").attr("style", "display:block");
-            
             // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
             
             // window.dispatchEvent(event)
@@ -398,22 +373,19 @@ isExpanded(id) {
           </InputGroup>
         </div> */}
         <center>
+        {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
 
-        <h3 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Search /</span> Free text
-        </h3>
+        <FileUpload ref={this.state.oref}></FileUpload>
+
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-            {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
-          <br></br>
-        {/* <FileUpload></FileUpload> */}
         {/* <br/> */}
         <table id="table" style={{width:"60%"}}>
             <tbody>
             <tr>
                 <td  colSpan={10}>
-            <div className=" row align-items-center" >
+            <div style={{display:"none"}} className=" row align-items-center" >
             <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
             {/* <Form.Label>Text Area</Form.Label> */}
             <div className="col-9">
@@ -445,7 +417,7 @@ isExpanded(id) {
                 <div  className="form-group row" style={{float:"left"}}>
             <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations </h5></label>
             <div className="col-6">
-                <input id="iterations" name="iterations"  type="number" defaultValue={7} className="form-control"
+                <input id="iterations" name="iterations"  type="number" defaultValue={3} className="form-control"
                       required="required"/>
             </div>
         </div>
@@ -530,13 +502,9 @@ isExpanded(id) {
           <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
           <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
         </Nav> */}
-        <div id="chartdiv" >
-          { this.state.myevent ?
-           <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.chart_data}></ReactChartjs2> 
-           :
-            null}
-          
-          </div>         
+        {/* <div id="chartdiv" style={{display: "none"}} > */}
+          <ReactChartjs2 id="mychart" ref={this.state.fref} Iteration={this.state.iteration_arr}></ReactChartjs2>
+          {/* </div>          */}
            {/* </div> */}
         {/* {this.state.curTab === 'pages' && <div> */}
 <hr></hr>
@@ -576,4 +544,4 @@ isExpanded(id) {
   }
 }
 
-export default SearchResults
+export default SearchUpload
