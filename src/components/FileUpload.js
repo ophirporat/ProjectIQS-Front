@@ -2,7 +2,7 @@ import React, { Component,useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Card, Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import csv from "csv";
+// import csv from "csv";
 
 const humanFileSize = (bytes, si) => {
   var thresh = si ? 1000 : 1024
