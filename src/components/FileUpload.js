@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component,useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Card, Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import csv from "csv";
 
 const humanFileSize = (bytes, si) => {
   var thresh = si ? 1000 : 1024
@@ -20,7 +21,7 @@ const humanFileSize = (bytes, si) => {
 const DropzoneContainer = (props) => {
   const onDrop = acceptedFiles => {
     acceptedFiles.forEach(file => {
-      if (!/\.(jpe?g|png|gif)$/i.test(file.name)) return
+      if (!/\.(jpe?g|png|gif|txt)$/i.test(file.name)) return
       const reader = new FileReader()
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
@@ -29,10 +30,10 @@ const DropzoneContainer = (props) => {
         props.onDrop && props.onDrop({
           name: file.name,
           size: humanFileSize(file.size),
-          dataUrl: reader.result
+          data: reader.result
         })
       }
-      reader.readAsDataURL(file)
+      reader.readAsText(file)
     })
   }
 
@@ -42,7 +43,7 @@ const DropzoneContainer = (props) => {
     isDragActive,
     isDragAccept,
     isDragReject
-  } = useDropzone({ accept: 'image/*', onDrop })
+  } = useDropzone({ accept: 'text/*', onDrop })
 
   let className = 'text-center'
 
@@ -67,7 +68,7 @@ const DropzoneContainer = (props) => {
 
         {/* Don't show placeholder if the file list isn't empty */}
         {!props.files.length && (
-          <div className="text-big text-muted">Drag and drop your CSV here, or click to select file</div>
+          <div className="text-big text-muted">Drag and drop your text file here, or click to select file</div>
         )}
 
         {/* Print files */}
@@ -78,7 +79,7 @@ const DropzoneContainer = (props) => {
               // File card
               <div className="card card-condenced mb-3 mr-3" style={{width: '180px'}} key={file.name} onClick={e => e.stopPropagation()}>
                 <div className="card-body">
-                  <img className="mb-2" src={file.dataUrl} alt={file.name} style={{width: '100%'}} />
+                  {/* <img className="mb-2" src={file.dataUrl} alt={file.name} style={{width: '100%'}} /> */}
                   <div className="font-weight-semibold text-left text-truncate" title={file.name}>{file.name}</div>
                   <div className="text-left small text-muted">{file.size}</div>
                 </div>
@@ -100,7 +101,6 @@ const DropzoneContainer = (props) => {
 class FileUpload extends Component {
   constructor(props) {
     super(props)
-    props.setTitle('File upload - Forms')
 
     this.onFileDrop = this.onFileDrop.bind(this)
     this.onFileRemove = this.onFileRemove.bind(this)
@@ -110,10 +110,14 @@ class FileUpload extends Component {
     }
   }
 
-  onFileDrop(file) {
-    this.setState(state => ({
+  async onFileDrop(file) {
+    await this.setState(state => ({
       files: state.files.concat(file)
+      
     }))
+    console.log(file)
+
+    console.log(this.state.files[0])
   }
 
   onFileRemove(file) {
@@ -127,9 +131,9 @@ class FileUpload extends Component {
   render() {
     return (
       <div>
-        <h4 className="font-weight-bold py-3 mb-4">
+        <h3 className="font-weight-bold py-3 mb-4">
           <span className="text-muted font-weight-light">Search /</span> File upload
-        </h4>
+        </h3>
 
         <Card>
           <Card.Header as="h6"></Card.Header>
@@ -137,14 +141,8 @@ class FileUpload extends Component {
             <DropzoneContainer files={this.state.files} onDrop={this.onFileDrop} onRemove={this.onFileRemove} />
             <br></br>
             <br></br>
-            <center>
-            <Link to="/pages/search-results">
-              <p><Button variant="primary" size="lg">Let's Search</Button></p>
-            </Link>
-            </center>
           </Card.Body>
         </Card>
-
       </div>
     )
   }

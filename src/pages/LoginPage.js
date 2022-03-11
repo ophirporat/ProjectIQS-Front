@@ -31,7 +31,7 @@ class AuthenticationLoginV2 extends Component {
 
   render() {
     return (
-      <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/1.jpg')`}}>
+      <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/20.jpeg')`}}>
         <div className="ui-bg-overlay bg-dark opacity-25"></div>
 
         <div className="authentication-inner py-5">
