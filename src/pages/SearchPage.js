@@ -120,6 +120,8 @@ handleSubmit = async event =>{
 
 async search(search_id, temp_search_ids){
     console.log("####### search")
+    this.setState({"myevent":false} )
+    $("#result_container").attr("style", "display:none");
     const ophir ={method:'POST',body:JSON.stringify(
         {form:
             {text: this.state.text,
@@ -265,7 +267,7 @@ setSearchUpdatesListener = async(search_id) => {
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             sum_wmd = sum_wmd + parseFloat(e.data)
-            res.unshift(sum_wmd/recived_massages)
+            res.push(sum_wmd/recived_massages)
             if(recived_massages === total_iterations){
               var iteration_array = []
               for(var i =1;i<=total_iterations;i++){
