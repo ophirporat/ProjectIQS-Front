@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Sidenav from '../../vendor/libs/sidenav'
 import layoutHelpers from './helpers'
+import { Navbar, Nav,Dropdown } from 'react-bootstrap'
 
 class LayoutSidenav extends Component {
   layoutSidenavClasses() {
@@ -41,11 +42,20 @@ class LayoutSidenav extends Component {
       <Sidenav orientation={this.props.orientation} className={this.layoutSidenavClasses()}>
         {/* Inner */}
         <div className={`sidenav-inner ${this.props.orientation !== 'horizontal' ? 'py-1' : ''}`}>
-
-          <Sidenav.RouterLink to="/" exact={true} icon="ion ion-ios-desktop">Home</Sidenav.RouterLink>
-          <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-search">Search Text</Sidenav.RouterLink>
-          <Sidenav.RouterLink to="/pages/Upload" exact={true} icon="ion ion-md-cloud-upload">Search File</Sidenav.RouterLink>
+        
+        <Sidenav.RouterLink to="/" exact={true} icon="ion ion-ios-desktop">Home</Sidenav.RouterLink>
+        <Sidenav.Divider className="my-0" />
+          {/* <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-search">Search Text</Sidenav.RouterLink> */}
+          {/* <Sidenav.Divider className="my-0" /> */}
+          {/* <Sidenav.RouterLink to="/pages/Upload" exact={true} icon="ion ion-md-cloud-upload">Search File</Sidenav.RouterLink> */}
+          {/* <Sidenav.Divider className="my-0" /> */}
           <Sidenav.RouterLink to="/pages/IQS" exact={true} icon="ion ion-md-help-circle-outline">Iterative Query Selection</Sidenav.RouterLink>
+          <Sidenav.Divider className="my-0" />
+          <Sidenav.Menu icon="ion ion-md-search" linkText="Search">
+          <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-quote">Search Text</Sidenav.RouterLink>
+          <Sidenav.RouterLink to="/pages/Upload" exact={true} icon="ion ion-md-cloud-upload">Search File</Sidenav.RouterLink>
+            </Sidenav.Menu>
+            <Sidenav.Divider className="my-0" />
 
           {/* <Sidenav.RouterLink to="/pages/Login" exact={true} icon="ion ion-md-contact">Login</Sidenav.RouterLink>          
           <Sidenav.RouterLink to="/pages/Register" exact={true} icon="ion ion-md-contact">Register</Sidenav.RouterLink> */}
