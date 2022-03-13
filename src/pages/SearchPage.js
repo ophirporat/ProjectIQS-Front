@@ -6,6 +6,8 @@ import '../components/searchIQS.css'
 // import * as Chartjs from 'react-chartjs-2'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -40,11 +42,13 @@ class SearchResults extends React.Component {
       expanded: [],
       // child: React.createRef()
       fref :React.createRef(),
-      iteration_arr:[]
+      iteration_arr:[],
+      isSearching: false
   
      }
   }
 async g (){
+    this.setState({isSearching:true})
     console.log("####### g")
     
     
@@ -111,6 +115,7 @@ handleSubmit = async event =>{
       this.setState({min_tweet_count: event.target[6].value})
       this.setState({search_ids: []})
       this.setState({chart:$("#mychart")})
+      this.setState({isSearching:true})
       // const {text, search_count,iterations} = this.state
       // $('#result_container').attr("style", "display:block");
     await this.g()
@@ -121,6 +126,8 @@ handleSubmit = async event =>{
 
 async search(search_id, temp_search_ids){
     console.log("####### search")
+    this.setState({"myevent":false} )
+    $("#result_container").attr("style", "display:none");
     const ophir ={method:'POST',body:JSON.stringify(
         {form:
             {text: this.state.text,
@@ -266,7 +273,7 @@ setSearchUpdatesListener = async(search_id) => {
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             sum_wmd = sum_wmd + parseFloat(e.data)
-            res.unshift(sum_wmd/recived_massages)
+            res.push(sum_wmd/recived_massages)
             if(recived_massages === total_iterations){
               var iteration_array = []
               for(var i =1;i<=total_iterations;i++){
@@ -295,6 +302,7 @@ setSearchUpdatesListener = async(search_id) => {
             
             // test(e.data)
             // $("#chartdiv").attr("style", "display:block");
+            this.setState({isSearching:false})
             $("#result_container").attr("style", "display:block");
             
             // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
@@ -389,6 +397,7 @@ isExpanded(id) {
     return (
       <div>
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+          
         {/* <div className="py-1 mb-2">
           <InputGroup>
             <Form.Control value={this.state.searchQuery} onChange={this.onSearchQueryChange} />
@@ -535,6 +544,8 @@ isExpanded(id) {
            <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.chart_data}></ReactChartjs2> 
            :
             null}
+            <center>
+            { this.state.isSearching ? <ClipLoader loading={true}  size={100} /> : null} </center>
           
           </div>         
            {/* </div> */}

@@ -69,17 +69,17 @@ class ReactChartjs2 extends Component {
 
     const scalesOptions = isDarkStyle ? {
       yAxes: [{
-        gridLines: { color: '#383b40' },
+        gridLines: { color: '#3F0991' },
         ticks: { fontColor: '#fff' }
       }],
       xAxes: [{
-        gridLines: { color: '#383b40' },
+        gridLines: { color: '#3F0991' },
         ticks: { fontColor: '#fff' }
       }]
     } : {}
     const radialScaleOptions = isDarkStyle ? {
-      angleLines: { color: '#383b40' },
-      gridLines: { color: '#383b40' },
+      angleLines: { color: '#3F0991' },
+      gridLines: { color: '#3F0991' },
       pointLabels: { fontColor: '#fff' }
     } : {}
     const legendOptions = isDarkStyle ? {
@@ -111,8 +111,8 @@ class ReactChartjs2 extends Component {
                         label: 'MMD',
                         data:  this.props.dataset,
                         borderWidth: 1,
-                        backgroundColor: 'rgba(233, 30, 99, 0.3)',
-                        borderColor: '#E91E63',
+                        backgroundColor: '#ebebfa',
+                        borderColor: '#4747d1',
                         fill: true
                         // borderDash: [5],
                         // fill: false
