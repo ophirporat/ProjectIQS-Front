@@ -38,6 +38,7 @@ class SearchResults extends React.Component {
       search_ids:[],
       id:"",
       chart_data :[],
+      wmdDataset:[],
       chart: null,
       expanded: [],
       // child: React.createRef()
@@ -49,13 +50,15 @@ class SearchResults extends React.Component {
   }
 async g (){
     this.setState({isSearching:true})
+    $('#show_tweets').attr("style", "display:none");
     console.log("####### g")
     
     
     // this.getSearchUpdates()
-    // stopSearchs([search_ids.shift()]);//
+    await this.stopSearchs();//
+    this.setState({search_ids:[]})
     // $("#search_btn").prop('disabled', true);
-    console.log("g function");
+    // console.log("g function");
     // $("#result_container").attr("style", "display: none");
     // $("#tweets_container").empty();
     var data = {'prototype': $('#prototype').val()};
@@ -81,7 +84,7 @@ async g (){
         // temp_search_ids.push(search_id)
         
         
-        this.setSearchUpdatesListener(search_id);
+    this.setSearchUpdatesListener(search_id);
         // runIQS(search_id);
         // await this.timeout(1000)
         // wait_time = 1;
@@ -104,7 +107,7 @@ handleSubmit = async event =>{
       for(var i =1;i<=Number(event.target[2].value);i++){
         iteration_array.push(i)
       }
-      console.log(iteration_array);
+      // console.log(iteration_array);
       this.setState({iteration_arr: iteration_array})
       this.setState({text: event.target[0].value})
       this.setState({search_count: event.target[1].value})
@@ -113,7 +116,7 @@ handleSubmit = async event =>{
       this.setState({keywords_start_size: event.target[4].value})
       this.setState({max_tweets_per_query: event.target[5].value})
       this.setState({min_tweet_count: event.target[6].value})
-      this.setState({search_ids: []})
+      // this.setState({search_ids: []})
       this.setState({chart:$("#mychart")})
       this.setState({isSearching:true})
       // const {text, search_count,iterations} = this.state
@@ -190,38 +193,39 @@ async addMoreTweets() {
     } else {
         $("#load").hide();
     }
-    console.log("tweet_htmlss")
-    console.log(tweet_htmls)
+    // console.log("tweet_htmlss")
+    // console.log(tweet_htmls)
 }
 
-getSearchUpdates = async () =>{
-    this.stopSearchs();//
-    console.log("getSearchUpdates");
-    var data = {'prototype': $('#prototype').val()};
-    fetch("/get_id", {
-        method: "POST",
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        return response.json();
-    }).then(function (search_id) {
-        console.log(search_id);  
-        let temp_search_ids = this.state.search_ids
-        temp_search_ids.push(search_id)
-        this.setState({search_ids : temp_search_ids})
+// getSearchUpdates = async () =>{
+//     // this.stopSearchs();//
+//     console.log("getSearchUpdates");
+//     var data = {'prototype': $('#prototype').val()};
+//     fetch("/get_id", {
+//         method: "POST",
+//         body: JSON.stringify(data)
+//     }).then(function (response) {
+//         return response.json();
+//     }).then(function (search_id) {
+//         console.log(search_id);  
+//         let temp_search_ids = this.state.search_ids
+//         temp_search_ids.push(search_id)
+//         this.setState({search_ids : temp_search_ids})
         
-        // this.setSearchUpdatesListener(search_id);
+//         // this.setSearchUpdatesListener(search_id);
 
-    }).catch(function (err) {
-        console.log(err);
-        console.log("Booo2");
-        // wait_time = wait_time * 2;
-        // setTimeout(getSearchUpdates(), wait_time * 1000);
-    });
-}
+//     }).catch(function (err) {
+//         console.log(err);
+//         console.log("Booo2");
+//         // wait_time = wait_time * 2;
+//         // setTimeout(getSearchUpdates(), wait_time * 1000);
+//     });
+// }
 
 stopSearchs = async()=> {
     console.log("stopSearchs")
-    this.state.search_ids.shift()
+    // this.state.search_ids.shift()
+    console.log(this.state.search_ids)
     var data = {'search_ids': this.state.search_ids};
     fetch("/close_search", {
         method: "POST",
@@ -231,6 +235,13 @@ stopSearchs = async()=> {
         // wait_time = wait_time * 2;
         setTimeout(this.stopSearchs(), 10 * 1000);
     });
+    var tweetsContainerDiv = document.getElementById("tweetsContainer");
+    var newTweetsContainerDiv= document.createElement('div')
+    newTweetsContainerDiv.id = "tweetsContainer"
+    newTweetsContainerDiv.className="row"
+    var show_tweetsDiv = document.getElementById("show_tweets");
+    show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
+
     // wait_time = 1;
     return null;
 }
@@ -245,10 +256,11 @@ setSearchUpdatesListener = async(search_id) => {
     console.log("******setSearchUpdatesListener")
     // var self = this;
     var res = []
+    var wmds= []
     var total_iterations = $('#search_count').val() * $('#iterations').val();
     var sum_wmd = 0;
     var eventSource = new EventSource("/stream?search_id=".concat(search_id));
-    console.log("eventSource   ",eventSource)
+    // console.log("eventSource   ",eventSource)
     // eventSource.addEventListener("message", e => {
     //     res = [{"x":0, "y":1}].concat(res)
     //     this.setState({"chart_data" : [{id: "mmd",data : res}]});
@@ -265,14 +277,16 @@ setSearchUpdatesListener = async(search_id) => {
       
         console.log("******eventSource.onmessage ")
         recived_massages++;
-        console.log("e.data   ", e.data);
-        console.log("recived_massages  ", recived_massages)
+        // console.log("e.data   ", e.data);
+        // console.log("recived_massages  ", recived_massages)
         if (parseInt(e.data) !== -1) {
-            var width = Math.min(100, Math.floor(recived_massages * 100 / total_iterations));
-            $('.progress-bar').css('width', width.toString().concat('%')).attr({value: width});
+            // var width = Math.min(100, Math.floor(recived_massages * 100 / total_iterations));
+            // $('.progress-bar').css('width', width.toString().concat('%')).attr({value: width});
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
+            
             sum_wmd = sum_wmd + parseFloat(e.data)
+            wmds.push(e.data)
             res.push(sum_wmd/recived_massages)
             if(recived_massages === total_iterations){
               var iteration_array = []
@@ -280,9 +294,13 @@ setSearchUpdatesListener = async(search_id) => {
                 iteration_array.push(i)
               }
               this.setState({"chart_data":res},(e)=>{
-                console.log(this.state.chart_data)
-                console.log(this.state.iteration_arr)
+                this.setState({wmdDataset: wmds}, (s)=>{
+                  // console.log(this.state.chart_data)
+                // console.log(this.state.iteration_arr)
                 this.setState({"myevent":true} )
+
+                })
+                
               })
               
               
@@ -541,7 +559,7 @@ isExpanded(id) {
         </Nav> */}
         <div id="chartdiv" >
           { this.state.myevent ?
-           <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.chart_data}></ReactChartjs2> 
+           <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} secondDataset={this.state.wmdDataset} dataset={this.state.chart_data}></ReactChartjs2> 
            :
             null}
             <center>
@@ -558,10 +576,11 @@ isExpanded(id) {
           <center>
             <h2> Search Results</h2>
           </center>
-          
+          <hr></hr>
           <div className="row" id="tweetsContainer" >    
-            <hr></hr>
+            
           </div>
+          {/* <hr></hr> */}
           </div>
           <center>
           <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>

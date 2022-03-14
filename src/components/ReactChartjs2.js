@@ -116,6 +116,15 @@ class ReactChartjs2 extends Component {
                         fill: true
                         // borderDash: [5],
                         // fill: false
+                      },
+                      {
+                        label: 'WMD',
+                        data: this.props.secondDataset,
+                        borderWidth: 1,
+                        // backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                        borderColor: '#006600',
+                        fill: false,
+                        borderDash: [5, 5],
                       }]
               }}
               options={{
