@@ -15,7 +15,8 @@ class ReactChartjs2 extends Component {
 
   componentDidMount(){
     console.log(this.props.dataset)
-    console.log(this.props.labels)
+    // console.log(this.props.secondDataset)
+    // console.log(this.props.labels)
   }
   // state={
   //     datasets: [{
@@ -117,15 +118,16 @@ class ReactChartjs2 extends Component {
                         // borderDash: [5],
                         // fill: false
                       },
-                      {
-                        label: 'WMD',
-                        data: this.props.secondDataset,
-                        borderWidth: 1,
-                        // backgroundColor: 'rgba(233, 30, 99, 0.3)',
-                        borderColor: '#006600',
-                        fill: false,
-                        borderDash: [5, 5],
-                      }]
+                      // {
+                      //   label: 'WMD',
+                      //   data: this.props.secondDataset,
+                      //   borderWidth: 1,
+                      //   // backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                      //   borderColor: '#006600',
+                      //   fill: false,
+                      //   borderDash: [5, 5],
+                      // }
+                    ]
               }}
               options={{
                 ...options,

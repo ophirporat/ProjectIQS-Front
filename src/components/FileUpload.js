@@ -131,18 +131,18 @@ class FileUpload extends Component {
   render() {
     return (
       <div>
-        <h3 className="font-weight-bold py-3 mb-4">
+        {/* <h3 className="font-weight-bold py-3 mb-4">
           <span className="text-muted font-weight-light">Search /</span> File upload
-        </h3>
-
+        </h3> */}
+{/* 
         <Card>
           <Card.Header as="h6"></Card.Header>
-          <Card.Body>
+          <Card.Body> */}
             <DropzoneContainer files={this.state.files} onDrop={this.onFileDrop} onRemove={this.onFileRemove} />
             <br></br>
             <br></br>
-          </Card.Body>
-        </Card>
+          {/* </Card.Body>
+        </Card> */}
       </div>
     )
   }

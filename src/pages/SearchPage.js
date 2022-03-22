@@ -23,13 +23,14 @@ class SearchResults extends React.Component {
     // this.getWMD = this.getWMD.bind(this)
     this.setSearchUpdatesListener = this.setSearchUpdatesListener.bind(this)
     this.timeout = this.timeout.bind(this)
+    this.handleCheckbox = this.handleCheckbox.bind(this)
 
 
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this)
     this.setCurTab = this.setCurTab.bind(this)
     this.state = { 
       text: "",
-      search_count: "",
+      search_count: 1,
       iterations: "",
       output_keywords_count:"",
       keywords_start_size:"",
@@ -43,8 +44,10 @@ class SearchResults extends React.Component {
       expanded: [],
       // child: React.createRef()
       fref :React.createRef(),
+      oref :React.createRef(),
       iteration_arr:[],
-      isSearching: false
+      isSearching: false,
+      search_method: 0
   
      }
   }
@@ -61,7 +64,7 @@ async g (){
     // console.log("g function");
     // $("#result_container").attr("style", "display: none");
     // $("#tweets_container").empty();
-    var data = {'prototype': $('#prototype').val()};
+    var data = {'prototype': this.state.text};
     // console.log(data)
     var temp_search_ids = this.state.search_ids
     var id=""
@@ -104,21 +107,49 @@ timeout = (delay)=> {
 handleSubmit = async event =>{
       event.preventDefault();
       var iteration_array = []
-      for(var i =1;i<=Number(event.target[2].value);i++){
-        iteration_array.push(i)
-      }
+
       // console.log(iteration_array);
-      this.setState({iteration_arr: iteration_array})
-      this.setState({text: event.target[0].value})
-      this.setState({search_count: event.target[1].value})
-      this.setState({iterations: event.target[2].value})
-      this.setState({output_keywords_count: event.target[3].value})
-      this.setState({keywords_start_size: event.target[4].value})
-      this.setState({max_tweets_per_query: event.target[5].value})
-      this.setState({min_tweet_count: event.target[6].value})
+      
+      
+      // console.log(event.target[0].value)
+      // console.log(event.target[1].value)
+      // console.log(event.target[2].value)
+      // console.log(event.target[3].value)
+      // console.log(event.target[4].value)
+      // console.log(event.target[5].value)
+      // console.log(event.target[6].value)
+      // console.log(this.state.search_method)
+      if(this.state.search_method == 1){
+        this.setState({text: this.state.oref.current.state.files[0].data})
+        this.setState({search_count: event.target[2].value})
+        this.setState({iterations: event.target[3].value})
+        this.setState({output_keywords_count: event.target[4].value})
+        this.setState({keywords_start_size: event.target[5].value})
+        this.setState({max_tweets_per_query: event.target[6].value})
+        this.setState({min_tweet_count: event.target[7].value})
+        for(var i =1;i<= event.target[3].value;i++){
+          iteration_array.push(i)
+        }
+      }
+      else{
+        this.setState({text: event.target[0].value})
+        this.setState({search_count: event.target[1].value})
+        this.setState({iterations: event.target[2].value})
+        this.setState({output_keywords_count: event.target[3].value})
+        this.setState({keywords_start_size: event.target[4].value})
+        this.setState({max_tweets_per_query: event.target[5].value})
+        this.setState({min_tweet_count: event.target[6].value})
+        for(var i =1;i<= event.target[2].value;i++){
+          iteration_array.push(i)
+        }
+
+      }
+      // console.log(this.state.iterations)
       // this.setState({search_ids: []})
       this.setState({chart:$("#mychart")})
       this.setState({isSearching:true})
+
+      this.setState({iteration_arr: iteration_array})
       // const {text, search_count,iterations} = this.state
       // $('#result_container').attr("style", "display:block");
     await this.g()
@@ -285,9 +316,9 @@ setSearchUpdatesListener = async(search_id) => {
             // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             
-            sum_wmd = sum_wmd + parseFloat(e.data)
+            // sum_wmd = sum_wmd + parseFloat(e.data)
             wmds.push(e.data)
-            res.push(sum_wmd/recived_massages)
+            // res.push(sum_wmd/recived_massages)
             if(recived_massages === total_iterations){
               var iteration_array = []
               for(var i =1;i<=total_iterations;i++){
@@ -359,6 +390,10 @@ setSearchUpdatesListener = async(search_id) => {
         setTimeout(this.setSearchUpdatesListener(search_id), 2000);
     };
 }
+handleCheckbox = (num) =>{
+  this.setState({search_method: num})
+  this.setState({"myevent":false} )
+}
 
 
 
@@ -426,28 +461,38 @@ isExpanded(id) {
         </div> */}
         <center>
 
-        <h3 className="font-weight-bold py-3 mb-4">
+        {this.state.search_method == 0  ? <h3 className="font-weight-bold py-3 mb-4">
           <span className="text-muted font-weight-light">Search /</span> Free text
-        </h3>
+        </h3> : null}
+        {this.state.search_method == 1  ? <h3 className="font-weight-bold py-3 mb-4">
+          <span className="text-muted font-weight-light">Search /</span> File upload
+        </h3> :null}
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
+        <div style={{paddingTop:"18px", paddingLeft:"38px"}}>
+              <Form.Check inline type="radio" name="inline-radios-example" id="inline-radios-example-1" label="Free Text" onChange={() => this.handleCheckbox(0)} />
+              <Form.Check inline type="radio" name="inline-radios-example" id="inline-radios-example-2" label="Upload File"  onChange={() => this.handleCheckbox(1)}/>
+              <Form.Check inline type="radio" disabled name="inline-radios-example" id="inline-radios-example-3" label="URL" />
+            </div>
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
             {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
           <br></br>
         {/* <FileUpload></FileUpload> */}
         {/* <br/> */}
+        
         <table id="table" style={{width:"60%"}}>
             <tbody>
             <tr>
                 <td  colSpan={10}>
-            <div className=" row align-items-center" >
+            {this.state.search_method == 1  ? <FileUpload ref={this.state.oref}></FileUpload> : null }
+            {this.state.search_method == 0  ? <div className=" row align-items-center" >
             <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
-            {/* <Form.Label>Text Area</Form.Label> */}
             <div className="col-9">
                 <textarea id="prototype" name="prototype" cols="40" rows="5" className="form-control"
                           placeholder="Enter Text here..."></textarea>
             </div>
-            </div>
+            </div> : null }
+            
         </td>
             </tr>
             <br></br>
@@ -559,7 +604,7 @@ isExpanded(id) {
         </Nav> */}
         <div id="chartdiv" >
           { this.state.myevent ?
-           <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} secondDataset={this.state.wmdDataset} dataset={this.state.chart_data}></ReactChartjs2> 
+           <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.wmdDataset}></ReactChartjs2> 
            :
             null}
             <center>
