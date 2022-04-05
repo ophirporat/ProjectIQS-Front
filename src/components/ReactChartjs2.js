@@ -13,11 +13,12 @@ class ReactChartjs2 extends Component {
     console.log("chart created")
   }
 
-  componentDidMount(){
-    console.log(this.props.dataset)
-    // console.log(this.props.secondDataset)
-    // console.log(this.props.labels)
-  }
+  // componentDidMount(){
+  //   console.log("mount chart")
+  //   console.log(this.props.dataset)
+  //   // console.log(this.props.secondDataset)
+  //   console.log(this.props.labels)
+  // }
   // state={
   //     datasets: [{
   //       label: 'MMD',
@@ -87,10 +88,11 @@ class ReactChartjs2 extends Component {
       labels: { fontColor: '#fff' }
     } : {}
     console.log("render chart")
-
+    console.log(this.props.dataset)
+    console.log(this.props.labels)
     return (
         
-      <div>
+      <div id="reactChartDiv">
         {/* <h4 className="font-weight-bold py-3 mb-4">
           <span className="text-muted font-weight-light">Charts /</span> React Chartjs 2
         </h4> */}
