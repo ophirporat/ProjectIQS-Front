@@ -20,7 +20,7 @@ class Results extends React.Component {
     this.g = this.g.bind(this)
     this.addMoreTweets = this.addMoreTweets.bind(this)
     this.search = this.search.bind(this)
-    // this.stopSearchs = this.stopSearchs.bind(this)
+    this.stopSearchs = this.stopSearchs.bind(this)
     // this.getWMD = this.getWMD.bind(this)
     this.setSearchUpdatesListener = this.setSearchUpdatesListener.bind(this)
     this.timeout = this.timeout.bind(this)
@@ -48,7 +48,8 @@ class Results extends React.Component {
       oref :React.createRef(),
       iteration_arr:[],
       isSearching: false,
-      search_method: 0
+      search_method: 0,
+      index: this.props.data.index
   
      }
 
@@ -130,7 +131,8 @@ async search(search_id, temp_search_ids){
         $("#load").prop('disabled', false)
     }
 async addMoreTweets() {
-    $('#show_tweets').attr("style", "display:block");
+  
+    $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
     console.log("*****" , "addMoreTweets")
     var data = {"search_id": this.state.id}
     var res = await fetch("/load_results", {
@@ -141,9 +143,11 @@ async addMoreTweets() {
     var tweet_htmls = await res.json()
     // console.log(tweet_htmls)
     if (tweet_htmls.length > 0) {
-        tweet_htmls.forEach(getTweetDiv);
-
-        function getTweetDiv(tweet_html) {
+      console.log("tweet_htmls.length > 0")
+        tweet_htmls.forEach((html) => getTweetDiv(html, this.props.data.index));
+        
+        function getTweetDiv(tweet_html, index) {
+          console.log("getTweetDiv")
             // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
             // $div.html(tweet_html);
             var object = {
@@ -156,13 +160,13 @@ async addMoreTweets() {
           };
           var $div = $("<div>", object);
           $div.html(tweet_html);
-            $('#tweetsContainer').append($div);
+          console.log(`#tweetsContainer_${index}`)
+          $(`#tweetsContainer_${index}`).append($div);
         }
     } else {
         // $("#load").hide();
     }
-    // console.log("tweet_htmlss")
-    // console.log(tweet_htmls)
+
 }
 
 
@@ -179,11 +183,11 @@ stopSearchs = async()=> {
         // wait_time = wait_time * 2;
         setTimeout(this.stopSearchs(), 10 * 1000);
     });
-    var tweetsContainerDiv = document.getElementById("tweetsContainer");
+    var tweetsContainerDiv = document.getElementById(`tweetsContainer_${this.props.data.index}`);
     var newTweetsContainerDiv= document.createElement('div')
-    newTweetsContainerDiv.id = "tweetsContainer"
+    newTweetsContainerDiv.id = `tweetsContainer_${this.props.data.index}`
     newTweetsContainerDiv.className="row"
-    var show_tweetsDiv = document.getElementById("show_tweets");
+    var show_tweetsDiv = document.getElementById(`#show_tweets_${this.props.data.index}`);
     show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
 
     // wait_time = 1;
@@ -291,7 +295,7 @@ isExpanded(id) {
       <div id="searchResultContainter" style={{display: this.props.show}}>
         
         <div id="chartdiv" >
-          { this.props.show == 'block' & !this.state.isSearching ?
+          { this.props.show != 'none' & !this.state.isSearching ?
            <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.wmdDataset}></ReactChartjs2> 
            :
             null}
@@ -301,20 +305,20 @@ isExpanded(id) {
 
         <center>
 
-        <div id="result_container" >
-          <div id="show_tweets" style={{display: "none"}}>
+        <div id={`result_container_${this.props.data.index}`} >
+          <div id={`show_tweets_${this.props.data.index}`} style={{display: "none"}}>
           <center>
             <h2> Search Results</h2>
           </center>
 
-          <div className="row" id="tweetsContainer" >    
+          <div className="row" id={`tweetsContainer_${this.props.data.index}`} >    
             
           </div>
           {/* <hr></hr> */}
           </div>
-          <center>
+          { this.props.show != 'none' & !this.state.isSearching ? <center>
           <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
-          </center>
+          </center> : null}
         </div>
         </center>
 
