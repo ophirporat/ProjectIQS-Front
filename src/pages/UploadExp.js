@@ -65,12 +65,13 @@ class Experiment extends React.Component {
         headers: {'Content-Type': 'application/json' }})
     // console.log(res)
     var tweet_htmls = await res.json()
-    var tweet_htmls = tweet_htmls["IQS"]
+    var IQS_tweet = tweet_htmls["IQS"]
     var ALMIK_tweet = tweet_htmls["ALMIK"]
-    if (tweet_htmls.length > 0) {
+    console.log("ALMIK_tweet" , tweet_htmls)
+    if (ALMIK_tweet.length > 0) {
       console.log("tweet_htmls.length > 0")
-        tweet_htmls.forEach((html) => getTweetDiv(html, this.props.data.index));
-        
+      ALMIK_tweet.forEach((html) => getTweetDiv(html, "ALMIK"));
+
         function getTweetDiv(tweet_html, index) {
           console.log("getTweetDiv")
             // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
@@ -135,21 +136,11 @@ componentDidMount(){
         </Card.Body>
         </Card>
         {/* </center> */}
-        <hr></hr>
-        {/* <center>
-          <div id={`result_container_${this.props.data.index}`} >
-            <div id={`show_tweets_${this.props.data.index}`} style={{display: "none"}}>
-              <center>
-                <h2> Search Results</h2>
-              </center>
-              <div className="row" id={`tweetsContainer_${this.props.data.index}`}></div>
-            </div>
-            <center>
-            <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
-            </center>
-          </div>
-          </center> */}
-        
+        <hr></hr>      
+        <center>
+          <h2> Search Results</h2>
+        </center>
+        <div className="row" id={`tweetsContainer_ALMIK}`}></div>  
       </div>
     )
   }
