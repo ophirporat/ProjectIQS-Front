@@ -56,5 +56,9 @@ export const routes = [
     path: '/pages/Upload',
     component: lazy(() => import('./pages/UploadSearch'))
   }
+  ,{
+    path: '/pages/Experiment',
+    component: lazy(() => import('./pages/UploadExp'))
+  }
   
 ]
