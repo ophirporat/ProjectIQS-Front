@@ -5,18 +5,28 @@ import { NavLink } from 'react-router-dom'
 import { Navbar, Nav,Dropdown } from 'react-bootstrap'
 import layoutHelpers from './helpers'
 import Login from '../../components/Login'
+
 class LayoutNavbar extends Component {
   constructor(props) {
     super(props)
     this.isRTL = document.documentElement.getAttribute('dir') === 'rtl'
-  }
+      this.state  = {
+        loginRef : React.createRef(),
+        // isLogined : this.state.loginRef.current.state.user
+
+      }
+        }
 
   toggleSidenav(e) {
     e.preventDefault()
     layoutHelpers.toggleCollapsed()
   }
+  // componentDidMount(){
+  //   this.setState({isLogined: this.state.loginRef.current.state.user !== null})
+  // }
 
   render() {
+    // this.setState({isLogined: this.state.loginRef.current.state.user !== null})
     return (
       <Navbar bg={this.props.navbarBg} expand="lg" className="layout-navbar align-items-lg-center container-p-x">
 
@@ -39,7 +49,7 @@ class LayoutNavbar extends Component {
           <Nav className="align-items-lg-center">
             <Nav.Item>
               {/* <Nav.Link href="/pages/Login">Login</Nav.Link> */}
-              <Login/>
+              { !this.state.isLogined ?<Login ref={this.state.loginRef}/> : null}
             </Nav.Item>
             {/* <Nav.Item>
               <Nav.Link href="/pages/Register">Register</Nav.Link>

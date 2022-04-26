@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {GoogleLogin} from 'react-google-login'
+import $ from 'jquery';
 
 const clientId = '787276663684-065822sghlfajpjuo5ofd8ethbu35cc0.apps.googleusercontent.com'
 const {OAuth2Client} = require('google-auth-library');
@@ -32,19 +33,27 @@ const refreshTokenSetup= (res) => {
 class Login extends Component {
     constructor(props, ref) {
         super(props)
+        this.onSuccess = this.onSuccess.bind(this)
+        this.state={
+            user:null
+        }
         console.log("login created")
       }
-    onSuccess = (res)=> {
+    onSuccess = async (res)=> {
         console.log("success", res)
         refreshTokenSetup(res)
         var data = {'accountId': res.profileObj.googleId, 'token': res.accessToken};
         console.log(data)
-        fetch("/login", {
+        await fetch("/login", {
             method: "POST",
             body: JSON.stringify(data)
-    }).catch(function () {
-        console.log("fail login with server");
-    });
+        }).then(()=>{
+            this.setState({user: res.profileObj})
+            $('#login').attr("style", "display:none");
+            }    
+        )
+        
+        
     }
 
     onFail = (res)=> {
@@ -53,7 +62,7 @@ class Login extends Component {
     render () {
 
     return (
-        <div>
+        <div id="login">
             <GoogleLogin
             clientId={clientId}
             buttonText="Login"
