@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Navbar, Nav,Dropdown } from 'react-bootstrap'
 import layoutHelpers from './helpers'
-
+import Login from '../../components/Login'
 class LayoutNavbar extends Component {
   constructor(props) {
     super(props)
@@ -38,11 +38,12 @@ class LayoutNavbar extends Component {
         <Navbar.Collapse>
           <Nav className="align-items-lg-center">
             <Nav.Item>
-              <Nav.Link href="/pages/Login">Login</Nav.Link>
+              {/* <Nav.Link href="/pages/Login">Login</Nav.Link> */}
+              <Login/>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link href="/pages/Register">Register</Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             </Nav>
             <Nav className="align-items-lg-center ml-auto">
               <div className="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-3 ml-1">|</div>
