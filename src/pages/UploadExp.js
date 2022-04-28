@@ -4,6 +4,7 @@ import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button
 import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
 import { DropdownButton, Dropdown } from 'react-bootstrap'
+import BounceLoader from "react-spinners/BounceLoader";
 
 // import * as Chartjs from 'react-chartjs-2'
 // import ReactChartjs2 from '../components/ReactChartjs2';
@@ -18,23 +19,19 @@ class Experiment extends React.Component {
     this.state = {
       claim_id: 0,
       claims: [],
-      value: 'select'
+      value: 'select',
+      show: ["block", "none"],
+      curTab: 0,
+      lastTab : 0,
+      isSearching: false,
+      showHeadline:false
      }
   }
   
   change = (event)=>{
     this.setState({value: event.target.value});
   }
-//   handleSubmit = async event =>{
-//     console.log("handleSubmit")
-//     //  get claim
-//     // console.log(claim_id)
-//     await this.setState({claim_id: "51"})
 
-//     this.addMoreTweets();
-//   // await this.g()  
-
-// }
 
   async claims() {
   
@@ -51,7 +48,8 @@ class Experiment extends React.Component {
 }
 
   async addMoreTweets() {
-  
+    this.setState({showHeadline:false})
+    this.setState({isSearching:true})
     // $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
     console.log("*****" , "addMoreTweets")
     console.log("id" , this.state.value)
@@ -67,13 +65,13 @@ class Experiment extends React.Component {
     var tweet_htmls = await res.json()
     var IQS_tweet = tweet_htmls["IQS"]
     var ALMIK_tweet = tweet_htmls["ALMIK"]
-    console.log("ALMIK_tweet" , tweet_htmls)
+    // ALMIK
     if (ALMIK_tweet.length > 0) {
       console.log("tweet_htmls.length > 0")
       ALMIK_tweet.forEach((html) => getTweetDiv(html, "ALMIK"));
 
         function getTweetDiv(tweet_html, index) {
-          console.log("tweet_html" , tweet_html)
+          console.log("ALMIK_tweet" , tweet_html)
 
           console.log("getTweetDiv")
             // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
@@ -91,16 +89,52 @@ class Experiment extends React.Component {
           console.log(`#tweetsContainer_${index}`)
           $(`#tweetsContainer_${index}`).append($div);
         }
-    } else {
-        // $("#load").hide();
-    }
+    } 
+    // IQS
+    if (IQS_tweet.length > 0) {
+      console.log("tweet_htmls.length > 0")
+      IQS_tweet.forEach((html) => getTweetDiv(html, "IQS"));
+
+        function getTweetDiv(tweet_html, index) {
+          console.log("IQS_tweet" , tweet_html)
+
+          console.log("getTweetDiv")
+            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
+            // $div.html(tweet_html);
+            var object = {
+              id: "divID",
+              class: "tweetCard",
+              css: {
+                  "width": "15",
+                  "padding-right": "25%"
+              }
+          };
+          var $div = $("<div>", object);
+          $div.html(tweet_html);
+          console.log(`#tweetsContainer_${index}`)
+          $(`#tweetsContainer_${index}`).append($div);
+        }
+      }
+      this.setState({isSearching:false})
+      this.setState({showHeadline:true})
 }
 componentDidMount(){
   // this.addMoreTweets()
   this.claims()
 }
 
-
+handleTabs(selectedKey){
+  console.log("handleTabs")
+  console.log(selectedKey)
+  console.log(this.state.lastTab)
+  var compArr = this.state.show
+  // var lastComp = this.state.resultComponents[this.state.lastTab]
+  compArr[this.state.lastTab]= "none"
+  compArr[selectedKey] =  "block"
+  console.log(compArr)
+  this.setState({show: compArr})
+  this.setState({lastTab : selectedKey})
+}
   render() {
     
     return (
@@ -111,12 +145,16 @@ componentDidMount(){
         {/* {this.claims()} */}
         {/* {this.addMoreTweets()} */}
         {/* <FileUpload ref={this.state.oref}></FileUpload> */}
-
-        <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
+        <center>
+        <h3 className="font-weight-bold py-3 mb-4">
+        <span className="text-muted font-weight-light">TREC_microblog_2012 /</span> Experiment
+        </h3>
+        </center>
+        <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%" }}>
           <Card.Body>
             
-        <div class="input-group">
-          <select class="custom-select" id="inputGroupSelect04" onChange={this.change} value={this.state.value}>
+        <div class="input-group" style={{textAlign:"center", paddingLeft: "25%"}}>
+          <select class="custom-select" id="inputGroupSelect04" onChange={this.change} value={this.state.value} style={{width:"80%"}}>
           <option >Choose a claim...</option>
             {this.state.claims.map(c => {
                      return ( 
@@ -132,11 +170,28 @@ componentDidMount(){
         </Card>
         {/* </center> */}
         <hr></hr>      
-        <center>
-          <h2> Search Results</h2>
-        </center>
-        <div className="row" id={`tweetsContainer_ALMIK`} style={{display: this.props.show}}></div>  
-        {/* <div className="row" id={`tweetsContainer_IQS`} style={{display: this.props.show}}></div>   */}
+        <Nav variant="pills" defaultActiveKey={0} onSelect={(selectedKey) => this.handleTabs(selectedKey)}>
+          <Nav.Link eventKey={0} >IQS</Nav.Link>
+          <Nav.Link eventKey={1} >ALMIK</Nav.Link>
+
+        </Nav>
+        <hr></hr>      
+
+        <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={100} /> : null} </center>
+
+        <div className="row" style={{display: this.state.show[1]}}>
+          <center>
+          { this.state.showHeadline ?<h3> ALMIK Experiment Results</h3> : null}
+          </center>
+        <div className="row" id={`tweetsContainer_ALMIK`} style={{display: this.state.show[1]}}></div>
+        </div> 
+
+        <div className="row" style={{display: this.state.show[0]}}>
+          <center>
+          { this.state.showHeadline ?<h3> IQS Experiment Results</h3> : null}
+          </center> 
+        <div className="row" id={`tweetsContainer_IQS`} style={{display: this.state.show[0]}}></div>  
+        </div> 
 
       </div>
     )
