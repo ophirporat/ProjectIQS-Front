@@ -73,6 +73,8 @@ class Experiment extends React.Component {
       ALMIK_tweet.forEach((html) => getTweetDiv(html, "ALMIK"));
 
         function getTweetDiv(tweet_html, index) {
+          console.log("tweet_html" , tweet_html)
+
           console.log("getTweetDiv")
             // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
             // $div.html(tweet_html);
@@ -112,6 +114,7 @@ componentDidMount(){
 
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
           <Card.Body>
+            
         <div class="input-group">
           <select class="custom-select" id="inputGroupSelect04" onChange={this.change} value={this.state.value}>
           <option >Choose a claim...</option>
@@ -122,17 +125,9 @@ componentDidMount(){
                    )})}
           </select>
           <div class="input-group-append">
-            <button onClick={this.addMoreTweets} class="btn btn-outline-secondary" type="button" >Run</button>
+            <button onClick={this.addMoreTweets} class="btn btn-outline-secondary" type="button" ><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run</button>
           </div>
         </div>
-        {/* <br/> */}
-        {/* <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button> */}
-        <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-        <div style={{paddingLeft:"10%"}}>
-        <Button  id="search_btn" size="lg" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run</Button>
-        </div>
-        <br></br>
-        </Form>
         </Card.Body>
         </Card>
         {/* </center> */}
@@ -140,7 +135,9 @@ componentDidMount(){
         <center>
           <h2> Search Results</h2>
         </center>
-        <div className="row" id={`tweetsContainer_ALMIK}`}></div>  
+        <div className="row" id={`tweetsContainer_ALMIK`} style={{display: this.props.show}}></div>  
+        {/* <div className="row" id={`tweetsContainer_IQS`} style={{display: this.props.show}}></div>   */}
+
       </div>
     )
   }
