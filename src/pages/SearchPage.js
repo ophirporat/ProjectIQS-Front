@@ -8,6 +8,7 @@ import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 import ClipLoader from "react-spinners/ClipLoader";
 import Results from '../components/SearchResults';
+import eventBus from "../EventBus";
 
 
 class SearchResults extends React.Component {
@@ -55,6 +56,12 @@ class SearchResults extends React.Component {
       search_method: 0
   
      }
+  }
+  componentDidMount = ()=>{
+    if(eventBus.search_text != ""){
+      $("#prototype").val(eventBus.search_text)
+    }
+    
   }
 
 handleSubmit = async event =>{
