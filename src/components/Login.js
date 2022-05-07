@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GoogleLogin} from 'react-google-login'
+import {GoogleLogin, GoogleLogout} from 'react-google-login'
 import $ from 'jquery';
 import eventBus from "../EventBus";
 
@@ -36,6 +36,7 @@ class Login extends Component {
     constructor(props, ref) {
         super(props)
         this.onSuccess = this.onSuccess.bind(this)
+
         this.state = {
             user:null,
             // isSignedIn:false,
@@ -87,6 +88,7 @@ class Login extends Component {
     render () {
 
     return (
+        <div>
         <div id="login">
             <GoogleLogin
             clientId={clientId}
@@ -99,6 +101,7 @@ class Login extends Component {
             className="auth"
             isSignedIn={eventBus.userStore !== null}
                 />
+        </div>
         </div>
     )
     

@@ -6,12 +6,15 @@ import { Navbar, Nav,Dropdown } from 'react-bootstrap'
 import layoutHelpers from './helpers'
 import Login from '../../components/Login'
 import eventBus from "../../EventBus";
+import Logout from '../../components/Logout'
 
 class LayoutNavbar extends Component {
   constructor(props) {
     super(props)
     this.isRTL = document.documentElement.getAttribute('dir') === 'rtl'
     this.handler = this.handler.bind(this)
+    this.logOut = this.logOut.bind(this)
+
       this.state  = {
         loginRef : React.createRef(),
         isLogined: false
@@ -36,6 +39,10 @@ class LayoutNavbar extends Component {
         isLogined: eventBus.userStore !== null
     })
     })
+  }
+  logOut() {
+    eventBus.userStore = null;
+    this.setState({isLogined: false})
   }
 
   render() {
@@ -62,7 +69,7 @@ class LayoutNavbar extends Component {
           <Nav className="align-items-lg-center">
             <Nav.Item>
               {/* <Nav.Link href="/pages/Login">Login</Nav.Link> */}
-             <Login ref={this.state.loginRef} handler = {this.handler}/>
+             {!this.state.isLogined ? <Login ref={this.state.loginRef} handler={this.handler}/> : null}
             </Nav.Item>
             {/* <Nav.Item>
               <Nav.Link href="/pages/Register">Register</Nav.Link>
@@ -85,7 +92,8 @@ class LayoutNavbar extends Component {
                 {/* <Dropdown.Item hred="#"><i className="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</Dropdown.Item>
                 <Dropdown.Item hred="#"><i className="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</Dropdown.Item> */}
                 <Dropdown.Divider />
-                <Dropdown.Item onClick={() => console.log("x")} hred="#"><i className="ion ion-ios-log-out text-danger"></i> &nbsp; Log Out</Dropdown.Item>
+                {/* &nbsp; */}
+                <Dropdown.Item onClick={() => this.logOut()} hred="#">  <Logout/></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown> : null}
           </Nav>

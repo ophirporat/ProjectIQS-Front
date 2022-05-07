@@ -60,6 +60,7 @@ class SearchResults extends React.Component {
   componentDidMount = ()=>{
     if(eventBus.search_text != ""){
       $("#prototype").val(eventBus.search_text)
+      eventBus.search_text = ''
     }
     
   }
