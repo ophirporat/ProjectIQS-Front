@@ -34,89 +34,88 @@ class Experiment extends React.Component {
 
 
   async claims() {
-  
     console.log("*****" , "get claims")
-    // var data = {"search_id": this.state.id}
     var res = await fetch("/get_claimes", {
         method: "GET",
         headers: {'Content-Type': 'application/json' }})
-    // console.log(res)
     var all_claims = await res.json()
-    // console.log(tweet_htmls)
-    console.log(all_claims)
+    // console.log(all_claims)
     await this.setState({claims: all_claims})
 }
 
   async addMoreTweets() {
-    this.setState({showHeadline:false})
-    this.setState({isSearching:true})
-    // $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
-    console.log("*****" , "addMoreTweets")
-    console.log("id" , this.state.value)
+    if (this.state.value.length < 6 ){
+      this.setState({showHeadline:false})
+      this.setState({isSearching:true})
+      // var tweetsContainerDiv = document.getElementById(`tweetsContainer_ALMIK}`);
+      // var newTweetsContainerDiv= document.createElement('div')
+      // newTweetsContainerDiv.id = `tweetsContainer_ALMIK}`
+      // newTweetsContainerDiv.className="row"
+      // var show_tweetsDiv = document.getElementById(`show_tweets_ALMIK}`);
+      // show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
+      // var tweetsContainerDiv = document.getElementById(`tweetsContainer_IQS}`);
+      // var newTweetsContainerDiv= document.createElement('div')
+      // newTweetsContainerDiv.id = `tweetsContainer_IQS}`
+      // newTweetsContainerDiv.className="row"
+      // var show_tweetsDiv = document.getElementById(`show_tweets_IQS}`);
+      // show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
+      // $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
+      console.log("*****" , "addMoreTweets")
+      console.log("id" , this.state.value)
+      var data = {"claim_id": this.state.value}
 
-    // var data = {"search_id": this.state.claim_id}
-    var data = {"claim_id": this.state.value}
+      var res = await fetch("/get_experiment_tweets", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {'Content-Type': 'application/json' }})
+      var tweet_htmls = await res.json()
+      var IQS_tweet = tweet_htmls["IQS"]
+      var ALMIK_tweet = tweet_htmls["ALMIK"]
+      // ALMIK
+      if (ALMIK_tweet.length > 0) {
+        ALMIK_tweet.forEach((html) => getTweetDiv(html, "ALMIK"));
 
-    var res = await fetch("/get_experiment_tweets", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {'Content-Type': 'application/json' }})
-    // console.log(res)
-    var tweet_htmls = await res.json()
-    var IQS_tweet = tweet_htmls["IQS"]
-    var ALMIK_tweet = tweet_htmls["ALMIK"]
-    // ALMIK
-    if (ALMIK_tweet.length > 0) {
-      console.log("tweet_htmls.length > 0")
-      ALMIK_tweet.forEach((html) => getTweetDiv(html, "ALMIK"));
+          function getTweetDiv(tweet_html, index) {
+            // console.log("getTweetDiv")
+              var object = {
+                id: "divID",
+                class: "tweetCard",
+                css: {
+                    "width": "15",
+                    "padding-right": "25%",
+                    "float":"left"
+                }
+            };
+            var $div = $("<div>", object);
+            $div.html(tweet_html);
+            // console.log(`#tweetsContainer_${index}`)
+            $(`#tweetsContainer_${index}`).append($div);
+          }
+      } 
+      // IQS
+      if (IQS_tweet.length > 0) {
+        IQS_tweet.forEach((html) => getTweetDiv(html, "IQS"));
 
-        function getTweetDiv(tweet_html, index) {
-          console.log("ALMIK_tweet" , tweet_html)
-
-          console.log("getTweetDiv")
-            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
-            // $div.html(tweet_html);
-            var object = {
-              id: "divID",
-              class: "tweetCard",
-              css: {
-                  "width": "15",
-                  "padding-right": "25%"
-              }
-          };
-          var $div = $("<div>", object);
-          $div.html(tweet_html);
-          console.log(`#tweetsContainer_${index}`)
-          $(`#tweetsContainer_${index}`).append($div);
+          function getTweetDiv(tweet_html, index) {
+            // console.log("getTweetDiv")
+              var object = {
+                id: "divID",
+                class: "tweetCard",
+                css: {
+                    "width": "15",
+                    "padding-right": "25%",
+                    "float":"left"
+                }
+            };
+            var $div = $("<div>", object);
+            $div.html(tweet_html);
+            // console.log(`#tweetsContainer_${index}`)
+            $(`#tweetsContainer_${index}`).append($div);
+          }
         }
-    } 
-    // IQS
-    if (IQS_tweet.length > 0) {
-      console.log("tweet_htmls.length > 0")
-      IQS_tweet.forEach((html) => getTweetDiv(html, "IQS"));
-
-        function getTweetDiv(tweet_html, index) {
-          console.log("IQS_tweet" , tweet_html)
-
-          console.log("getTweetDiv")
-            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
-            // $div.html(tweet_html);
-            var object = {
-              id: "divID",
-              class: "tweetCard",
-              css: {
-                  "width": "15",
-                  "padding-right": "25%"
-              }
-          };
-          var $div = $("<div>", object);
-          $div.html(tweet_html);
-          console.log(`#tweetsContainer_${index}`)
-          $(`#tweetsContainer_${index}`).append($div);
-        }
+        this.setState({isSearching:false})
+        this.setState({showHeadline:true})
       }
-      this.setState({isSearching:false})
-      this.setState({showHeadline:true})
 }
 componentDidMount(){
   // this.addMoreTweets()
@@ -147,14 +146,27 @@ handleTabs(selectedKey){
         {/* <FileUpload ref={this.state.oref}></FileUpload> */}
         <center>
         <h3 className="font-weight-bold py-3 mb-4">
-        <span className="text-muted font-weight-light">TREC_microblog_2012 /</span> Experiment
+        <span className="text-muted font-weight-light">IQS vs. ALMIK /</span> Experiment
         </h3>
+        <h5>In this experiment we reproduced the experiment performed from the academic paper.</h5>
+        <h5>We run the IQS algorithm and the ALMIK algorithm on the TREC Microblog 2012 dataset.</h5>
+        <br></br>
+        <h5 style={{width:"55%" }}>The ALMIK method is a state-of-the-art active retrieval method proposed by Zheng & Sun (2019). We implemented the ALMIK method based on the method description presented in their paper.</h5>
+        <h5 style={{width:"62%" }}>In the following experiment, we used the Twitter TREC Microblog 2012 dataset.
+          The Twitter TREC Microblog 2012 consists of 59 topics (used as initial queries) and 73K judgments (relevant and irrelevant tweets) for those
+335 topics. The corpus was collected over two weeks, from January 23, 2011, to February 7, 2011, containing 16M tweets.</h5>
+<br></br>
+<h5 style={{fontSize:"18px"}}>
+<b>The experiment contains 58 claims and retrieves the most relevant tweets from the datasets.</b>
+  <br></br>
+  <b>Here, you can search for a claim and retrieve the experiment results from both algorithms.</b></h5>
+
         </center>
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%" }}>
           <Card.Body>
             
-        <div class="input-group" style={{textAlign:"center", paddingLeft: "25%"}}>
-          <select class="custom-select" id="inputGroupSelect04" onChange={this.change} value={this.state.value} style={{width:"80%"}}>
+        <div class="input-group" style={{ textAlign:"center", paddingLeft: "20%"}}>
+          <select class="custom-select" id="inputGroupSelect04" onChange={this.change} value={this.state.value} style={{fontSize:"120%",width:"80%"}}>
           <option >Choose a claim...</option>
             {this.state.claims.map(c => {
                      return ( 
@@ -178,20 +190,23 @@ handleTabs(selectedKey){
         <hr></hr>      
 
         <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={100} /> : null} </center>
+        <div id={`show_tweets_ALMIK`}>
+          <div  style={{display: this.state.show[1]}}>
+            <center>
+            { this.state.showHeadline ?<h3> ALMIK Experiment Results</h3> : null}
+            </center>
+            <div className="col" id={`tweetsContainer_ALMIK`} style={{display: this.state.show[1]}}></div>
+          </div> 
+        </div>
 
-        <div className="row" style={{display: this.state.show[1]}}>
-          <center>
-          { this.state.showHeadline ?<h3> ALMIK Experiment Results</h3> : null}
-          </center>
-        <div className="row" id={`tweetsContainer_ALMIK`} style={{display: this.state.show[1]}}></div>
-        </div> 
-
-        <div className="row" style={{display: this.state.show[0]}}>
-          <center>
-          { this.state.showHeadline ?<h3> IQS Experiment Results</h3> : null}
-          </center> 
-        <div className="row" id={`tweetsContainer_IQS`} style={{display: this.state.show[0]}}></div>  
-        </div> 
+        <div  id={`show_tweets_IQS`}>
+          <div style={{display: this.state.show[0]}}>
+            <center>
+            { this.state.showHeadline ?<h3> IQS Experiment Results</h3> : null}
+            </center> 
+            <div className="col" id={`tweetsContainer_IQS`} style={{display: this.state.show[0], width:"150%"}}></div>  
+          </div> 
+        </div>
 
       </div>
     )
