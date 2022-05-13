@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
-import { Card, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
+import { Card, OverlayTrigger, Tooltip, Button, Collapse } from 'react-bootstrap'
 import eventBus from "../EventBus";
 import { Redirect } from 'react-router-dom';
+import Modals from '../components/modals';
+import ReactChartjs2 from '../components/ReactChartjs2';
+
 
 class History extends Component {
   constructor(props) {
     super(props)
     props.setTitle('History')
     this.getHistoryFromServer = this.getHistoryFromServer.bind(this)
+    this.getChart = this.getChart.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.isExpanded = this.isExpanded.bind(this)
+
+
     // this.getDate = this.getDate.bind(this)
 
     this.state = {
         historyData:[],
         redirect:null,
+        expanded: {},
+
     //   vacanciesData: [{
     //     title: 'Account Director',
     //     description: 'Donec dui risus, sagittis non congue vitae, auctor ornare ex. Aliquam hendrerit, odio vel dictum volutpat, nulla sapien venenatis tellus, vel aliquam enim eros vel ligula. Duis dictum, tellus et feugiat viverra, justo velit vestibulum ex, nec malesuada ex ligula consectetur mi.',
@@ -48,6 +58,7 @@ class History extends Component {
   }
   componentDidMount(){
       this.getHistoryFromServer()
+
     // this.setState({historyData:this.getHistoryFromServer()})
   }
   getHistoryFromServer =async ()=> {
@@ -60,6 +71,9 @@ class History extends Component {
     var response = await res.json()
     this.setState({historyData: response})
     console.log(response)
+    const expand = {} 
+    response.forEach((history) => expand[history.search_id] = false)
+    this.setState({expanded: expand})
     return response
   }
   prevent(e) {
@@ -79,11 +93,38 @@ class History extends Component {
 //     ":"+date.getSeconds()
 //     return dateString
 //   }
+getChart = (history) => {
+  const iteration_array = []
+  for(var i =1;i<=Number(history.wmds.length);i++){
+      iteration_array.push(i)
+    }
+return <ReactChartjs2 labels={iteration_array} dataset={history.wmds}></ReactChartjs2>
+
+}
+toggle = (e, id) => {
+  e.preventDefault()
+  console.log(id)
+  const expanded = {...this.state.expanded}
+  
+  if (expanded.hasOwnProperty(id)) {
+    expanded[id] = !expanded[id]
+  } else {
+    expanded[id] = true
+  }
+
+  this.setState({"expanded": expanded })
+  console.log(this.state.expanded)
+}
+isExpanded = (id) => {
+  console.log(this.state.expanded)
+  return this.state.expanded[id]
+  // return false
+}
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to={this.state.redirect} />
+    // }
     return (
       <div>
 
@@ -121,15 +162,20 @@ class History extends Component {
                   <div className="mt-3 mb-4">
                     {history.text}
                   </div>
-                  <Button variant="primary rounded-pill" onClick={() => this.handleClick(history)}>to Iqs search</Button>
+                  <div className="theme-bg-white ui-bordered mb-2" >
+              <a href="#toggle"  onClick={e => this.toggle(e, history.search_id)} aria-expanded={String(this.isExpanded(history.search_id))} className="d-flex justify-content-between text-body py-1 px-2">
+              <strong>MMD Chart 🡣</strong>
+                <span  className="collapse-icon d-inline-block ml-1"></span>
+              </a>
+                <div className="px-4 pb-3">
+                {this.isExpanded(history.search_id) ?<ReactChartjs2 labels={ Array.from(new Array(history.wmds.length),(val,index)=> index+1 ) } dataset={history.wmds}></ReactChartjs2> : null}
                 </div>
-                /* {index !== (this.state.historyData.length - 1) && <hr className="border-light m-0" />} */
+                </div>
+                </div>
 
-            //   </div>
             )}
           </Card>
         </div>
-
       </div>
     )
   }

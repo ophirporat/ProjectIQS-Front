@@ -93,7 +93,7 @@ class LayoutNavbar extends Component {
                 <Dropdown.Item hred="#"><i className="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</Dropdown.Item> */}
                 <Dropdown.Divider />
                 {/* &nbsp; */}
-                <Dropdown.Item onClick={() => this.logOut()} hred="#">  <Logout/></Dropdown.Item>
+                <Dropdown.Item onClick={() => this.logOut()} hred="#"><Logout/></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown> : null}
           </Nav>
