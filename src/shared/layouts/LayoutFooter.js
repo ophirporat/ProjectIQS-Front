@@ -26,10 +26,13 @@ class LayoutFooter extends Component {
       </div>
       <Modal size="lg" show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title><h3>About us</h3></Modal.Title>
+            <Modal.Title><h4>About us</h4></Modal.Title>
           </Modal.Header>
-          <Modal.Body><h4>We are Ophir Porat, Ori Ben-Artzy and Mor Zweig, students in the department of Software and Information Systems Engineering at Ben Gurion University of the Negev.</h4>
-             <h4>This site is our final project under the guidance of Mr. Aviad Elishar and Mr. Maor Reuven.</h4>
+          <Modal.Body>
+          <center>            
+            <h5>We are Ophir Porat, Ori Ben-Artzy and Mor Zweig, students in the department of Software and Information Systems Engineering at Ben Gurion University of the Negev.</h5>
+             <h5>This site is our final project under the guidance of Dr. Aviad Elishar and Mr. Maor Reuven.</h5>
+             </center>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={this.closeModal}>
@@ -37,6 +40,7 @@ class LayoutFooter extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+
       </nav>
     )
   }

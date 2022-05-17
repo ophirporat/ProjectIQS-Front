@@ -64,5 +64,8 @@ export const routes = [
     path: '/pages/Experiment',
     component: lazy(() => import('./pages/UploadExp'))
   }
-  
+  ,{
+    path: '/pages/PyPackage',
+    component: lazy(() => import('./pages/PyPackage'))
+  }
 ]

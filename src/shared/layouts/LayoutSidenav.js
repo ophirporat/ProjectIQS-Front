@@ -50,11 +50,13 @@ class LayoutSidenav extends Component {
           {/* <Sidenav.Divider className="my-0" /> */}
           {/* <Sidenav.RouterLink to="/pages/Upload" exact={true} icon="ion ion-md-cloud-upload">Search File</Sidenav.RouterLink> */}
           {/* <Sidenav.Divider className="my-0" /> */}
-          <Sidenav.RouterLink to="/pages/IQS" exact={true} icon="ion ion-md-help-circle-outline">Iterative Query Selection</Sidenav.RouterLink>
-          <Sidenav.Divider className="my-0" />
           <Sidenav.RouterLink to="/pages/search-results" exact={true} icon="ion ion-md-search">Search Page</Sidenav.RouterLink>
           <Sidenav.Divider className="my-0" />
           <Sidenav.RouterLink to="/pages/Experiment" exact={true} icon="ion ion-md-clipboard">Experiment</Sidenav.RouterLink>
+          <Sidenav.Divider className="my-0" />
+          <Sidenav.RouterLink to="/pages/IQS" exact={true} icon="ion ion-md-help-circle-outline">Iterative Query Selection</Sidenav.RouterLink>
+          <Sidenav.Divider className="my-0" />
+          <Sidenav.RouterLink to="/pages/PyPackage" exact={true} icon="ion ion-ios-code">Python Package</Sidenav.RouterLink>
           <Sidenav.Divider className="my-0" />
 
           {/* <Sidenav.Divider className="my-0" />
