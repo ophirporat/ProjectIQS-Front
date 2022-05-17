@@ -7,6 +7,8 @@ import '../components/searchIQS.css'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 import ClipLoader from "react-spinners/ClipLoader";
+import userStore from "../EventBus";
+
 
 
 class Results extends React.Component {
@@ -25,6 +27,8 @@ class Results extends React.Component {
     this.setSearchUpdatesListener = this.setSearchUpdatesListener.bind(this)
     this.timeout = this.timeout.bind(this)
     this.handleCheckbox = this.handleCheckbox.bind(this)
+    this.saveSearch = this.saveSearch.bind(this)
+
 
 
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this)
@@ -49,7 +53,8 @@ class Results extends React.Component {
       iteration_arr:[],
       isSearching: false,
       search_method: 0,
-      index: this.props.data.index
+      index: this.props.data.index,
+      loginUser: userStore.userStore
   
      }
 
@@ -82,14 +87,13 @@ async g (){
         method: "POST",
         body: JSON.stringify(data)})
     
-    var search_id = await res.json();     
+    var search_id = await res.json();
     temp_search_ids.push(search_id)
         
         
     this.setSearchUpdatesListener(search_id);
     await this.search(search_id, temp_search_ids)
-    
-
+  
 }
 timeout = (delay)=> {
     // console.log(delay)
@@ -287,13 +291,29 @@ isExpanded(id) {
   prevent(e) {
     e.preventDefault()
   }
+  async saveSearch() {
+    console.log(this.state.loginUser)
+    if(this.state.loginUser){
+      var data = {'accountId': this.state.loginUser.googleId,"document": this.state.text, "token": this.state.loginUser.accessToken, "search_id": this.state.id};
+      var res = await fetch("/postHistory", {
+        method: "POST",
+        body: JSON.stringify(data)
+    }).catch(function () {
+        console.log("exeption saveSearch");
+        // wait_time = wait_time * 2;
+        // setTimeout(this.stopSearchs(), 10 * 1000);
+    });
+
+      // console.log(this.state.loginUser)
+    }
+
+  }
   
   render() {
     
     
     return (
       <div id="searchResultContainter" style={{display: this.props.show}}>
-        
         <div id="chartdiv" >
           { this.props.show != 'none' & !this.state.isSearching ?
            <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.wmdDataset}></ReactChartjs2> 
@@ -317,12 +337,13 @@ isExpanded(id) {
           {/* <hr></hr> */}
           </div>
           { this.props.show != 'none' & !this.state.isSearching ? <center>
-          <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
+          <Button id="load" size="md" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
+          { this.state.loginUser ? <Button id="save" size="md" variant="primary" className="rounded-pill" onClick={this.saveSearch}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Save</Button> : null}
+
           </center> : null}
         </div>
         </center>
-
-        
+      
       </div>
     )
   }

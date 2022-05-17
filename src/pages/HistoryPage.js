@@ -136,10 +136,10 @@ isExpanded = (id) => {
               {/* text */}
           </div>
 
-          <Card className="mt-5">
             {this.state.historyData.map((history) =>
-            
-            //   <div key={history.index} >
+            <Card className="mt-5">
+
+               {/* <div key={history.index} > */}
                 <div className="p-4 p-md-5">
                   {/* <a href="#d" onClick={this.prevent} className="text-body text-large font-weight-semibold">{vacancy.title}</a> */}
                   <div className="d-flex flex-wrap mt-3">
@@ -172,9 +172,11 @@ isExpanded = (id) => {
                 </div>
                 </div>
                 </div>
+                </Card>
 
             )}
-          </Card>
+            <hr></hr>
+          
         </div>
       </div>
     )

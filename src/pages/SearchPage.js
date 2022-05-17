@@ -236,9 +236,9 @@ handleTabs(selectedKey){
         </h3> :null}
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
         <div style={{paddingTop:"18px", paddingLeft:"38px"}}>
-              <Form.Check inline type="radio" name="inline-radios-example" id="inline-radios-example-1" label="Free Text" onChange={() => this.handleCheckbox(0)} />
+              <Form.Check inline type="radio" defaultChecked={true} name="inline-radios-example" id="inline-radios-example-1" label="Free Text" onChange={() => this.handleCheckbox(0)} />
               <Form.Check inline type="radio" name="inline-radios-example" id="inline-radios-example-2" label="Upload File"  onChange={() => this.handleCheckbox(1)}/>
-              <Form.Check inline type="radio" disabled name="inline-radios-example" id="inline-radios-example-3" label="URL" />
+              {/* <Form.Check inline type="radio" disabled name="inline-radios-example" id="inline-radios-example-3" label="URL" /> */}
             </div>
           <Card.Body>
         <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
@@ -332,7 +332,7 @@ handleTabs(selectedKey){
             </tbody>
         </table>
         <div style={{paddingLeft:"10%"}}>
-        <Button  id="search_btn" size="lg" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
+        <Button  id="search_btn" size="md" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
         </div>
         </Form>
         </Card.Body>
