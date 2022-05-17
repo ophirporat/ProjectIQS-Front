@@ -12,10 +12,10 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{ backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/20.jpeg')`}}>
+      <div >
+        <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{hight:"auto",width:"100%",backgroundSize: "auto", backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/20.jpeg')`}}>
         <div className="ui-bg-overlay bg-dark opacity-25" ></div>
-        <div >
+        <div>
           <h1 className="font-weight-bold py-3 mb-4" style={{color:"white"}}>Iterative Query Selection</h1>
           <br></br>
           <br></br>
