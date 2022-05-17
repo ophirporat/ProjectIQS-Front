@@ -132,14 +132,14 @@ class IQS extends Component {
                 <div className="px-4 pb-3">The Python package is intended for users with a programming background who can run the IQS algorithm for their needs on different queries, get statistics of the results using multiple measures and more.</div>
               </div></Collapse>
             </div>
-
+            
             <hr className="my-5" />
 
             <h4 id="Article" className="media align-items-center mb-4">
               <div className="ion ion-ios-document ui-w-60 text-center text-large"></div>
               <div className="media-body ml-1">
-              Article - Iterative Query Selection
-                <div className="text-muted text-tiny font-weight-light">Aviad Elyashar, Maor Reuben, and Rami Puzis</div>
+              Article - Iterative Query Selection for Opaque Search Engines with Pseudo Relevance Feedback
+                <div className="text-muted text-tiny font-weight-light">Dr Aviad Elyashar,Mr Maor Reuben, and Dr Rami Puzis</div>
               </div>
             </h4>
             <iframe src='../journal_Elsevier_Iterative_Keyword_Optimization.pdf' width="100%" height="700px"> </iframe>

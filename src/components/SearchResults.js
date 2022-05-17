@@ -6,7 +6,7 @@ import '../components/searchIQS.css'
 // import * as Chartjs from 'react-chartjs-2'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
-import ClipLoader from "react-spinners/ClipLoader";
+import BounceLoader from "react-spinners/BounceLoader";
 
 
 class Results extends React.Component {
@@ -299,8 +299,10 @@ isExpanded(id) {
            <ReactChartjs2 id="mychart"  labels={this.state.iteration_arr} dataset={this.state.wmdDataset}></ReactChartjs2> 
            :
             null}
-            <center>
-            { this.state.isSearching ? <ClipLoader loading={true}  size={100} /> : null} </center>
+                    <div style={{height:60, paddingRight:"10%"}}>
+            <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={70} /> : null} </center>
+            </div>         
+
           </div>         
 
         <center>

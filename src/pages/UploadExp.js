@@ -24,7 +24,8 @@ class Experiment extends React.Component {
       curTab: 0,
       lastTab : 0,
       isSearching: false,
-      showHeadline:false
+      showHeadline:false,
+      firstRun:false
      }
   }
   
@@ -44,22 +45,14 @@ class Experiment extends React.Component {
 }
 
   async addMoreTweets() {
+    if (this.state.firstRun == true){
+      this.clearBox()
+    }
+    this.setState({firstRun:true})
+
     if (this.state.value.length < 6 ){
       this.setState({showHeadline:false})
       this.setState({isSearching:true})
-      // var tweetsContainerDiv = document.getElementById(`tweetsContainer_ALMIK}`);
-      // var newTweetsContainerDiv= document.createElement('div')
-      // newTweetsContainerDiv.id = `tweetsContainer_ALMIK}`
-      // newTweetsContainerDiv.className="row"
-      // var show_tweetsDiv = document.getElementById(`show_tweets_ALMIK}`);
-      // show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
-      // var tweetsContainerDiv = document.getElementById(`tweetsContainer_IQS}`);
-      // var newTweetsContainerDiv= document.createElement('div')
-      // newTweetsContainerDiv.id = `tweetsContainer_IQS}`
-      // newTweetsContainerDiv.className="row"
-      // var show_tweetsDiv = document.getElementById(`show_tweets_IQS}`);
-      // show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
-      // $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
       console.log("*****" , "addMoreTweets")
       console.log("id" , this.state.value)
       var data = {"claim_id": this.state.value}
@@ -134,6 +127,27 @@ handleTabs(selectedKey){
   this.setState({show: compArr})
   this.setState({lastTab : selectedKey})
 }
+
+clearBox = async()=>
+{
+    // ALMIK
+    console.log("clearBox")
+    var tweetsContainerDiv = document.getElementById(`tweetsContainer_ALMIK`);
+    var newTweetsContainerDiv= document.createElement('div')
+    newTweetsContainerDiv.id = `tweetsContainer_ALMIK`
+    newTweetsContainerDiv.className="row"
+    var show_tweetsDiv = document.getElementById(`show_tweets_ALMIK`);
+    show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv);
+    // IQS
+    var tweetsContainerDiv = document.getElementById(`tweetsContainer_IQS`);
+    console.log("tweetsContainerDiv", tweetsContainerDiv)
+    var newTweetsContainerDiv= document.createElement('div')
+    newTweetsContainerDiv.id = `tweetsContainer_IQS`
+    newTweetsContainerDiv.className="row"
+    var show_tweetsDiv = document.getElementById(`show_tweets_IQS`);
+    console.log("show_tweetsDiv", show_tweetsDiv)
+    show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv);
+}
   render() {
     
     return (
@@ -185,28 +199,26 @@ handleTabs(selectedKey){
         <Nav variant="pills" defaultActiveKey={0} onSelect={(selectedKey) => this.handleTabs(selectedKey)}>
           <Nav.Link eventKey={0} >IQS</Nav.Link>
           <Nav.Link eventKey={1} >ALMIK</Nav.Link>
-
         </Nav>
-        <hr></hr>      
+        <hr></hr>
 
-        <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={100} /> : null} </center>
-        <div id={`show_tweets_ALMIK`}>
-          <div  style={{display: this.state.show[1]}}>
+        <div style={{height:60, paddingRight:"10%"}}>
+        <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={70} /> : null} </center>
+        </div>
+
+          <div  id={`show_tweets_ALMIK`} style={{display: this.state.show[1]}}>
             <center>
             { this.state.showHeadline ?<h3> ALMIK Experiment Results</h3> : null}
             </center>
-            <div className="col" id={`tweetsContainer_ALMIK`} style={{display: this.state.show[1]}}></div>
+            <div className="row" id="tweetsContainer_ALMIK" style={{display: this.state.show[1]}}></div>
           </div> 
-        </div>
 
-        <div  id={`show_tweets_IQS`}>
-          <div style={{display: this.state.show[0]}}>
+          <div id={`show_tweets_IQS`} style={{display: this.state.show[0]}}>
             <center>
             { this.state.showHeadline ?<h3> IQS Experiment Results</h3> : null}
             </center> 
-            <div className="col" id={`tweetsContainer_IQS`} style={{display: this.state.show[0], width:"150%"}}></div>  
+            <div className="row" id="tweetsContainer_IQS" style={{display: this.state.show[0]}}></div>  
           </div> 
-        </div>
 
       </div>
     )
