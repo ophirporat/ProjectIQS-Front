@@ -36,6 +36,8 @@ class Logout extends Component {
             clientId={clientId}
             buttonText="Logout"
             onLogoutSuccess={this.onLogoutSuccess}
+            className="rounded-pill"
+
             />
             
         </div>

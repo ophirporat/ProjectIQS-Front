@@ -21,16 +21,16 @@ const clientId = '787276663684-065822sghlfajpjuo5ofd8ethbu35cc0.apps.googleuserc
 //     return {userId, email, fullName: name, photoUrl: picture}
 // }
 
-const refreshTokenSetup= (res) => {
-    let refreshTiming = (res.tokenObj.expies_in || 3600 - 5 *60)*1000;
-    const refreshToken = async () => {
-        const newAuthRes = await res.reloadAuthResponse();
-        refreshTiming = (newAuthRes.expies_in || 3600 - 5 * 60)* 1000;
-        console.log('newAuthToken', refreshTiming)
-        setTimeout(refreshToken, refreshTiming)
-    }
-    setTimeout(refreshToken, refreshTiming)
-}
+// const refreshTokenSetup= (res) => {
+//     let refreshTiming = (res.tokenObj.expies_in || 3600 - 5 *60)*1000;
+//     const refreshToken = async () => {
+//         const newAuthRes = await res.reloadAuthResponse();
+//         refreshTiming = (newAuthRes.expies_in || 3600 - 5 * 60)* 1000;
+//         console.log('newAuthToken', refreshTiming)
+//         setTimeout(refreshToken, refreshTiming)
+//     }
+//     setTimeout(refreshToken, refreshTiming)
+// }
 
 class Login extends Component {
     constructor(props, ref) {
@@ -46,7 +46,7 @@ class Login extends Component {
       }
     onSuccess = async (res)=> {
         console.log("success", res)
-        refreshTokenSetup(res)
+        // refreshTokenSetup(res)
         var data = {'accountId': res.profileObj.googleId, 'token': res.accessToken};
         console.log(data)
         const response = await fetch("/login", {
@@ -92,13 +92,13 @@ class Login extends Component {
         <div id="login">
             <GoogleLogin
             clientId={clientId}
-            buttonText="Login"
+            buttonText="Sign in with Google"
             onSuccess={this.onSuccess}
             onLogoutSuccess={()=> console.log("logout")}
             onFailure={this.onFail}
             cookiePolicy={'single_host_origin'}
+            className="rounded-pill"
             style={{}}
-            className="auth"
             isSignedIn={eventBus.userStore !== null}
                 />
         </div>

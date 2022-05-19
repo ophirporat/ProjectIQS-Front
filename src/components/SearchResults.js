@@ -1,5 +1,5 @@
 import React, {Component, useRef} from 'react'
-import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
+import { Modal, OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
 // import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
@@ -32,7 +32,7 @@ class Results extends React.Component {
 
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this)
     this.setCurTab = this.setCurTab.bind(this)
-    this.state = { 
+    this.state = {
       text: "",
       search_count: 1,
       iterations: "",
@@ -53,7 +53,9 @@ class Results extends React.Component {
       isSearching: false,
       search_method: 0,
       index: this.props.data.index,
-      loginUser: userStore.userStore
+      loginUser: userStore.userStore,
+      modalMessage: "Seach details saved",
+      showModal: false, 
   
      }
 
@@ -296,12 +298,20 @@ isExpanded(id) {
       var data = {'accountId': this.state.loginUser.googleId,"document": this.state.text, "token": this.state.loginUser.accessToken, "search_id": this.state.id};
       var res = await fetch("/postHistory", {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data)  
     }).catch(function () {
         console.log("exeption saveSearch");
         // wait_time = wait_time * 2;
         // setTimeout(this.stopSearchs(), 10 * 1000);
     });
+    if (res.status < 200 || res.status >= 300){
+      console.log("handle err")
+      this.setState({"modalMessage": "Unauthorized"})
+    }
+    else{
+      this.setState({"modalMessage": "Seach details saved"})
+    }
+    this.setState({"showModal": true})
 
       // console.log(this.state.loginUser)
     }
@@ -339,8 +349,24 @@ isExpanded(id) {
           </div>
           { this.props.show != 'none' & !this.state.isSearching ? <center>
           <Button id="load" size="md" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
-          { this.state.loginUser ? <Button id="save" size="md" variant="primary" className="rounded-pill" onClick={this.saveSearch}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Save</Button> : null}
+          { this.state.loginUser ? <Button id="save" size="md" variant="primary" className="rounded-pill" onClick={this.saveSearch}><span ></span>Save</Button> : null}
 
+        <Modal
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={this.state.showModal}
+      >
+        
+        <Modal.Body>
+          <center>
+          <h4>{this.state.modalMessage}</h4>
+          <Button size="md" variant="primary" className="rounded-pill" onClick={() => this.setState({"showModal" :false})}>OK</Button>
+          </center>
+        </Modal.Body>
+        {/* <Modal.Footer>
+        </Modal.Footer> */}
+      </Modal>
           </center> : null}
         </div>
         </center>

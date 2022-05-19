@@ -99,7 +99,7 @@ handleSubmit = async event =>{
       else{
         this.setState({text: [event.target[0].value]})
         this.setState({FileNum: 1})
-        this.setState({textNames: ["text"]})
+        this.setState({textNames: ["Free text"]})
         this.setState({search_count: event.target[1].value})
         this.setState({iterations: event.target[2].value})
         this.setState({output_keywords_count: event.target[3].value})

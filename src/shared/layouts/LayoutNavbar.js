@@ -69,7 +69,7 @@ class LayoutNavbar extends Component {
           <Nav className="align-items-lg-center">
             <Nav.Item>
               {/* <Nav.Link href="/pages/Login">Login</Nav.Link> */}
-             {!this.state.isLogined ? <Login ref={this.state.loginRef} handler={this.handler}/> : null}
+             {/* {!this.state.isLogined ? <Login ref={this.state.loginRef} handler={this.handler}/> : null} */}
             </Nav.Item>
             {/* <Nav.Item>
               <Nav.Link href="/pages/Register">Register</Nav.Link>
@@ -95,7 +95,7 @@ class LayoutNavbar extends Component {
                 {/* &nbsp; */}
                 <Dropdown.Item onClick={() => this.logOut()} hred="#"><Logout/></Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown> : null}
+            </Dropdown> : <Login ref={this.state.loginRef} handler={this.handler}/>}
           </Nav>
         </Navbar.Collapse>
 
