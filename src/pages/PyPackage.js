@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Media, Button, Collapse, Row, Col } from 'react-bootstrap'
+import { Media, Button, Collapse, Row, Col, Card } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 
 class PyPackage extends Component {
@@ -37,106 +37,82 @@ class PyPackage extends Component {
     return (
       <div>
         <h3 className="text-center font-weight-bold py-3 mb-4">
-        IQS Python Package
+        IQS Python Package Documentation
         </h3>
         <hr className="container-m-nx border-light my-0" />
 
+<br></br>
+        {/* <br></br>
+        <div className="text-xlarge" style={{paddingLeft:"17%"}}>
+        IQS — Iterative Query Selection algorithm
+        </div>
+        <br></br> */}
+        
+        <div className="Row" style={{paddingLeft:"17%",width: "85%"}}>
+        <ReactMarkdown> Implements the IQS algorithm (Iterative Query Selection).
+        The IQS is an iterative approach for optimizing short keyword queries given a prototype document through interaction with an opaque search engine such as Twitter.</ReactMarkdown>
+         </div>
+         <div  style={{paddingLeft:"17%",width: "85%"}}>
+         <h4><bold>Installing</bold></h4>
+        </div>
+        <div className="Row" style={{paddingLeft:"17%",width: "85%"}}>
+        <h5>
+        <ReactMarkdown>
+        `py -m pip install --index-url https://test.pypi.org/simple/ --no-deps testIQS`
+        </ReactMarkdown>
+        </h5>
 
-        <ReactMarkdown> </ReactMarkdown>
-
-        <Row className="mt-4">
-          <Col lg={4} xl={3} >
-
-            <div style={{position: "fixed", width:"18%"}}>
-              <a href="#Q" className="media align-items-center bg-lighter text-body py-3 px-4">
-                <div className="ion ion-md-help-circle-outline ui-w-30 text-center text-xlarge"></div>
-                <Media.Body className="ml-3">
-                Q & A
-                  <div className="text-muted small">Information regarding IQS</div>
-                </Media.Body>
-              </a>
-              <a href="#Article"  className="media align-items-center bg-lighter text-body py-3 px-4">
-                <div className="ion ion-ios-document ui-w-30 text-center text-xlarge"></div>
-                <Media.Body className="ml-3">
-                Article
-                  <div className="text-muted small">Iterative Query Selection</div>
-                </Media.Body>
-              </a>
-            </div>
-
-
-          </Col>
-          <Col>
-
-            <h4 id="Q" className="media align-items-center my-4">
-              <div className="ion ion-md-help-circle-outline ui-w-60 text-center text-large"></div>
-              <Media.Body className="ml-1">
-              Questions & Answers
-                <div className="text-muted text-tiny font-weight-light">Information regarding IQS</div>
-              </Media.Body>
-            </h4>
-
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-1')} aria-expanded={String(this.isExpanded('faq-1'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the Iterative Query Selection Algorithm?
-                <span className="collapse-icon"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-1')} className="text-muted"><div>
-                <div className="px-4 pb-3">The IQS is a hill climbing algorithm that iteratively optimizes short keyword queries given a prototype document through interaction with an opaque search engine. Based on the previous query, every iteration improves it, and the end result is a list of queries, and not just a single best query. Uses WMD (Word’s Mover Distance) measure to evaluate the results.</div>
-              </div></Collapse>
-            </div>
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-2')} aria-expanded={String(this.isExpanded('faq-2'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What sets the algorithm apart from other algorithms in the field?
-                <span className="collapse-icon"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-2')} className="text-muted"><div>
-                <div className="px-4 pb-3">The IQS algorithm handles documents and articles so that it allows researchers, reporters and other users to search for queries beyond a standard search bar. The algorithm retrieves the best search results for that article.</div>
-              </div></Collapse>
-            </div>
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-3')} aria-expanded={String(this.isExpanded('faq-3'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the WMD measure?
-                <span className="collapse-icon"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-3')} className="text-muted"><div>
-                <div className="px-4 pb-3">WMD stands for word’s mover distance. 
-                It estimates the similarity of results to a given prototype document. This measure is calculated by summing the shortest distances between words in the given prototype document and words in the retrieved results. The lower the WMD, the more relevant the retrieved results are.</div>
-              </div></Collapse>
-            </div>
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-4')} aria-expanded={String(this.isExpanded('faq-4'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the purpose of the site?
-                <span className="collapse-icon d-inline-block ml-1"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-4')} className="text-muted"><div>
-                <div className="px-4 pb-3">The web platform presents text-based analysis of posts published on social networks using the IQS algorithm and allows users to compare it visually to other algorithms in a convenient way.</div>
-              </div></Collapse>
-            </div>
-            <div className="theme-bg-white ui-bordered mb-2">
-              <a href="#toggle" onClick={e => this.toggle(e, 'faq-6')} aria-expanded={String(this.isExpanded('faq-6'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the purpose of the Python package?
-                <span className="collapse-icon d-inline-block ml-1"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-6')} className="text-muted"><div>
-                <div className="px-4 pb-3">The Python package is intended for users with a programming background who can run the IQS algorithm for their needs on different queries, get statistics of the results using multiple measures and more.</div>
-              </div></Collapse>
-            </div>
-
-            <hr className="my-5" />
-
-            <h4 id="Article" className="media align-items-center mb-4">
-              <div className="ion ion-ios-document ui-w-60 text-center text-large"></div>
-              <div className="media-body ml-1">
-              Article - Iterative Query Selection for Opaque Search Engines with Pseudo Relevance Feedback
-                <div className="text-muted text-tiny font-weight-light">Aviad Elyashar, Maor Reuben, and Rami Puzis</div>
+        <ReactMarkdown>
+        [IQS python package](https://test.pypi.org/project/testIQS/)        
+        </ReactMarkdown>
+        <h4><bold>The Algorithm Function</bold></h4>
+        <Card>
+          <center>
+            <br></br>
+            <h5><ReactMarkdown>
+          ```
+          searchIQS(text, consumer_key, consumer_secret, access_token, access_token_secret,  num_return_tweets=12, min_tweet_count=3, search_count=1, iterations=15, keywords_start_size=3, max_tweets_per_query=100, output_keywords_count=5)
+          ```
+          </ReactMarkdown></h5>
+          </center>
+          </Card>
+          <br></br>
+          <ReactMarkdown>The function get the details of the most relevant tweets as a list of dict.</ReactMarkdown>
+          <h5><bold>Parameters:</bold></h5>
+•	<b>text</b> <i>(str)</i> – Free text of the requested query.
+<br></br>
+•	<b>consumer_key</b> <i>(str)</i> – Username when making API requests. This key is generated on the Twitter developer app's details page.
+<br></br>
+•	<b>consumer_secret</b> <i>(str)</i> – Password when making API requests. This key is generated on the Twitter developer app's details page.
+<br></br>
+•	<b>access_token</b> <i>(str)</i> – User-specific credentials used to authenticate OAuth 1.0a API requests. It specifies the Twitter account the request is made on behalf of. This token is generated on the Twitter developer app's details page.
+<br></br>
+•	<b>access_token_secret</b> <i>(str)</i> – User-specific credentials used to authenticate OAuth 1.0a API requests. It specifies the Twitter account the request is made on behalf of. This token is generated on the Twitter developer app's details page.
+<br></br>
+•	<b>num_return_tweets</b> <i>(int, optional)</i> – Number of tweets that will be retrieved.
+<br></br>
+•	<b>min_tweet_count</b> <i>(int, optional)</i> – Minimal number of tweets a query should return.
+<br></br>
+•	<b>search_count</b> <i>(int, optional)</i> – Number of hill climbing searches.
+<br></br>
+•	<b>iterations</b> <i>(int, optional)</i> – Number of iterations that the algorithm will run.
+<br></br>
+•	<b>keywords_start_size</b> <i>(int, optional)</i> – Initial random query size.
+<br></br>
+•	<b>max_tweets_per_query</b> <i>(int, optional)</i> – Number of tweets to retrieve per output query.
+<br></br>
+•	<b>output_keywords_count</b> <i>(int, optional)</i> – Number of output queries.
+          <br></br>
+          <br></br>
+          <h5><bold>Returns:</bold></h5>
+          <ReactMarkdown>List of (id, username, text, wmd) - A sorted list of dictionaries that represent tweet information by relevance according to wmd index.</ReactMarkdown>
+          <h5><bold>Return Type:</bold></h5>
+          <ReactMarkdown>list of (int, str, str, float)</ReactMarkdown>
+          <h4><bold>Example</bold></h4>
+          </div>
+          <div id="Examples" style={{paddingLeft:"17%"}}>
+              <img src="../Examples.jpg" alt="Examples" width= "650" height="180"></img>
               </div>
-            </h4>
-            <iframe src='../journal_Elsevier_Iterative_Keyword_Optimization.pdf' width="100%" height="700px"> </iframe>
-
-          </Col>
-        </Row> 
-
       </div>
     )
   }
