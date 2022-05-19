@@ -235,7 +235,7 @@ handleTabs(selectedKey){
           <span className="text-muted font-weight-light">Search /</span> File upload
         </h3> :null}
         <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
-        <div style={{paddingTop:"18px", paddingLeft:"38px"}}>
+        <div style={{paddingTop:"18px", paddingLeft:"140px"}}>
               <Form.Check inline type="radio" defaultChecked={true} name="inline-radios-example" id="inline-radios-example-1" label="Free Text" onChange={() => this.handleCheckbox(0)} />
               <Form.Check inline type="radio" name="inline-radios-example" id="inline-radios-example-2" label="Upload File"  onChange={() => this.handleCheckbox(1)}/>
               {/* <Form.Check inline type="radio" disabled name="inline-radios-example" id="inline-radios-example-3" label="URL" /> */}

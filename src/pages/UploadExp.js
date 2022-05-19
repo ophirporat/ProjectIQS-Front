@@ -45,9 +45,10 @@ class Experiment extends React.Component {
 }
 
   async addMoreTweets() {
-    if (this.state.firstRun == true){
-      this.clearBox()
-    }
+    // if (this.state.firstRun == true){
+    //   this.clearBox()
+    // }
+    this.clearBox()
     this.setState({firstRun:true})
 
     if (this.state.value.length < 6 ){
@@ -196,11 +197,13 @@ clearBox = async()=>
         </Card>
         {/* </center> */}
         <hr></hr>      
+        { this.state.firstRun ?<div> 
         <Nav variant="pills" defaultActiveKey={0} onSelect={(selectedKey) => this.handleTabs(selectedKey)}>
           <Nav.Link eventKey={0} >IQS</Nav.Link>
           <Nav.Link eventKey={1} >ALMIK</Nav.Link>
         </Nav>
         <hr></hr>
+        </div> : null}
 
         <div style={{height:60, paddingRight:"10%"}}>
         <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={70} /> : null} </center>
