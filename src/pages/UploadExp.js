@@ -3,7 +3,7 @@ import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button
 // import '../vendor/styles/pages/search.scss'
 import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
-import { DropdownButton, Dropdown } from 'react-bootstrap'
+import { DropdownButton, Dropdown , Table} from 'react-bootstrap'
 import BounceLoader from "react-spinners/BounceLoader";
 
 // import * as Chartjs from 'react-chartjs-2'
@@ -196,13 +196,46 @@ clearBox = async()=>
         </Card.Body>
         </Card>
         {/* </center> */}
-        <hr></hr>      
+        <hr></hr>     
+        { this.state.showHeadline ?
+ 
+<center>
+        <Card style={{width:"30%"}}>
+          {/* <Card.Header>Methods comparison on the TREC Microblog 2012</Card.Header> */}
+          <Table className="card-table" bordered  size="sm">
+            <thead className="thead-light">
+              <tr>
+                <th>Method</th>
+                <th>MAP</th>
+                <th>R_Precision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th className="table-success" scope="row" >IQS</th>
+                <td className="table-success"><bold>0.357</bold></td>
+                <td className="table-success"><bold>0.356</bold></td>
+              </tr>
+              <tr>
+                <th scope="row">ALMIK</th>
+                <td>0.164</td>
+                <td>0.172</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Card>
+      </center>
+: null}
+
         { this.state.firstRun ?<div> 
         <Nav variant="pills" defaultActiveKey={0} onSelect={(selectedKey) => this.handleTabs(selectedKey)}>
           <Nav.Link eventKey={0} >IQS</Nav.Link>
           <Nav.Link eventKey={1} >ALMIK</Nav.Link>
         </Nav>
         <hr></hr>
+
+        
+
         </div> : null}
 
         <div style={{height:60, paddingRight:"10%"}}>
