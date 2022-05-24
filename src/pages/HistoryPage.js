@@ -14,13 +14,18 @@ class History extends Component {
     this.getChart = this.getChart.bind(this)
     this.toggle = this.toggle.bind(this)
     this.isExpanded = this.isExpanded.bind(this)
-
+    this.isLogout = function isLogout() {
+      if(eventBus.userStore == null){
+        this.setState({'redirect': true})
+      }
+    }.bind(this)
+    this.intervalId = window.setInterval(this.isLogout, 3500);
 
     // this.getDate = this.getDate.bind(this)
 
     this.state = {
         historyData:[],
-        redirect:null,
+        redirect: false,
         expanded: {},
 
     //   vacanciesData: [{
@@ -56,6 +61,9 @@ class History extends Component {
     }
     
   }
+  componentWillUnmount(){
+    clearInterval(this.intervalId) 
+  }
   componentDidMount(){
       this.getHistoryFromServer()
 
@@ -74,6 +82,7 @@ class History extends Component {
     const expand = {} 
     response.forEach((history) => expand[history.search_id] = false)
     this.setState({expanded: expand})
+
     return response
   }
   prevent(e) {
@@ -81,18 +90,9 @@ class History extends Component {
   }
   handleClick = (history)=>{
     eventBus.search_text = history.text
-    this.setState({"redirect": "search-results"})
+    // this.setState({"redirect": "search-results"})
   }
-//   getDate = (timestamp) => {
-//     var date = new Date(timestamp)
-//     const dateString = ""+date.getDate()+
-//     "/"+(date.getMonth()+1)+
-//     "/"+date.getFullYear()+
-//     " "+date.getHours()+
-//     ":"+date.getMinutes()+
-//     ":"+date.getSeconds()
-//     return dateString
-//   }
+
 getChart = (history) => {
   const iteration_array = []
   for(var i =1;i<=Number(history.wmds.length);i++){
@@ -122,9 +122,9 @@ isExpanded = (id) => {
 }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={this.state.redirect} />
-    // }
+    if (this.state.redirect) {
+      return <Redirect to={'/'} />
+    }
     return (
       <div>
 
