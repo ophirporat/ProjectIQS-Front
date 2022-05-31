@@ -4,6 +4,8 @@ import eventBus from "../EventBus";
 import { Redirect } from 'react-router-dom';
 import Modals from '../components/modals';
 import ReactChartjs2 from '../components/ReactChartjs2';
+import $ from 'jquery';
+import BounceLoader from "react-spinners/BounceLoader";
 
 
 class History extends Component {
@@ -14,6 +16,7 @@ class History extends Component {
     this.getChart = this.getChart.bind(this)
     this.toggle = this.toggle.bind(this)
     this.isExpanded = this.isExpanded.bind(this)
+    this.addMoreTweets = this.addMoreTweets.bind(this)
     this.isLogout = function isLogout() {
       if(eventBus.userStore == null){
         this.setState({'redirect': true})
@@ -27,45 +30,18 @@ class History extends Component {
         historyData:[],
         redirect: false,
         expanded: {},
-
-    //   vacanciesData: [{
-    //     title: 'Account Director',
-    //     description: 'Donec dui risus, sagittis non congue vitae, auctor ornare ex. Aliquam hendrerit, odio vel dictum volutpat, nulla sapien venenatis tellus, vel aliquam enim eros vel ligula. Duis dictum, tellus et feugiat viverra, justo velit vestibulum ex, nec malesuada ex ligula consectetur mi.',
-    //     department: 'Marketing',
-    //     location: 'UK wide',
-    //     employment: 'Full-time'
-    //   }, {
-    //     title: 'Java Developer',
-    //     description: 'Morbi dolor ex, cursus vitae lectus in, auctor ultricies metus. Sed quis nulla lacus. Maecenas et lectus massa. Cras porta mauris nec nibh tincidunt, non porttitor elit condimentum. Etiam quis augue condimentum, luctus purus et, porttitor enim. Pellentesque quam sapien, lobortis eget dolor non, ultrices fermentum purus.',
-    //     department: 'Backend Dev',
-    //     location: 'New York, US',
-    //     employment: 'Full-time'
-    //   }, {
-    //     title: 'Infrastructure Administrator',
-    //     description: 'Nulla venenatis turpis vel ante accumsan cursus. Cras ultrices ornare neque eu pharetra. In dapibus sollicitudin urna sed suscipit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce vel sapien sodales, pharetra nisl quis, molestie odio. Donec ullamcorper, tortor sed iaculis bibendum, ante ligula dignissim neque, eget cursus nibh arcu quis est. Pellentesque auctor aliquet arcu at placerat. Duis sodales porta eros vitae gravida. Duis malesuada consectetur tristique.',
-    //     department: 'Service Dev',
-    //     location: 'Tokyo, Japan',
-    //     employment: 'Part-time'
-    //   }, {
-    //     title: 'Product Designer',
-    //     description: 'Duis accumsan ultrices tortor, nec tristique tortor eleifend a. Nunc convallis tempor dignissim. Etiam maximus erat a nunc interdum, ac mattis eros consequat. Fusce urna erat, fringilla at faucibus a, porttitor eget tortor. Sed pharetra massa id molestie sagittis. Etiam hendrerit quis dolor ut viverra.',
-    //     department: 'Design',
-    //     employment: 'Freelance'
-    //   }, {
-    //     title: 'Frontend Developer',
-    //     description: 'Quisque convallis dolor quis malesuada tempus. Fusce lacinia id ex id fringilla. Nunc sit amet tellus non quam efficitur convallis. Morbi elementum ex sed nisl mattis blandit.',
-    //     department: 'Frontend Dev',
-    //     location: 'New York, US',
-    //     employment: 'Full-time'
-    //   }]
+        isLoding: true
     }
     
   }
   componentWillUnmount(){
     clearInterval(this.intervalId) 
   }
-  componentDidMount(){
-      this.getHistoryFromServer()
+  async componentDidMount(){
+      await this.getHistoryFromServer()
+      this.setState({isLoding: false})
+
+      // this.state.historyData.forEach((history) => this.addMoreTweets(history))
 
     // this.setState({historyData:this.getHistoryFromServer()})
   }
@@ -81,6 +57,7 @@ class History extends Component {
     console.log(response)
     const expand = {} 
     response.forEach((history) => expand[history.search_id] = false)
+    response.forEach((history) => this.addMoreTweets(history))
     this.setState({expanded: expand})
 
     return response
@@ -120,6 +97,28 @@ isExpanded = (id) => {
   return this.state.expanded[id]
   // return false
 }
+addMoreTweets(history) {
+  history.tweets.forEach((tweet_html) => {
+    var object = {
+      id: "divID",
+      class: "tweetCard",
+      css: {
+          "max-width": "18%",
+          "padding-right": "25%"
+
+      }
+  };
+  var $div = $("<div>", object);
+  $div.html(tweet_html);
+  if ($div.children.length > 0){
+    $(`#tweetsContainer_${history.search_id}`).append($div);
+
+  }
+
+  })
+         
+  
+}
 
   render() {
     if (this.state.redirect) {
@@ -127,15 +126,18 @@ isExpanded = (id) => {
     }
     return (
       <div>
-
         <div className="container px-0">
           <h2 className="text-center font-weight-bolder pt-5">
             User History
           </h2>
+          
           <div className="text-center text-muted text-big mx-auto mt-3" style={{ maxWidth: '500px' }}>
               {/* text */}
           </div>
-
+          {this.state.isLoding ? 
+    
+      <div style={{textAlign:'center', paddingRight: "85px"}}>
+        <BounceLoader loading={true}  size={70} /></div> : null}
             {this.state.historyData.map((history) =>
             <Card className="mt-5">
 
@@ -168,9 +170,17 @@ isExpanded = (id) => {
                 <span  className="collapse-icon d-inline-block ml-1"></span>
               </a>
                 <div className="px-4 pb-3">
-                {this.isExpanded(history.search_id) ?<ReactChartjs2 labels={ Array.from(new Array(history.wmds.length),(val,index)=> index+1 ) } dataset={history.wmds}></ReactChartjs2> : null}
+                {this.isExpanded(history.search_id) ?
+                <div>
+                <ReactChartjs2 labels={ Array.from(new Array(history.wmds.length),(val,index)=> index+1 ) } dataset={history.wmds}/>
+                
+                </div>
+                 : null}
+                 <div style={{display : this.isExpanded(history.search_id) ? 'flex' : 'none'}} className="row" id={`tweetsContainer_${history.search_id}`}>
                 </div>
                 </div>
+                </div>
+      
                 </div>
                 </Card>
 
