@@ -298,7 +298,7 @@ handleTabs(selectedKey){
             </tbody>
         </table>
         <div style={{paddingLeft:"10%"}}>
-        <Button  id="search_btn" size="md" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
+        <Button  id="search_btn" size="md" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS on Twitter</Button>
         </div>
         </Form>
         </Card.Body>

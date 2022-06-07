@@ -31,7 +31,7 @@ class Home extends Component {
           <br></br>
 
             <Link to="/pages/search-results">
-              <p><Button variant="primary" size="lg">Let's Search</Button></p>
+              <p><Button variant="primary" size="lg">Let's Search on Twitter</Button></p>
             </Link>
             </center>
           </div>
