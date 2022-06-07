@@ -14,8 +14,7 @@ class Logout extends Component {
         this.onLogoutSuccess = this.onLogoutSuccess.bind(this)
 
         this.state = {
-            user:null,
-            // isSignedIn:false,
+            user:null
         }
         console.log("logout created")
         

@@ -1,9 +1,7 @@
-import React, {Component, useRef} from 'react'
-import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
-// import '../vendor/styles/pages/search.scss'
+import React from 'react'
+import {  Collapse,Form, Button, Card} from 'react-bootstrap'
 import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
-// import * as Chartjs from 'react-chartjs-2'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 
@@ -48,12 +46,7 @@ class SearchUpload extends React.Component {
   }
 async g (){    
     
-    // this.getSearchUpdates()
-    // stopSearchs([search_ids.shift()]);//
-    // $("#search_btn").prop('disabled', true);
     console.log("g function");
-    // $("#result_container").attr("style", "display: none");
-    // $("#tweets_container").empty();
     var data = {'prototype': $('#prototype').val()};
     // console.log(data)
     var temp_search_ids = this.state.search_ids
@@ -65,24 +58,8 @@ async g (){
    
         // console.log(response.json());
     var search_id = await res.json();
-    // console.log(search_id)
-    
-    
-        // console.log(this.state)
-       
     temp_search_ids.push(search_id)
-        // id = search_id
-        // console.log("*****", id);
-        // to_search(search_id, temp_search_ids)
-        // temp_search_ids.push(search_id)
-        
-        
         this.setSearchUpdatesListener(search_id);
-        // runIQS(search_id);
-        // await this.timeout(1000)
-        // wait_time = 1;
-
-
     await this.search(search_id, temp_search_ids)
     
 
@@ -111,8 +88,6 @@ handleSubmit = async event =>{
       this.setState({min_tweet_count: event.target[6].value})
       this.setState({search_ids: []})
       this.setState({chart:$("#mychart")})
-      // const {text, search_count,iterations} = this.state
-      // $('#result_container').attr("style", "display:block");
     await this.g()
     
 
@@ -140,8 +115,7 @@ async search(search_id, temp_search_ids){
       if(response.status === 200){
 
         console.log("search complete")
-         
-        // this.addMoreTweets()
+        
       }
      
     }
@@ -166,8 +140,6 @@ async addMoreTweets() {
         tweet_htmls.forEach(getTweetDiv);
 
         function getTweetDiv(tweet_html) {
-            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
-            // $div.html(tweet_html);
             var object = {
               id: "divID",
               class: "tweetCard",
@@ -202,13 +174,10 @@ getSearchUpdates = async () =>{
         temp_search_ids.push(search_id)
         this.setState({search_ids : temp_search_ids})
         
-        // this.setSearchUpdatesListener(search_id);
 
     }).catch(function (err) {
         console.log(err);
         console.log("Booo2");
-        // wait_time = wait_time * 2;
-        // setTimeout(getSearchUpdates(), wait_time * 1000);
     });
 }
 
@@ -221,7 +190,6 @@ stopSearchs = async()=> {
         body: JSON.stringify(data)
     }).catch(function () {
         console.log("Booo3");
-        // wait_time = wait_time * 2;
         setTimeout(this.stopSearchs(), 10 * 1000);
     });
     // wait_time = 1;
@@ -233,23 +201,14 @@ stopSearchs = async()=> {
 
 setSearchUpdatesListener = async(search_id) => {
     console.log("******setSearchUpdatesListener")
-    // var self = this;
     var res = []
     var total_iterations = $('#search_count').val() * $('#iterations').val();
     var sum_wmd = 0;
     var eventSource = new EventSource("/stream?search_id=".concat(search_id));
     console.log("eventSource   ",eventSource)
-    // eventSource.addEventListener("message", e => {
-    //     res = [{"x":0, "y":1}].concat(res)
-    //     this.setState({"chart_data" : [{id: "mmd",data : res}]});
-    // });
-    // this.bind(eventSource)
     var recived_massages = 0;
-    // var chart = this.initGraph();
-    // chart.clear();
     var test = this.state.fref.current.showAlert
     this.state.fref.current.forceUpdate()
-    // console.log("this.state.chart_data[0].data", this.state.chart_data[0])
     eventSource.onmessage = async function (e) {
         
         console.log("******eventSource.onmessage ")
@@ -259,68 +218,27 @@ setSearchUpdatesListener = async(search_id) => {
         if (parseInt(e.data) !== -1) {
             var width = Math.min(100, Math.floor(recived_massages * 100 / total_iterations));
             $('.progress-bar').css('width', width.toString().concat('%')).attr({value: width});
-            // var ophir = this.get_chart_data(current_chart_data)    
             var curr = {}
             sum_wmd = sum_wmd + parseFloat(e.data)
-            // Create the event.
-            // const event = document.createEvent('Event');
-            // const chartElem = document.querySelector("ReactChartjs2").
-            // const eventAwesome = new CustomEvent('datainput', {
-            //   bubbles: true,
-            //   detail: "hey"
-            // });
             test(e.data)
             $("#chartdiv").attr("style", "display:block");
             $("#result_container").attr("style", "display:block");
-            // var event = new CustomEvent("Inputdata", {bubbles:true, "detail": e.data });
-            
-            // window.dispatchEvent(event)
-            
-            // this.child.getAlert();
-            // for(var i =0;i<current_chart_data.length;i++){
-                // sum_wmd = sum_wmd +current_chart_data[i].y;
-                // curr = {
-                //     "x":recived_massages,
-                //     "y":sum_wmd/recived_massages
-                // }
-                // console.log("res  ", res)
-                // console.log("curr  ", curr)
-                // res.push(curr)
-                
             $("#target_div").html("Current WMD: ".concat(e.data));
-            // this.addData(chart, recived_massages, e.data);
         } else {
-            // $("#result_container").attr("style", "display:block");
-            // $("#search_btn").prop('disabled', false);
             eventSource.close();
         }
     };
 
     
     eventSource.onopen = function (e) {
-        // this.timeout(1000);
     };
 
     eventSource.onerror = function (e) {
-        // this.timeout(2000)
-        // wait_time = wait_time * 2;
         eventSource.close();
         setTimeout(this.setSearchUpdatesListener(search_id), 2000);
     };
 }
 
-
-
-
-
-// addData = (chart, label, wmd)=> {
-//     console.log('add data '.concat(wmd));
-//     chart.data.labels.push(label);
-//     chart.data.datasets.forEach((dataset) => {
-//         dataset.data.push(wmd);
-//     });
-//     chart.update();
-// }
 
 toggle(e, id) {
   e.preventDefault()
@@ -364,182 +282,122 @@ isExpanded(id) {
     return (
       <div>
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        {/* <div className="py-1 mb-2">
-          <InputGroup>
-            <Form.Control value={this.state.searchQuery} onChange={this.onSearchQueryChange} />
-            <InputGroup.Append>
-              <Button variant="primary"><i className="ion ion-ios-search"></i>&nbsp; Search</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </div> */}
-        <center>
-        {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
+          <center>
+          <FileUpload ref={this.state.oref}></FileUpload>
+          <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
+            <Card.Body>
+              <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
+                <table id="table" style={{width:"60%"}}>
+                  <tbody>
+                  <tr>
+                    <td  colSpan={10}>
+                      <div style={{display:"none"}} className=" row align-items-center" >
+                        <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
+                        <div className="col-9">
+                          <textarea id="prototype" name="prototype" cols="40" rows="5" className="form-control"
+                                placeholder="Enter Text here..."></textarea>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <br></br>
+                  <div className="theme-bg-white ui-bordered mb-2" >
+                    <a href="#toggle"  onClick={e => this.toggle(e, 'faq-25')} aria-expanded={String(this.isExpanded('faq-25'))} className="d-flex justify-content-between text-body py-3 px-4">
+                      <strong>More options 🡣</strong>
+                      <span className="collapse-icon d-inline-block ml-1"></span>
+                    </a>
+                    <Collapse in={this.isExpanded('faq-25')} className="text-muted"><div>
 
-        <FileUpload ref={this.state.oref}></FileUpload>
-
-        <Card className="mb-4" style={{textAlign:"center",paddingRight:"10%"}}>
-          <Card.Body>
-        <Form onSubmit={this.handleSubmit} style={{width:"100%"}} >
-        {/* <br/> */}
-        <table id="table" style={{width:"60%"}}>
-            <tbody>
-            <tr>
-                <td  colSpan={10}>
-            <div style={{display:"none"}} className=" row align-items-center" >
-            <label htmlFor="textarea" className="col-2 col-form-label"><h5>Text Area</h5></label>
-            {/* <Form.Label>Text Area</Form.Label> */}
-            <div className="col-9">
-                <textarea id="prototype" name="prototype" cols="40" rows="5" className="form-control"
-                          placeholder="Enter Text here..."></textarea>
-            </div>
-            </div>
-        </td>
-            </tr>
-            <br></br>
-            <div className="theme-bg-white ui-bordered mb-2" >
-              <a href="#toggle"  onClick={e => this.toggle(e, 'faq-25')} aria-expanded={String(this.isExpanded('faq-25'))} className="d-flex justify-content-between text-body py-3 px-4">
-              <strong>More options 🡣</strong>
-                <span className="collapse-icon d-inline-block ml-1"></span>
-              </a>
-              <Collapse in={this.isExpanded('faq-25')} className="text-muted"><div>
-
-            <tr>
-                <td id="td" colSpan={3}>
-                <div  className="form-group row align-items-center" style={{float:"left"}}>
-            <label htmlFor="search_count" className="col-6 col-form-label text-end"><h5>Search Count</h5></label>
-            <div className="col-6">
-                <input id="search_count" name="search_count"  type="number" defaultValue={1} className="form-control"
+                    <tr>
+                    <td id="td" colSpan={3}>
+                      <div  className="form-group row align-items-center" style={{float:"left"}}>
+                        <label htmlFor="search_count" className="col-6 col-form-label text-end"><h5>Search Count</h5></label>
+                        <div className="col-6">
+                        <input id="search_count" name="search_count"  type="number" defaultValue={1} className="form-control"
+                          required="required"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td id="td" colSpan={3}>
+                      <div  className="form-group row" style={{float:"left"}}>
+                        <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations </h5></label>
+                        <div className="col-6">
+                          <input id="iterations" name="iterations"  type="number" defaultValue={3} className="form-control"
+                        required="required"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td id="td" colSpan={3} >
+                      <div className="form-group row align-items-center" style={{float:"left"}}>
+                        <label htmlFor="output_keywords_count" className="col-6 col-form-label" ><h5>Keywords Count</h5></label>
+                        <div className="col-6">
+                          <input id="output_keywords_count" name="output_keywords_count" type="number" defaultValue={3}
+                      className="form-control" required="required"/>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={3}>
+                      <div className="form-group row" style={{float:"left"}}>
+                        <label htmlFor="keywords_start_size" className="col-6 col-form-label"><h5>Keywords Start Size</h5></label>
+                        <div className="col-6">
+                          <input id="keywords_start_size" name="keywords_start_size" type="number" defaultValue={3}
+                      className="form-control" required="required"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td colSpan={3}>
+                      <div className="form-group row" style={{float:"left"}}>
+                        <label variant="default" htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
+                        <div className="col-6">
+                          <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
+                      className="form-control" required="required"/>
+                        </div>
+                      </div>
+                    </td>
+                    <td colSpan={3}>
+                      <div className="form-group row" style={{float:"left"}}>
+                      <label className="col-6 col-form-label" htmlFor="min_tweet_count"><h5>Min Tweet Count</h5></label>
+                        <div className="col-6">
+                          <input id="min_tweet_count" name="min_tweet_count"  type="number" defaultValue={3} className="form-control"
                       required="required"/>
-            </div>
-        </div>
-                </td>
-                <td id="td" colSpan={3}>
-                <div  className="form-group row" style={{float:"left"}}>
-            <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations </h5></label>
-            <div className="col-6">
-                <input id="iterations" name="iterations"  type="number" defaultValue={3} className="form-control"
-                      required="required"/>
-            </div>
-        </div>
-
-                </td>
-                <td id="td" colSpan={3} >
-                <div className="form-group row align-items-center" style={{float:"left"}}>
-            <label htmlFor="output_keywords_count" className="col-6 col-form-label" ><h5>Keywords Count</h5></label>
-            <div className="col-6">
-                <input id="output_keywords_count" name="output_keywords_count" type="number" defaultValue={3}
-                      className="form-control" required="required"/>
-            </div>
-        </div>
-                </td>
-            </tr>
-            {/* <br/> */}
-            <tr>
-                <td colSpan={3}>
-                <div className="form-group row" style={{float:"left"}}>
-            <label htmlFor="keywords_start_size" className="col-6 col-form-label"><h5>Keywords Start Size</h5></label>
-            <div className="col-6">
-                <input id="keywords_start_size" name="keywords_start_size" type="number" defaultValue={3}
-                      className="form-control" required="required"/>
-            </div>
-        </div>
-        </td>
-        {/* <OverlayTrigger
-              placement="left"
-              overlay={<Popover>
-                <Popover.Title>Popover on left</Popover.Title>
-                <Popover.Content>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</Popover.Content>
-              </Popover>}> */}
-              {/* <Button variant="default">Popover on left</Button> */}
-                <td colSpan={3}>
-                <div className="form-group row" style={{float:"left"}}>
-            <label variant="default" htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
-            <div className="col-6">
-                <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
-                      className="form-control" required="required"/>
-            </div>
-        </div>
-                </td>
-            {/* </OverlayTrigger> */}
-                {/* </td>
-                <td colSpan={3}>
-                <div className="form-group row" style={{float:"left"}}>
-            <label htmlFor="max_tweets_per_query" className="col-6 col-form-label"><h5>Max Tweets Per Query</h5></label>
-            <div className="col-6">
-                <input id="max_tweets_per_query" name="max_tweets_per_query" type="number" defaultValue={50}
-                      className="form-control" required="required"/>
-            </div>
-        </div>
-                </td> */}
-                <td colSpan={3}>
-                <div className="form-group row" style={{float:"left"}}>
-            <label className="col-6 col-form-label" htmlFor="min_tweet_count"><h5>Min Tweet Count</h5></label>
-            <div className="col-6">
-                <input id="min_tweet_count" name="min_tweet_count"  type="number" defaultValue={3} className="form-control"
-                      required="required"/>
-            </div>
-        </div>
-                </td>
-            </tr>
-            </div></Collapse>
-            </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </div></Collapse>
+              </div>
             </tbody>
         </table>
-        {/* <Button id="search_btn" variant="primary" type="submit"><h5>Run IQS</h5></Button> */}
         <div style={{paddingLeft:"10%"}}>
-        <Button  id="search_btn" size="lg" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
+          <Button  id="search_btn" size="lg" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
         </div>
-<br></br>
-        </Form>
-        </Card.Body>
-        </Card>
+        <br></br>
+      </Form>
+    </Card.Body>
+  </Card>
 </center>
 <hr></hr>
-
-{/* <Nav variant="tabs tabs-alt" className="search-nav container-m-nx container-p-x mb-4" activeKey={this.state.curTab} onSelect={this.setCurTab}>
-          <Nav.Link eventKey="pages"><i className="ion ion-md-copy"></i>&nbsp; Search</Nav.Link>
-          <Nav.Link eventKey="people"><i className="ion ion-ios-people"></i>&nbsp; People</Nav.Link>
-          <Nav.Link eventKey="images"><i className="ion ion-md-images"></i>&nbsp; Images</Nav.Link>
-          <Nav.Link eventKey="videos"><i className="ion ion-md-film"></i>&nbsp; Videos</Nav.Link>
-        </Nav> */}
-        {/* <div id="chartdiv" style={{display: "none"}} > */}
-          <ReactChartjs2 id="mychart" ref={this.state.fref} Iteration={this.state.iteration_arr}></ReactChartjs2>
-          {/* </div>          */}
-           {/* </div> */}
-        {/* {this.state.curTab === 'pages' && <div> */}
+        <ReactChartjs2 id="mychart" ref={this.state.fref} Iteration={this.state.iteration_arr}></ReactChartjs2>
 <hr></hr>
         <center>
-
         <div id="result_container" style={{display: "none"}} >
           <div id="show_tweets" style={{display: "none"}}>
-          <center>
-            <h2> Search Results</h2>
-          </center>
+            <center>
+              <h2> Search Results</h2>
+            </center>
           
-          <div className="row" id="tweetsContainer" >    
-            <hr></hr>
-          </div>
+            <div className="row" id="tweetsContainer" >    
+              <hr></hr>
+            </div>
           </div>
           <center>
-          <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
+            <Button id="load" size="lg" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
           </center>
         </div>
-        </center>
-
-          
-          {/* <Pagination className="mt-3">
-            <Pagination.Prev />
-            <Pagination.Item active>{1}</Pagination.Item>
-            <Pagination.Item>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Item>{4}</Pagination.Item>
-            <Pagination.Item>{5}</Pagination.Item>
-            <Pagination.Next />
-          </Pagination> */}
-
-        {/* </div> */}
-        
-      </div>
+      </center>
+    </div>
     )
   }
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Card, OverlayTrigger, Tooltip, Button, Collapse } from 'react-bootstrap'
 import eventBus from "../EventBus";
 import { Redirect } from 'react-router-dom';
-import Modals from '../components/modals';
 import ReactChartjs2 from '../components/ReactChartjs2';
 import $ from 'jquery';
 import BounceLoader from "react-spinners/BounceLoader";
@@ -23,8 +22,6 @@ class History extends Component {
       }
     }.bind(this)
     this.intervalId = window.setInterval(this.isLogout, 3500);
-
-    // this.getDate = this.getDate.bind(this)
 
     this.state = {
         historyData:[],
@@ -141,20 +138,8 @@ addMoreTweets(history) {
             {this.state.historyData.map((history) =>
             <Card className="mt-5">
 
-               {/* <div key={history.index} > */}
                 <div className="p-4 p-md-5">
-                  {/* <a href="#d" onClick={this.prevent} className="text-body text-large font-weight-semibold">{vacancy.title}</a> */}
                   <div className="d-flex flex-wrap mt-3">
-                    {/* {history.department &&
-                      <OverlayTrigger overlay={<Tooltip>Department</Tooltip>}>
-                        <div className="mr-3"><i className="ion ion-md-business text-light"></i>&nbsp; {vacancy.department}</div>
-                      </OverlayTrigger>
-                    } */}
-                    {/* {vacancy.location &&
-                      <OverlayTrigger overlay={<Tooltip>Location</Tooltip>}>
-                        <div className="mr-3"><i className="ion ion-md-pin text-light"></i>&nbsp; {vacancy.location}</div>
-                      </OverlayTrigger>
-                    } */}
                     {history.time &&
                       <OverlayTrigger overlay={<Tooltip>time searched</Tooltip>}>
                         <div className="mr-3"><i className="ion ion-md-time text-primary"></i>&nbsp; {history.time}</div>

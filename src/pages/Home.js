@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import {Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../vendor/styles/pages/authentication.scss'
-import Footer from "../components/Footer";
 
 class Home extends Component {
   constructor(props) {

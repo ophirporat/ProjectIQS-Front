@@ -1,14 +1,10 @@
-import React, {Component, useRef} from 'react'
-import { OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
-// import '../vendor/styles/pages/search.scss'
+import React from 'react'
+import { Nav, Card } from 'react-bootstrap'
 import $, { nodeName } from 'jquery';
 import '../components/searchIQS.css'
-import { DropdownButton, Dropdown , Table} from 'react-bootstrap'
+import { Table} from 'react-bootstrap'
 import BounceLoader from "react-spinners/BounceLoader";
 
-// import * as Chartjs from 'react-chartjs-2'
-// import ReactChartjs2 from '../components/ReactChartjs2';
-// import FileUpload from "../components/FileUpload";
 
 class Experiment extends React.Component {
   constructor(props) {
@@ -45,9 +41,6 @@ class Experiment extends React.Component {
 }
 
   async addMoreTweets() {
-    // if (this.state.firstRun == true){
-    //   this.clearBox()
-    // }
     this.clearBox()
     this.setState({firstRun:true})
 
@@ -121,7 +114,6 @@ handleTabs(selectedKey){
   console.log(selectedKey)
   console.log(this.state.lastTab)
   var compArr = this.state.show
-  // var lastComp = this.state.resultComponents[this.state.lastTab]
   compArr[this.state.lastTab]= "none"
   compArr[selectedKey] =  "block"
   console.log(compArr)
@@ -154,11 +146,6 @@ clearBox = async()=>
     return (
       <div>
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        {/* <center> */}
-        {/* <h2 style={{paddingLeft:"10%"}}> Search Page</h2> */}
-        {/* {this.claims()} */}
-        {/* {this.addMoreTweets()} */}
-        {/* <FileUpload ref={this.state.oref}></FileUpload> */}
         <center>
         <h3 className="font-weight-bold py-3 mb-4">
         <span className="text-muted font-weight-light">IQS vs. ALMIK /</span> Experiment
@@ -195,13 +182,11 @@ clearBox = async()=>
         </div>
         </Card.Body>
         </Card>
-        {/* </center> */}
         <hr></hr>     
         { this.state.showHeadline ?
  
 <center>
         <Card style={{width:"30%"}}>
-          {/* <Card.Header>Methods comparison on the TREC Microblog 2012</Card.Header> */}
           <Table className="card-table" bordered  size="sm">
             <thead className="thead-light">
               <tr>

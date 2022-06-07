@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Modal, Button, Card, InputGroup, Form, Col } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Login from './Login'
 import ReactChartjs2 from './ReactChartjs2'
-// import '../../vendor/libs/sweetalert2/sweetalert2.scss'
 
 const ReactSwal = withReactContent(Swal.mixin({
   buttonsStyling: false,
@@ -18,7 +17,6 @@ const ReactSwal = withReactContent(Swal.mixin({
 class Modals extends Component {
   constructor(props) {
     super(props)
-    // props.setTitle('Modals - UI elements')
 
     this.onDefaultModalClose = this.onDefaultModalClose.bind(this)
     this.onTopModalClose = this.onTopModalClose.bind(this)
@@ -37,20 +35,6 @@ class Modals extends Component {
       fillInModalSize: null,
       show:false
     }
-
-    // this.modalSizes = [{
-    //   title: 'Extra large',
-    //   value: 'xl'
-    // }, {
-    //   title: 'Large',
-    //   value: 'lg'
-    // }, {
-    //   title: 'Medium',
-    //   value: null
-    // }, {
-    //   title: 'Small',
-    //   value: 'sm'
-    // }]
   }
 
   prevent(e) {
@@ -83,13 +67,10 @@ class Modals extends Component {
       showCloseButton: true,
       progressSteps: steps,
       showProgressSteps: false,
-    //   input: 'text',
       customClass: {
         confirmButton: 'primary rounded-pill',
         cancelButton: 'primary rounded-pill',
-        // actions: 'text-center'
     },
-    //   reverseButtons: true,
     })
 
     const values = []
@@ -105,7 +86,6 @@ class Modals extends Component {
         })
         console.log(result)
         if (currentStep === 0 && !result.dismiss) {
-            // Swal.fire(JSON.stringify(values))
             currentStep ++
         }else if(currentStep === steps.length -1 && !result.dismiss){
             currentStep --
@@ -113,45 +93,12 @@ class Modals extends Component {
         else{
             break;
         }
-        // if (result.value) {
-        //   values[currentStep] = result.value
-        //   currentStep++
-        // } else if (result.dismiss === Swal.DismissReason.cancel) {
-        //   currentStep--
-        // } else {
-        //   break
-        // }
       }
-      
-
-    // Swal.mixin({
-    //   input: 'text',
-    //   confirmButtonText: 'Next &rarr;',
-    //   showCancelButton: true,
-    //   progressSteps: ['1', '2'],
-    //   buttonsStyling: false,
-    //   reverseButtons: true,
-    //   customClass: {
-    //     confirmButton: 'btn btn-primary btn-sm',
-    //     cancelButton: 'btn btn-default btn-sm',
-    //     actions: 'text-center'
-    //   }
-    // })
-    // .queue([{
-    //   title: 'Question 1',
-    //   text: 'Chaining swal2 modals is easy'
-    // },
-    //   'Question 2',
-    // ])
   }
   getChart(){
       if(!this.state.show){
         this.setState({show: true})
       }
-    //   const res = 
-    //   this.state.ref.update()
-    //   return res
-
   }
 
 
@@ -175,10 +122,6 @@ class Modals extends Component {
 
         <Modal show={this.state.defaultModalShow} size={'xl'} onHide={this.onDefaultModalClose}>
               <Modal.Header closeButton>
-                {/* <Modal.Title as="h5">
-                  Payment <span className="font-weight-light">Information</span><br />
-                  <small className="text-muted">We need payment information to process your order.</small>
-                </Modal.Title> */}
               </Modal.Header>
               <Modal.Body style={{height: '450px'}}>
               <ReactChartjs2 show={this.state.show} labels={iteration_array} dataset={this.props.data.wmds}></ReactChartjs2>
@@ -186,7 +129,6 @@ class Modals extends Component {
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="default" onClick={this.onDefaultModalClose}>Close</Button>
-                {/* <Button variant="primary" onClick={this.onDefaultModalClose}>Save</Button> */}
               </Modal.Footer>
             </Modal>
             </div>

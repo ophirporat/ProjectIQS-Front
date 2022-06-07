@@ -1,8 +1,5 @@
-import React, { Component,useCallback } from 'react'
+import React, { Component} from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Card, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-// import csv from "csv";
 
 const humanFileSize = (bytes, si) => {
   var thresh = si ? 1000 : 1024
@@ -66,12 +63,10 @@ const DropzoneContainer = (props) => {
       <div {...getRootProps({ className, style })}>
         <input {...getInputProps()} />
 
-        {/* Don't show placeholder if the file list isn't empty */}
         {!props.files.length && (
           <div className="text-big text-muted">Drag and drop your text file here, or click to select file</div>
         )}
 
-        {/* Print files */}
         {!!props.files.length && (
           // Container
           <div className="d-flex align-items-start align-content-start flex-wrap">
@@ -79,11 +74,9 @@ const DropzoneContainer = (props) => {
               // File card
               <div className="card card-condenced mb-3 mr-3" style={{width: '180px'}} key={file.name} onClick={e => e.stopPropagation()}>
                 <div className="card-body">
-                  {/* <img className="mb-2" src={file.dataUrl} alt={file.name} style={{width: '100%'}} /> */}
                   <div className="font-weight-semibold text-left text-truncate" title={file.name}>{file.name}</div>
                   <div className="text-left small text-muted">{file.size}</div>
                 </div>
-                {/* Remove button */}
                 <button
                   className="btn btn-outline-danger btn-sm card-footer py-2"
                   style={{boxShadow: 'none', borderLeft: 0, borderRight: 0, borderBottom: 0}}
@@ -131,18 +124,9 @@ class FileUpload extends Component {
   render() {
     return (
       <div>
-        {/* <h3 className="font-weight-bold py-3 mb-4">
-          <span className="text-muted font-weight-light">Search /</span> File upload
-        </h3> */}
-{/* 
-        <Card>
-          <Card.Header as="h6"></Card.Header>
-          <Card.Body> */}
             <DropzoneContainer files={this.state.files} onDrop={this.onFileDrop} onRemove={this.onFileRemove} />
             <br></br>
             <br></br>
-          {/* </Card.Body>
-        </Card> */}
       </div>
     )
   }
