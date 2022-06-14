@@ -17,7 +17,7 @@ export const DefaultLayout = Layout1
 // ---
 // Document title template
 
-export const titleTemplate = '%s - React Starter'
+export const titleTemplate = '%s - IQS'
 
 // ---
 // Routes
