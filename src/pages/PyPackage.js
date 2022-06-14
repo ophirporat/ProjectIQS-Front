@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Media, Button, Collapse, Row, Col, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 
 class PyPackage extends Component {
@@ -58,13 +58,17 @@ class PyPackage extends Component {
         <div className="Row" style={{paddingLeft:"17%",width: "85%"}}>
         <h5>
         <ReactMarkdown>
-        `py -m pip install --index-url https://test.pypi.org/simple/ --no-deps testIQS`
+        `pip install IQS-algorithm`
         </ReactMarkdown>
         </h5>
 
         <ReactMarkdown>
-        [IQS python package](https://test.pypi.org/project/testIQS/)        
+        Link to the packege in pypi: [IQS python package](https://pypi.org/project/IQS-algorithm/)        
         </ReactMarkdown>
+        <ReactMarkdown>
+        In order to use the package add `from IQS_algorithm import IQS` to your code.
+        </ReactMarkdown>
+        <br></br>
         <h4><bold>The Algorithm Function</bold></h4>
         <Card>
           <center>
@@ -105,13 +109,14 @@ class PyPackage extends Component {
           <br></br>
           <br></br>
           <h5><bold>Returns:</bold></h5>
-          <ReactMarkdown>List of (id, username, text, wmd) - A sorted list of dictionaries that represent tweet information by relevance according to wmd index.</ReactMarkdown>
+          <ReactMarkdown>List of [(id, username, text, wmd), list of keywords] - A sorted list of dictionaries that represent tweet information by relevance according to wmd index and a list of the most relevant keywords for the given query.</ReactMarkdown>
           <h5><bold>Return Type:</bold></h5>
-          <ReactMarkdown>list of (int, str, str, float)</ReactMarkdown>
+          <ReactMarkdown>List of [(int, str, str, float), list of str]</ReactMarkdown>
+          <br></br>
           <h4><bold>Example</bold></h4>
           </div>
           <div id="Examples" style={{paddingLeft:"17%"}}>
-              <img src="../Examples.jpg" alt="Examples" width= "650" height="180"></img>
+              <img src="../Examples.png" alt="Examples" width= "650" height="180"></img>
               </div>
       </div>
     )

@@ -19,9 +19,9 @@ class LayoutFooter extends Component {
         </div>
         <div>
           <a variant="primary" onClick={this.openModal} className="footer-link pt-3">About Us</a>
-          <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Help</a>
+          {/* <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Help</a>
           <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Contact</a>
-          <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Terms &amp; Conditions</a>
+          <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Terms &amp; Conditions</a> */}
         </div>
       </div>
       <Modal size="lg" show={this.state.isOpen} onHide={this.closeModal}>

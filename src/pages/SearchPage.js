@@ -1,12 +1,8 @@
-import React, {Component, useRef} from 'react'
-import { OverlayTrigger, Collapse, Tabs, Tab, Tooltip, Popover,Form, InputGroup, Nav, Button, Badge, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
-// import '../vendor/styles/pages/search.scss'
+import React from 'react'
+import {Collapse,Form, Nav, Button, Card } from 'react-bootstrap'
 import $ from 'jquery';
 import '../components/searchIQS.css'
-// import * as Chartjs from 'react-chartjs-2'
-import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
-import ClipLoader from "react-spinners/ClipLoader";
 import Results from '../components/SearchResults';
 import eventBus from "../EventBus";
 
@@ -24,16 +20,6 @@ class SearchResults extends React.Component {
       lastTab : 0,
       callFunc:false,
       resultComponents:[],
-      // data:{
-      // text: "Was a Giant Snake Skeleton Found on Google Maps? Titanoboa was the largest snake that ever lived at a length of about 42 feet (13 meters) long, according to paleontologist Alex Hastings.",
-      // iteration_arr:[1,2,3,4,5,6,7,8],
-      // search_count: 1,
-      // output_keywords_count:3,
-      // keywords_start_size:3,
-      // max_tweets_per_query: 50,
-      // min_tweet_count:3,
-      // iterations: 8,
-      // } ,
       text: "",
       search_count: 1,
       iterations: "",
@@ -47,7 +33,6 @@ class SearchResults extends React.Component {
       wmdDataset:[],
       chart: null,
       expanded: [],
-      // child: React.createRef()
       fref :React.createRef(),
       oref :React.createRef(),
       childrenRefs:[],
@@ -70,15 +55,6 @@ handleSubmit = async event =>{
       event.preventDefault();
       var iteration_array = []
       console.log("handleSubmit")
-      // console.log(event.target[0].value)
-      // console.log(event.target[1].value)
-      // console.log(event.target[2].value)
-      // console.log(event.target[3].value)
-      // console.log(event.target[4].value)
-      // console.log(event.target[5].value)
-      // console.log(event.target[6].value)
-      // console.log(event.target[7].value)
-      // console.log(event.target[8].value)
       if(this.state.search_method == 1){
         var textFiles = this.state.oref.current.state.files.map(f => f.data)
         var textNames = this.state.oref.current.state.files.map(f => f.name)
@@ -160,8 +136,6 @@ resetSearch = () =>{
 }
 stopSearchs = async(searchIds)=> {
     console.log("stopSearchs")
-    // this.state.search_ids.shift()
-    // console.log(this.state.search_ids)
     var data = {'search_ids': searchIds};
     fetch("https://iqs.cs.bgu.ac.il/close_search", {
         method: "POST",
@@ -169,19 +143,11 @@ stopSearchs = async(searchIds)=> {
         body: JSON.stringify(data)
     }).catch(function () {
         console.log("Booo3");
-        // wait_time = wait_time * 2;
         setTimeout(this.stopSearchs(searchIds), 10 * 1000);
     });
     this.setState({resultComponents:[]})
     this.setState({callFunc: false})
-    // var tweetsContainerDiv = document.getElementById("tweetsContainer");
-    // var newTweetsContainerDiv= document.createElement('div')
-    // newTweetsContainerDiv.id = "tweetsContainer"
-    // newTweetsContainerDiv.className="row"
-    // var show_tweetsDiv = document.getElementById("show_tweets");
-    // show_tweetsDiv.replaceChild(newTweetsContainerDiv, tweetsContainerDiv)
 
-    // wait_time = 1;
     return null;
 }
 
@@ -333,7 +299,7 @@ handleTabs(selectedKey){
             </tbody>
         </table>
         <div style={{paddingLeft:"10%"}}>
-        <Button  id="search_btn" size="md" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS</Button>
+        <Button  id="search_btn" size="md" type="submit"  className="rounded-pill"><span className="ion ion-md-search"></span>&nbsp;&nbsp;Run IQS on Twitter</Button>
         </div>
         </Form>
         </Card.Body>

@@ -306,8 +306,6 @@ isExpanded(id) {
         body: JSON.stringify(data)  
     }).catch(function () {
         console.log("exeption saveSearch");
-        // wait_time = wait_time * 2;
-        // setTimeout(this.stopSearchs(), 10 * 1000);
     });
     if (res.status < 200 || res.status >= 300){
       console.log("handle err")
@@ -318,7 +316,6 @@ isExpanded(id) {
     }
     this.setState({"showModal": true})
 
-      // console.log(this.state.loginUser)
     }
 
   }
@@ -335,22 +332,16 @@ isExpanded(id) {
             null}
                     <div style={{height:60, paddingRight:"10%"}}>
             <center>{ this.state.isSearching ? <BounceLoader loading={true}  size={70} /> : null} </center>
-            </div>         
-
           </div>         
-
+        </div>         
         <center>
 
         <div id={`result_container_${this.props.data.index}`} >
           <div id={`show_tweets_${this.props.data.index}`} style={{display: "none"}}>
-          <center>
-            <h2> Search Results</h2>
-          </center>
-
-          <div className="row" id={`tweetsContainer_${this.props.data.index}`} >    
-            
-          </div>
-          {/* <hr></hr> */}
+            <center>
+              <h2> Search Results</h2>
+            </center>
+            <div className="row" id={`tweetsContainer_${this.props.data.index}`} ></div>
           </div>
           { this.props.show != 'none' & !this.state.isSearching ? <center>
           <Button id="load" size="md" variant="primary" className="rounded-pill" onClick={this.addMoreTweets}><span className="ion ion-md-bulb"></span>&nbsp;&nbsp;Show Tweets</Button>
@@ -360,23 +351,19 @@ isExpanded(id) {
         size="sm"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={this.state.showModal}
-      >
-        
-        <Modal.Body>
-          <center>
-          <h4>{this.state.modalMessage}</h4>
-          <Button size="md" variant="primary" className="rounded-pill" onClick={() => this.setState({"showModal" :false})}>OK</Button>
-          </center>
-        </Modal.Body>
-        {/* <Modal.Footer>
-        </Modal.Footer> */}
-      </Modal>
-          </center> : null}
-        </div>
-        </center>
-      
+        show={this.state.showModal}>
+          <Modal.Body>
+            <center>
+              <h4>{this.state.modalMessage}</h4>
+              <Button size="md" variant="primary" className="rounded-pill" onClick={() => this.setState({"showModal" :false})}>OK</Button>
+            </center>
+          </Modal.Body>
+        </Modal>
+        </center> : null}
       </div>
+    </center>
+      
+  </div>
     )
   }
 }

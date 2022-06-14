@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import {Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../vendor/styles/pages/authentication.scss'
-import Footer from "../components/Footer";
 
 class Home extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Home extends Component {
           <br></br>
 
             <Link to="/pages/search-results">
-              <p><Button variant="primary" size="lg">Let's Search</Button></p>
+              <p><Button variant="primary" size="lg">Let's Search on Twitter</Button></p>
             </Link>
             </center>
           </div>

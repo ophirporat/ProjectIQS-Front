@@ -17,7 +17,7 @@ export const DefaultLayout = Layout1
 // ---
 // Document title template
 
-export const titleTemplate = '%s - React Starter'
+export const titleTemplate = '%s - IQS'
 
 // ---
 // Routes
@@ -34,9 +34,6 @@ export const routes = [
     path: '/pages/search-results',
     component: lazy(() => import('./pages/SearchPage'))
   },{
-    path: '/pages/Login',
-    component: lazy(() => import('./pages/LoginPage'))
-  },{
     path: '/pages/File',
     component: lazy(() => import('./pages/FileUpload'))
     
@@ -48,10 +45,6 @@ export const routes = [
     path: '/pages/IQS',
     component: lazy(() => import('./pages/IQS'))
   }
-  ,{
-    path: '/pages/Register',
-    component: lazy(() => import('./pages/RegisterPage'))
-  }  
   ,{
     path: '/pages/Upload',
     component: lazy(() => import('./pages/UploadSearch'))
