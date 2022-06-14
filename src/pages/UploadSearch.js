@@ -58,7 +58,7 @@ async g (){
     // console.log(data)
     var temp_search_ids = this.state.search_ids
     var id=""
-    var res =await fetch("/get_id", {
+    var res =await fetch("https://iqs.cs.bgu.ac.il/get_id", {
         method: "POST",
         body: JSON.stringify(data)})
     
@@ -135,7 +135,7 @@ async search(search_id, temp_search_ids){
         }})
     , headers: { 'Content-Type': 'application/json' },};
     try{
-        const response = await fetch('/search', ophir)
+        const response = await fetch('https://iqs.cs.bgu.ac.il/search', ophir)
         this.setState({id:search_id})
       if(response.status === 200){
 
@@ -155,7 +155,7 @@ async addMoreTweets() {
     $('#show_tweets').attr("style", "display:block");
     console.log("*****" , "addMoreTweets")
     var data = {"search_id": this.state.id}
-    var res = await fetch("/load_results", {
+    var res = await fetch("https://iqs.cs.bgu.ac.il/load_results", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {'Content-Type': 'application/json' }})
@@ -191,7 +191,7 @@ getSearchUpdates = async () =>{
     this.stopSearchs();//
     console.log("getSearchUpdates");
     var data = {'prototype': $('#prototype').val()};
-    fetch("/get_id", {
+    fetch("https://iqs.cs.bgu.ac.il/get_id", {
         method: "POST",
         body: JSON.stringify(data)
     }).then(function (response) {
@@ -216,7 +216,7 @@ stopSearchs = async()=> {
     console.log("stopSearchs")
     this.state.search_ids.shift()
     var data = {'search_ids': this.state.search_ids};
-    fetch("/close_search", {
+    fetch("https://iqs.cs.bgu.ac.il/close_search", {
         method: "POST",
         body: JSON.stringify(data)
     }).catch(function () {

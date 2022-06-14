@@ -9,7 +9,7 @@ import FileUpload from "../components/FileUpload";
 import ClipLoader from "react-spinners/ClipLoader";
 
 
-class Results extends React.Component {
+class PreviuseResults extends React.Component {
   constructor(props) {
     super(props)
     console.log("props.data")
@@ -87,7 +87,7 @@ async g (){
     // console.log(data)
     var temp_search_ids = this.state.search_ids
     var id=""
-    var res =await fetch("/get_id", {
+    var res =await fetch("https://iqs.cs.bgu.ac.il/get_id", {
         method: "POST",
         body: JSON.stringify(data)})
     
@@ -125,7 +125,7 @@ async search(search_id, temp_search_ids){
         }})
     , headers: { 'Content-Type': 'application/json' },};
     try{
-        const response = await fetch('/search', ophir)
+        const response = await fetch('https://iqs.cs.bgu.ac.il/search', ophir)
         this.setState({id:search_id})
       if(response.status === 200){
         console.log("search complete")
@@ -144,7 +144,7 @@ async addMoreTweets() {
     $(`#show_tweets_${this.props.data.index}`).attr("style", "display:block");
     console.log("*****" , "addMoreTweets")
     var data = {"search_id": this.state.id}
-    var res = await fetch("/load_results", {
+    var res = await fetch("https://iqs.cs.bgu.ac.il/load_results", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {'Content-Type': 'application/json' }})
@@ -184,7 +184,7 @@ stopSearchs = async()=> {
     // this.state.search_ids.shift()
     console.log(this.state.search_ids)
     var data = {'search_ids': this.state.search_ids};
-    fetch("/close_search", {
+    fetch("https://iqs.cs.bgu.ac.il/close_search", {
         method: "POST",
         body: JSON.stringify(data)
     }).catch(function () {

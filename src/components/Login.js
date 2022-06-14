@@ -49,7 +49,7 @@ class Login extends Component {
         // refreshTokenSetup(res)
         var data = {'accountId': res.profileObj.googleId, 'token': res.accessToken};
         console.log(data)
-        const response = await fetch("/login", {
+        const response = await fetch("https://iqs.cs.bgu.ac.il/login", {
             method: "POST",
             body: JSON.stringify(data)
         })

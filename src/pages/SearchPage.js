@@ -163,8 +163,9 @@ stopSearchs = async(searchIds)=> {
     // this.state.search_ids.shift()
     // console.log(this.state.search_ids)
     var data = {'search_ids': searchIds};
-    fetch("/close_search", {
+    fetch("https://iqs.cs.bgu.ac.il/close_search", {
         method: "POST",
+        mode: 'cors',
         body: JSON.stringify(data)
     }).catch(function () {
         console.log("Booo3");

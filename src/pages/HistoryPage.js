@@ -48,9 +48,10 @@ class History extends Component {
   getHistoryFromServer =async ()=> {
     var data = {'accountId': eventBus.userStore.profileObj.googleId, 'token': eventBus.userStore.accessToken};
     console.log(data)
-    const res = await fetch("/getHistory", {
+    const res = await fetch("https://iqs.cs.bgu.ac.il/getHistory", {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        mode: 'cors'
     })
     var response = await res.json()
     this.setState({historyData: response})

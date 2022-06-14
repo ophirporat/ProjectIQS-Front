@@ -36,7 +36,7 @@ class Experiment extends React.Component {
 
   async claims() {
     console.log("*****" , "get claims")
-    var res = await fetch("/get_claimes", {
+    var res = await fetch("https://iqs.cs.bgu.ac.il/get_claimes", {
         method: "GET",
         headers: {'Content-Type': 'application/json' }})
     var all_claims = await res.json()
@@ -58,7 +58,7 @@ class Experiment extends React.Component {
       console.log("id" , this.state.value)
       var data = {"claim_id": this.state.value}
 
-      var res = await fetch("/get_experiment_tweets", {
+      var res = await fetch("https://iqs.cs.bgu.ac.il/get_experiment_tweets", {
           method: "POST",
           body: JSON.stringify(data),
           headers: {'Content-Type': 'application/json' }})
