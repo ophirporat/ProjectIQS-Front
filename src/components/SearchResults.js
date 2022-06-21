@@ -72,6 +72,7 @@ class Results extends React.Component {
     // this.setState({chart:$("#mychart")})
     this.setState({isSearching:true})
     this.setState({iteration_arr: this.props.data.iteration_arr})
+    this.setState({isSaved: false})
     this.g()
   }
 async g (){
@@ -308,6 +309,7 @@ isExpanded(id) {
     }
     else{
       this.setState({"modalMessage": "Seach details saved"})
+      this.setState({"isSaved": true})
     }
     this.setState({"showModal": true})
 
