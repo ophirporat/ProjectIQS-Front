@@ -50,6 +50,10 @@ class SearchResults extends React.Component {
     
   }
 
+  componentWillUnmount = () => {
+    this.resetSearch()
+  }
+
 handleSubmit = async event =>{
       this.resetSearch()
       event.preventDefault();
