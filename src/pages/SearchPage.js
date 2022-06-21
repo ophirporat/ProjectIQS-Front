@@ -130,7 +130,7 @@ createResults =   () => {
 resetSearch = () =>{
   // this.state.oref.current.state
   console.log(this.state.childrenRefs)
-  const searchIds = this.state.childrenRefs.map((ref) => ref.current.state.id)
+  const searchIds = this.state.childrenRefs.map((ref) => !ref.current.state.isSaved ? ref.current.state.id : null).filter(id => id != null)
   this.stopSearchs(searchIds)
   console.log(searchIds)
 }
