@@ -43,23 +43,14 @@ To cite Iterative Query Selection [article](https://iqs.cs.bgu.ac.il/pages/IQS#A
 @article{Reuben2022Iterative,
 
 title = {Iterative query selection for opaque search engines with pseudo relevance feedback},
-
 journal = {Expert Systems with Applications},
-
 volume = {201},
-
 pages = {117027},
-
 year = {2022},
-
 issn = {0957-4174},
-
 doi = {https://doi.org/10.1016/j.eswa.2022.117027},
-
 url = {https://www.sciencedirect.com/science/article/pii/S0957417422004432},
-
 author = {Maor Reuben and Aviad Elyashar and Rami Puzis},
-
 keywords = {Query selection, Opaque search engine, Pseudo relevance feedback, Fake news},
 
 }
