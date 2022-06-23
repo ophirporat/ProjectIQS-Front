@@ -38,7 +38,7 @@ In order to use the package add `from IQS_algorithm import IQS` to your code.
 
 IQS algorithm's creators: Dr. Aviad Elishar, Mr. Maor Reuven and Dr. Rami Puzis
 
-To cite Iterative Query Selection [article](https://iqs.cs.bgu.ac.il/), please use the following bibtex reference:
+To cite Iterative Query Selection [article]([https://iqs.cs.bgu.ac.il/](https://iqs.cs.bgu.ac.il/pages/IQS)), please use the following bibtex reference:
 
 ```
 @article{Reuben2022Iterative,
