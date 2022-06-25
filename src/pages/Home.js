@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import ContactForm from '../components/ContactForm'
 import '../vendor/styles/pages/authentication.scss'
-import ContactUs from '../components/SendEmail'
 
 class Home extends Component {
   constructor(props) {
