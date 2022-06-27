@@ -25,13 +25,12 @@ class Home extends Component {
           <br></br>
           <center>
           <h3 style={{color:"white"}}>Retrieve search results with <strong>Iterative Query Selection</strong> algorithm</h3>
-          {/* <SearchResults title="ophir"></SearchResults> */}
           <br></br>
           <br></br>
           <br></br>
 
             <Link to="/pages/search-results">
-              <p><Button variant="primary" size="lg">Let's Search on Twitter</Button></p>
+              <p><Button  className="rounded-pill" variant="primary" size="lg">Let's Search on Twitter</Button></p>
             </Link>
             </center>
           </div>
