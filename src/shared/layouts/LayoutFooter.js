@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from "react-bootstrap";
 import gitPicture from '../../git.jpeg'
+import pypiPicture from '../../pypi.jpeg'
 import ContactForm from '../../components/ContactForm';
 
 class LayoutFooter extends Component {
@@ -30,17 +31,14 @@ class LayoutFooter extends Component {
             <img height={'25px'} width={'25px'} src={gitPicture} style={{marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>Backend repository</a>
             </span>
             <span style={{paddingLeft: '15px'}}>| </span>
-            <span> <a variant="primary" href='https://github.com/ophirporat/ProjectIQS-Front'>
-            <img height={'25px'} width={'25px'} src={gitPicture} style={{marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>Package repositry</a>
+            <span> <a variant="primary" href='https://pypi.org/project/IQS-algorithm/'>
+            <img height={'26px'} width={'26px'} src={pypiPicture} style={{border: 'solid', borderWidth: 'thin', marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>IQS Package</a>
             </span>
         </div>
         <div>
-          <a variant="primary" onClick={this.openModal} className="footer-link pt-3">About Us</a>
-          <a  onClick={this.openContactModal} className="footer-link pt-3 ml-4">Contact</a>
+          <a style={{cursor: 'pointer'}} variant="primary" onClick={this.openModal} className="footer-link pt-3">About Us</a>
+          <a style={{cursor: 'pointer'}} onClick={this.openContactModal} className="footer-link pt-3 ml-4">Contact</a>
          
-          {/* <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Help</a>
-
-          <a href="#d" onClick={this.prevent} className="footer-link pt-3 ml-4">Terms &amp; Conditions</a> */}
         </div>
       </div>
       <Modal size="lg" show={this.state.isOpen} onHide={this.closeModal}>
