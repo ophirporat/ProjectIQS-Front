@@ -134,7 +134,10 @@ createResults =   () => {
 resetSearch = () =>{
   // this.state.oref.current.state
   console.log(this.state.childrenRefs)
-  const searchIds = this.state.childrenRefs.map((ref) => ref && !ref.current.state.isSaved ? ref.current.state.id : null).filter(id => id != null)
+  let searchRefs = this.state.childrenRefs.map((ref) => ref ? ref : null)
+  searchRefs = searchRefs.filter((ref) => ref != null )
+  const searchIds = searchRefs.map((ref) => !ref.current.state.isSaved ? ref.current.state.id : null).filter(id => id != null)
+  this.setState({childrenRefs: []})
   this.stopSearchs(searchIds)
 }
 stopSearchs = async(searchIds)=> {
@@ -251,7 +254,7 @@ handleTabs(selectedKey){
                 <div  className="form-group row" style={{float:"left"}}>
             <label htmlFor="iterations" className="col-6 col-form-label text-end"><h5>Iterations </h5></label>
             <div className="col-6">
-                <input id="iterations" name="iterations"  type="number" defaultValue={10} className="form-control"
+                <input id="iterations" name="iterations"  type="number" max={15} defaultValue={10} className="form-control"
                       required="required"/>
             </div>
         </div>
