@@ -7,6 +7,9 @@ Given a document, the algorithm extracts the optimal short keyword queries thus 
 
 Visit the [IQS web platform](https://iqs.cs.bgu.ac.il/) at the following URL: https://iqs.cs.bgu.ac.il/.
 
+To watch the IQS promotional video click on the link: [IQS video](https://www.youtube.com/watch?v=-GWxibc36wY)
+
+
 ## Web Platform Overveiw
 
 * Search and retrieve data from Twitter's website using the IQS algorithm.
@@ -38,7 +41,7 @@ In order to use the package add `from IQS_algorithm import IQS` to your code.
 
 IQS algorithm's creators: Dr. Aviad Elishar, Mr. Maor Reuven and Dr. Rami Puzis
 
-To cite Iterative Query Selection [article](https://scholar.google.co.il/citations?view_op=view_citation&hl=en&user=CPE9YOkAAAAJ&sortby=pubdate&citation_for_view=CPE9YOkAAAAJ:YOwf2qJgpHMC), please use the following bibtex reference:
+To cite Iterative Query Selection [article](https://www.sciencedirect.com/science/article/abs/pii/S0957417422004432), please use the following bibtex reference:
 
 ```
 @article{Reuben2022Iterative,

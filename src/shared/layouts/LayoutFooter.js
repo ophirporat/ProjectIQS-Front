@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Modal, Button } from "react-bootstrap";
 import gitPicture from '../../git.jpeg'
 import pypiPicture from '../../pypi.jpeg'
+import youtube from '../../youtube.jpeg'
 import ContactForm from '../../components/ContactForm';
 
 class LayoutFooter extends Component {
@@ -22,7 +23,14 @@ class LayoutFooter extends Component {
       <div className="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
         <div className="pt-3">
           <span className="footer-text font-weight-bolder">IQS Team</span> ©
-         
+          <span> <a variant="primary" href='https://www.youtube.com/watch?v=-GWxibc36wY'>
+            <img height={'26px'} width={'26px'} src={youtube} style={{ marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>Promotional video</a>
+            </span>
+            <span style={{paddingLeft: '15px'}}>| </span>
+            <span> <a variant="primary" href='https://pypi.org/project/IQS-algorithm/'>
+            <img height={'26px'} width={'26px'} src={pypiPicture} style={{border: 'solid', borderWidth: 'thin', marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>IQS Package</a>
+            </span>
+            <span style={{paddingLeft: '15px'}}>| </span>
           <span> <a variant="primary" href='https://github.com/ophirporat/ProjectIQS-Front'>
             <img height={'25px'} width={'25px'} src={gitPicture} style={{marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>Frontend repository</a>
             </span>
@@ -30,10 +38,9 @@ class LayoutFooter extends Component {
             <span> <a variant="primary" href='https://github.com/oribena/projectIQS'>
             <img height={'25px'} width={'25px'} src={gitPicture} style={{marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>Backend repository</a>
             </span>
-            <span style={{paddingLeft: '15px'}}>| </span>
-            <span> <a variant="primary" href='https://pypi.org/project/IQS-algorithm/'>
-            <img height={'26px'} width={'26px'} src={pypiPicture} style={{border: 'solid', borderWidth: 'thin', marginLeft:'20px', marginRight: ' 10px', borderRadius: '50%'}}></img>IQS Package</a>
-            </span>
+ 
+        
+
         </div>
         <div>
           <a style={{cursor: 'pointer'}} variant="primary" onClick={this.openModal} className="footer-link pt-3">About Us</a>
