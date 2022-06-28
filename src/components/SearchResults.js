@@ -235,10 +235,10 @@ setSearchUpdatesListener = async(search_id) => {
               })
               
             }
-            this.setState({isSearching:false})
             $("#result_container").attr("style", "display:block");         
             $("#target_div").html("Current WMD: ".concat(e.data));
         } else {
+            this.setState({isSearching:false})
             eventSource.close();
         }
     };

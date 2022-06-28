@@ -3,7 +3,9 @@ import {GoogleLogin} from 'react-google-login'
 import $ from 'jquery';
 import eventBus from "../EventBus";
 require('dotenv').config()
-const clientId = process.env.REACT_APP_clientId
+const clientId = process.env.REACT_APP_CLIENTID
+// const clientId = '787276663684-065822sghlfajpjuo5ofd8ethbu35cc0.apps.googleusercontent.com'
+
 
 
 class Login extends Component {

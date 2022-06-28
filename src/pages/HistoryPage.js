@@ -172,6 +172,8 @@ addMoreTweets(history) {
 
             )}
             <hr></hr>
+            {!this.state.isLoding && this.state.historyData.length <1 && <center><h3 className='text-center'> No history to display</h3></center>}
+
           
         </div>
       </div>
