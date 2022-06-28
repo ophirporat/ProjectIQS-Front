@@ -30,14 +30,14 @@ pip install IQS-algorithm
 ```
 In order to use the package add `from IQS_algorithm import IQS` to your code.
 
-## Python Package Overveiw
+## Python Package Overview
 
 * Performs the IQS algorithm on various queries by providing a simple API for accessing all its functionality.
 * Modify the quality of the search results from Twitter by setting different parameters. 
 * Designed for users with technical background.
 * Download the package using pip install IQS-algorithm
 
-## citation
+## Citation
 
 IQS algorithm's creators: Dr. Aviad Elishar, Mr. Maor Reuven and Dr. Rami Puzis
 
