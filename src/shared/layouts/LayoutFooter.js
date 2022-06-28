@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from "react-bootstrap";
-import gitPicture from '../../git.jpeg'
-import pypiPicture from '../../pypi.jpeg'
-import youtube from '../../youtube.jpeg'
+import gitPicture from '../../img/git.jpeg'
+import pypiPicture from '../../img/pypi.jpeg'
+import youtube from '../../img/youtube.jpeg'
 import ContactForm from '../../components/ContactForm';
-
+// 
 class LayoutFooter extends Component {
   state = {
     isOpen: false

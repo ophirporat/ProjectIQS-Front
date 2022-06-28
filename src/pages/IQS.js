@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Media, Collapse, Row, Col } from 'react-bootstrap'
-import {parseBibFile} from 'bibtex'
 
 class IQS extends Component {
   constructor(props) {
