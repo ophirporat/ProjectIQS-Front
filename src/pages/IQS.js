@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import { Media, Button, Collapse, Row, Col } from 'react-bootstrap'
+import { Media, Collapse, Row, Col } from 'react-bootstrap'
+import {parseBibFile} from 'bibtex'
 
 class IQS extends Component {
   constructor(props) {
     super(props)
     props.setTitle('FAQ - Pages')
-
+    
     this.state = {
-      expanded: []
+      expanded: [],
     }
+
   }
 
   toggle(e, id) {
@@ -32,7 +34,20 @@ class IQS extends Component {
     e.preventDefault()
   }
 
+
   render() {
+    const bibtxt1 = `@article{Reuben2022Iterative,`
+      const bibtxt2 =`title = {Iterative query selection for opaque search engines with pseudo relevance feedback},`
+      const bibtxt3 =`journal = {Expert Systems with Applications},`
+      const bibtxt4 =`volume = {201},`
+      const bibtxt5 =`pages = {117027},`
+      const bibtxt6 =`year = {2022},`
+      const bibtxt7 =`issn = {0957-4174},`
+      const bibtxt8 =`doi = {https://doi.org/10.1016/j.eswa.2022.117027},`
+      const bibtxt9 =`url = {https://www.sciencedirect.com/science/article/pii/S0957417422004432},`
+      const bibtxt10 =`author = {Maor Reuben and Aviad Elyashar and Rami Puzis},`
+      const bibtxt11=`keywords = {Query selection, Opaque search engine, Pseudo relevance feedback, Fake news},`
+      const bibtxt12 =`}`
     return (
       <div>
         <h3 className="text-center font-weight-bold py-3 mb-4">
@@ -56,6 +71,13 @@ class IQS extends Component {
                 <Media.Body className="ml-3">
                 Article
                   <div className="text-muted small">Iterative Query Selection</div>
+                </Media.Body>
+              </a>
+              <a href="#Citation"  className="media align-items-center bg-lighter text-body py-3 px-4">
+                <div className="ion ion-md-quote ui-w-30 text-center text-xlarge"></div>
+                <Media.Body className="ml-3">
+                Citation
+                  <div className="text-muted small">Bibtex reference</div>
                 </Media.Body>
               </a>
             </div>
@@ -129,6 +151,30 @@ class IQS extends Component {
               </div>
             </h4>
             <iframe src='../journal_Elsevier_Iterative_Keyword_Optimization.pdf' width="100%" height="700px"> </iframe>
+
+            <hr className="my-5" />
+
+            <h4 id="Citation" className="media align-items-center mb-4">
+              <div className="ion ion-md-quote ui-w-60 text-center text-large"></div>
+              <div className="media-body ml-1">
+              Citation
+              <div className="text-muted text-tiny font-weight-light">To cite Iterative Query Selection article, please use the following bibtex reference:</div>
+              </div>
+              </h4>
+              <h5>{bibtxt1}</h5>
+              <h5>{bibtxt2}</h5>
+              <h5>{bibtxt3}</h5>
+              <h5>{bibtxt4}</h5>
+              <h5>{bibtxt5}</h5>
+              <h5>{bibtxt6}</h5>
+              <h5>{bibtxt7}</h5>
+              <h5>{bibtxt8}</h5>
+              <h5>{bibtxt9}</h5>
+              <h5>{bibtxt10}</h5>
+              <h5>{bibtxt11}</h5>
+              <h5>{bibtxt12}</h5>
+
+
 
           </Col>
         </Row> 
