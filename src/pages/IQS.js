@@ -102,16 +102,16 @@ class IQS extends Component {
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-4')} aria-expanded={String(this.isExpanded('faq-4'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the purpose of the site?
+              What is the main goal of the web platform?
                 <span className="collapse-icon d-inline-block ml-1"></span>
               </a>
               <Collapse in={this.isExpanded('faq-4')} className="text-muted"><div>
-                <div className="px-4 pb-3">The web platform presents text-based analysis of posts published on social networks using the IQS algorithm and allows users to compare it visually to other algorithms in a convenient way.</div>
+                <div className="px-4 pb-3">Search and retrieve data from Twitter's website using the IQS algorithm.</div>
               </div></Collapse>
             </div>
             <div className="theme-bg-white ui-bordered mb-2">
               <a href="#toggle" onClick={e => this.toggle(e, 'faq-6')} aria-expanded={String(this.isExpanded('faq-6'))} className="d-flex justify-content-between text-body py-3 px-4">
-              What is the purpose of the Python package?
+              What is the main goal of the Python package?
                 <span className="collapse-icon d-inline-block ml-1"></span>
               </a>
               <Collapse in={this.isExpanded('faq-6')} className="text-muted"><div>
