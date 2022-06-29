@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
+import Examples from '../img/Examples.png'
 
 class PyPackage extends Component {
   constructor(props) {
@@ -116,7 +117,7 @@ class PyPackage extends Component {
           <h4><bold>Example</bold></h4>
           </div>
           <div id="Examples" style={{paddingLeft:"17%"}}>
-              <img src="../Examples.png" alt="Examples" width= "650" height="180"></img>
+              <img src={Examples} alt="Examples" width= "650" height="180"></img>
               </div>
       </div>
     )

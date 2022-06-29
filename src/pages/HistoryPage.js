@@ -37,10 +37,6 @@ class History extends Component {
   async componentDidMount(){
       await this.getHistoryFromServer()
       this.setState({isLoding: false})
-
-      // this.state.historyData.forEach((history) => this.addMoreTweets(history))
-
-    // this.setState({historyData:this.getHistoryFromServer()})
   }
   getHistoryFromServer =async ()=> {
     var data = {'accountId': eventBus.userStore.profileObj.googleId, 'token': eventBus.userStore.accessToken};

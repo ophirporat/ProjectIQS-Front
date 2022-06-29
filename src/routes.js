@@ -33,10 +33,6 @@ export const routes = [
   }, {
     path: '/pages/search-results',
     component: lazy(() => import('./pages/SearchPage'))
-  },{
-    path: '/pages/File',
-    component: lazy(() => import('./pages/FileUpload'))
-    
   }, {
     path: '/components/react-chartjs-2',
     component: lazy(() => import('./components/ReactChartjs2'))
@@ -45,10 +41,7 @@ export const routes = [
     path: '/pages/IQS',
     component: lazy(() => import('./pages/IQS'))
   }
-  ,{
-    path: '/pages/Upload',
-    component: lazy(() => import('./pages/UploadSearch'))
-  },
+  ,
   {
     path: '/pages/History',
     component: lazy(() => import('./pages/HistoryPage'))

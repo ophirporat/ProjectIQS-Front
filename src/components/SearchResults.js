@@ -1,5 +1,5 @@
 import React, {Component, useRef} from 'react'
-import { Modal, OverlayTrigger, Collapse,Tooltip, Popover,Form, InputGroup, Nav, Button, ListGroup, Pagination, Media, Row, Col, Card } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 // import '../vendor/styles/pages/search.scss'
 import $ from 'jquery';
 import '../components/searchIQS.css'
@@ -7,7 +7,6 @@ import '../components/searchIQS.css'
 import ReactChartjs2 from '../components/ReactChartjs2';
 import FileUpload from "../components/FileUpload";
 import userStore from "../EventBus";
-
 import BounceLoader from "react-spinners/BounceLoader";
 
 class Results extends React.Component {
@@ -109,7 +108,7 @@ async search(search_id, temp_search_ids){
     this.setState({"myevent":false} )
     // $("#result_container").attr("style", "display:none");
 
-    const ophir ={method:'POST', mode: 'cors',
+    const request ={method:'POST', mode: 'cors',
     body:JSON.stringify(
         {form:
             {text: this.state.text,
@@ -124,7 +123,7 @@ async search(search_id, temp_search_ids){
         }})
     , headers: { 'Content-Type': 'application/json' },};
     try{
-        const response = await fetch('https://iqs.cs.bgu.ac.il/search', ophir)
+        const response = await fetch('https://iqs.cs.bgu.ac.il/search', request)
         this.setState({id:search_id})
       if(response.status === 200){
         console.log("search complete")
@@ -157,8 +156,6 @@ async addMoreTweets() {
         
         function getTweetDiv(tweet_html, index) {
           console.log("getTweetDiv")
-            // var $div = $("<div>", {"className": "tweetCard"}, style={{width:"8"}});
-            // $div.html(tweet_html);
             var object = {
               id: "divID",
               class: "tweetCard",

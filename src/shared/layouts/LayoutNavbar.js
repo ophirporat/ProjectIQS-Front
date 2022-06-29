@@ -46,7 +46,6 @@ class LayoutNavbar extends Component {
   }
 
   render() {
-    // this.setState({isLogined: this.state.loginRef.current.state.user !== null})
     return (
       <Navbar bg={this.props.navbarBg} expand="lg" className="layout-navbar align-items-lg-center container-p-x">
 
@@ -68,12 +67,8 @@ class LayoutNavbar extends Component {
         <Navbar.Collapse>
           <Nav className="align-items-lg-center">
             <Nav.Item>
-              {/* <Nav.Link href="/pages/Login">Login</Nav.Link> */}
-             {/* {!this.state.isLogined ? <Login ref={this.state.loginRef} handler={this.handler}/> : null} */}
             </Nav.Item>
-            {/* <Nav.Item>
-              <Nav.Link href="/pages/Register">Register</Nav.Link>
-            </Nav.Item> */}
+    
             </Nav>
             
             <Nav className="align-items-lg-center ml-auto">
@@ -89,10 +84,8 @@ class LayoutNavbar extends Component {
 
                <Dropdown.Menu>
                 <Dropdown.Item to="/pages/History"><NavLink to="/pages/History"><i className="ion ion-ios-person text-lightest"></i> &nbsp; History</NavLink></Dropdown.Item>
-                {/* <Dropdown.Item hred="#"><i className="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</Dropdown.Item>
-                <Dropdown.Item hred="#"><i className="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</Dropdown.Item> */}
+               
                 <Dropdown.Divider />
-                {/* &nbsp; */}
                 <Dropdown.Item onClick={() => this.logOut()} hred="#"><Logout/></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown> : <Login ref={this.state.loginRef} handler={this.handler}/>}

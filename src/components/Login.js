@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import {GoogleLogin} from 'react-google-login'
 import $ from 'jquery';
 import eventBus from "../EventBus";
-require('dotenv').config()
-const clientId = process.env.REACT_APP_CLIENTID
-// const clientId = '787276663684-065822sghlfajpjuo5ofd8ethbu35cc0.apps.googleusercontent.com'
+const clientId = '787276663684-065822sghlfajpjuo5ofd8ethbu35cc0.apps.googleusercontent.com'
 
 
 
@@ -15,14 +13,12 @@ class Login extends Component {
 
         this.state = {
             user:null,
-            // isSignedIn:false,
         }
         console.log("login created")
         
       }
     onSuccess = async (res)=> {
         console.log("success", res)
-        // refreshTokenSetup(res)
         var data = {'accountId': res.profileObj.googleId, 'token': res.accessToken};
         console.log(data)
         const response = await fetch("https://iqs.cs.bgu.ac.il/login", {
@@ -34,29 +30,14 @@ class Login extends Component {
         }
         else{
             this.setState({user: res.profileObj})
-            // eventBus.dispatch("login", { detail: res.profileObj});
             eventBus.userStore = res
-            // this.setState({"isSignedIn": true})
-            // console.log(eventBus.userStore)
             $('#login').attr("style", "display:none");
             this.props.handler(res.profileObj)
 
         }       
         
     }
-    // handleLogin = async googleData => {
-    //     const res = await fetch("/api/v1/auth/google", {
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //         token: googleData.tokenId
-    //       }),
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       }
-    //     })
-    //     const data = await res.json()
-    //     // store returned user somehow
-    //   }
+
 
     onFail = (res)=> {
         console.log("fail", res)

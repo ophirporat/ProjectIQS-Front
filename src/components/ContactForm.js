@@ -11,7 +11,6 @@ const ContactForm = () => {
     console.log(e.target)
     emailjs.sendForm('service_a1g5fwm', 'template_i7pkr1x', e.target, 'o6ghJ_eG_g5Uvd8s6')
       .then((result) => {
-        //   window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
       }, (error) => {
           console.log(error.text);
       });

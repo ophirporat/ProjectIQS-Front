@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GoogleLogin, GoogleLogout} from 'react-google-login'
+import {GoogleLogout} from 'react-google-login'
 import $ from 'jquery';
 import eventBus from "../EventBus";
 

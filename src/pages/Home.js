@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import '../vendor/styles/pages/authentication.scss'
+import background from '../img/background.jpeg'
 
 class Home extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Home extends Component {
   render() {
     return (
       <div >
-        <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{hight:"auto",width:"100%",backgroundSize: "100", backgroundImage: `url('${process.env.PUBLIC_URL}/img/bg/21.jpeg')`}}>
+        <div className="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style={{hight:"auto",width:"100%",backgroundSize: "100", backgroundImage: `url(${background})`}}>
         <div className="ui-bg-overlay bg-dark opacity-25" ></div>
         <div>
           <br></br>
